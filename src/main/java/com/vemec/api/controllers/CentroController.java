@@ -24,7 +24,7 @@ public class CentroController {
     ResponseEntity addNew(@RequestBody Map<String, String> payload) {
         try {
             Centro c = new Centro();
-            this.mapToCentro(payload, c);
+            c = Mappers.mapToCentro(payload, c);
             centroRepository.save(c);
             return new ResponseEntity<>(c, null, HttpStatus.CREATED);
         }
@@ -71,37 +71,15 @@ public class CentroController {
         } catch (Exception e) {
             return Utils.mapErrors(e);
         }
-
-    }
-
-    private void mapToCentro(Map<String, String> payload, Centro c){
-
-        payload.forEach((key, value) -> {
-            switch (key) {
-                case "codigo": {
-                    c.setCodigo(value);
-                    break;
-                }
-                case "direccion":{
-                    c.setDireccion(value);
-                    break;
-                }
-                case "nombre":{
-                    c.setNombre(value);
-                    break;
-                }
-            }
-        });
     }
 
     @PutMapping(path = "/{id}")
     public @ResponseBody
-    ResponseEntity updateServer(@PathVariable("id") Integer id, @RequestBody Map<String, String> payload) {
+    ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Map<String, String> payload) {
 
         try {
             Optional<Centro> ce = centroRepository.findById(id);
-            Centro c = ce.get();
-            this.mapToCentro(payload, c);
+            Centro c = Mappers.mapToCentro(payload, ce.get());
             centroRepository.save(c);
             return new ResponseEntity<>(c, null, HttpStatus.OK);
         }
