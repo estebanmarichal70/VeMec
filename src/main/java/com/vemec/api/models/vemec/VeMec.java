@@ -1,11 +1,7 @@
 package com.vemec.api.models.vemec;
 import com.vemec.api.models.ubicacion.Ubicacion;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class VeMec {
@@ -15,7 +11,7 @@ public class VeMec {
     private String marca;
     private String modelo;
     private Boolean estado;
-    @OneToOne
+    @ManyToOne
     private Ubicacion ubicacion;
 
     public VeMec() {

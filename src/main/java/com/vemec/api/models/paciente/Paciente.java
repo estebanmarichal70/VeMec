@@ -1,17 +1,12 @@
 package com.vemec.api.models.paciente;
 
-import com.vemec.api.constants.Estado;
 import com.vemec.api.models.reporte.Reporte;
-import com.vemec.api.models.ubicacion.Ubicacion;
-import com.vemec.api.models.vemec.VeMec;
+import com.vemec.api.models.ingreso.Ingreso;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.ElementCollection;
-import javax.persistence.OneToOne;
-
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,20 +16,10 @@ public class Paciente {
     private String nombre;
     private String apellido;
     private Integer edad;
-    private Estado estado;
-
     @ElementCollection
     private List<String> patologias;
-
-    private String causa;
     @OneToMany
-    private List<Reporte> historial;
-    @OneToOne
-    private Ubicacion ubicacion;
-    @OneToOne
-    private VeMec vemec;
-    private Date fechaIngreso;
-    private Date fechaEgreso;
+    private List<Ingreso> ingresos;
 
     public Paciente() {
     }
@@ -71,60 +56,20 @@ public class Paciente {
         this.edad = edad;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public List<String> getPatologias() {
+        return patologias;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setPatologias(List<String> patologias) {
+        this.patologias = patologias;
     }
 
-    public String getCausa() {
-        return causa;
+    public List<Ingreso> getIngresos() {
+        return ingresos;
     }
 
-    public void setCausa(String causa) {
-        this.causa = causa;
-    }
-
-    public List<Reporte> getHistorial() {
-        return historial;
-    }
-
-    public void setHistorial(List<Reporte> historial) {
-        this.historial = historial;
-    }
-
-    public Ubicacion getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public VeMec getVemec() {
-        return vemec;
-    }
-
-    public void setVemec(VeMec vemec) {
-        this.vemec = vemec;
-    }
-
-    public Date getFechaIngreso() {
-        return fechaIngreso;
-    }
-
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
-    }
-
-    public Date getFechaEgreso() {
-        return fechaEgreso;
-    }
-
-    public void setFechaEgreso(Date fechaEgreso) {
-        this.fechaEgreso = fechaEgreso;
+    public void setIngresos(List<Ingreso> ingresos) {
+        this.ingresos = ingresos;
     }
 
     @Override
@@ -134,13 +79,8 @@ public class Paciente {
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", edad=" + edad +
-                ", estado=" + estado +
-                ", causa='" + causa + '\'' +
-                ", historial=" + historial +
-                ", ubicacion=" + ubicacion +
-                ", vemec=" + vemec +
-                ", fechaIngreso=" + fechaIngreso +
-                ", fechaEgreso=" + fechaEgreso +
+                ", patologias=" + patologias +
+                ", ingresos=" + ingresos +
                 '}';
     }
 }

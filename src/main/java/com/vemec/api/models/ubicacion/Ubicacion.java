@@ -2,12 +2,7 @@ package com.vemec.api.models.ubicacion;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.centro.Centro;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import java.util.List;
 
@@ -18,7 +13,7 @@ public class Ubicacion {
     private Integer id;
     private String nombre;
     private Integer capacidad;
-    @OneToOne
+    @ManyToOne
     private Centro centro;
     @OneToMany
     private List<VeMec> vemecs;

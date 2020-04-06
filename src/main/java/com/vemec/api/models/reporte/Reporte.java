@@ -1,6 +1,6 @@
 package com.vemec.api.models.reporte;
 
-import com.vemec.api.models.paciente.Paciente;
+import com.vemec.api.models.ingreso.Ingreso;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,7 +27,7 @@ public class Reporte {
     private Float presionSalida;
     private Date time;
     @ManyToOne
-    private Paciente paciente;
+    private Ingreso ingreso;
 
     public Reporte() {
     }
@@ -128,12 +128,12 @@ public class Reporte {
         this.time = time;
     }
 
-    public Paciente getPaciente() {
-        return paciente;
+    public Ingreso getIngreso() {
+        return ingreso;
     }
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setIngreso(Ingreso ingreso) {
+        this.ingreso = ingreso;
     }
 
     @Override
@@ -151,7 +151,7 @@ public class Reporte {
                 ", presionEntrada=" + presionEntrada +
                 ", presionSalida=" + presionSalida +
                 ", time=" + time +
-                ", paciente=" + paciente +
+                ", paciente=" + ingreso +
                 '}';
     }
 }
