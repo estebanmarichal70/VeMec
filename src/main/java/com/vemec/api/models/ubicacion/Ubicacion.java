@@ -1,19 +1,27 @@
 package com.vemec.api.models.ubicacion;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.centro.Centro;
 
 import javax.persistence.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nombre;
     private Integer capacidad;
-    @ManyToOne
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     private Centro centro;
     @OneToMany
     private List<VeMec> vemecs;
@@ -70,5 +78,22 @@ public class Ubicacion {
                 ", centro=" + centro +
                 ", vemecs=" + vemecs +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ubicacion ubicacion = (Ubicacion) o;
+        return Objects.equals(id, ubicacion.id) &&
+                Objects.equals(nombre, ubicacion.nombre) &&
+                Objects.equals(capacidad, ubicacion.capacidad) &&
+                Objects.equals(centro, ubicacion.centro) &&
+                Objects.equals(vemecs, ubicacion.vemecs);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, capacidad, centro, vemecs);
     }
 }

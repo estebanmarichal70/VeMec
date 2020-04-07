@@ -1,6 +1,8 @@
 package com.vemec.api.controllers;
 
+
 import com.vemec.api.models.centro.Centro;
+import com.vemec.api.models.centro.CentroRepository;
 import com.vemec.api.models.ubicacion.Ubicacion;
 import com.vemec.api.models.ubicacion.UbicacionRepository;
 import com.vemec.api.utils.Mappers;
@@ -20,13 +22,21 @@ public class UbicacionController{
     @Autowired
     private UbicacionRepository ubicacionRepository;
 
+    @Autowired
+    private CentroRepository centroRepository;
+
+
     @PostMapping
     public @ResponseBody
     ResponseEntity addNew(@RequestBody Map<String, Object> payload) {
         try {
             Ubicacion u = new Ubicacion();
             u = Mappers.mapToUbicacion(payload, u);
+
+            Centro c = centroRepository.findById(u.getCentro().getId()).get();
+            c.addToUbicaciones(u);
             ubicacionRepository.save(u);
+
             return new ResponseEntity<>(u, null, HttpStatus.CREATED);
         }
         catch (Exception e) {
@@ -37,8 +47,8 @@ public class UbicacionController{
     public @ResponseBody
     ResponseEntity getAll() {
         try {
-            Iterable<Ubicacion> u = ubicacionRepository.findAll();
-            return new ResponseEntity<>(u,null, HttpStatus.OK);
+            Iterable<Ubicacion> ubicaciones = ubicacionRepository.findAll();
+            return new ResponseEntity<>(ubicaciones,null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -49,9 +59,11 @@ public class UbicacionController{
     ResponseEntity getByID(@PathVariable("id") Integer id)   {
         try {
             Optional<Ubicacion> u = ubicacionRepository.findById(id);
-            if (u.isPresent())
-                return new ResponseEntity<>(u,null, HttpStatus.OK);
-            else {
+            if (u.isPresent()) {
+
+                System.out.println(u.get().getCentro());
+                return new ResponseEntity<>(u.get(), null, HttpStatus.OK);
+            }else {
                 throw new Exception("Not Found");
             }
         }
