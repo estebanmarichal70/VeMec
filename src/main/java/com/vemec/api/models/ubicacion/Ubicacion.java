@@ -2,6 +2,7 @@ package com.vemec.api.models.ubicacion;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.centro.Centro;
@@ -15,7 +16,7 @@ import java.util.Objects;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Ubicacion {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
     private Integer capacidad;
@@ -23,10 +24,17 @@ public class Ubicacion {
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     private Centro centro;
-    @OneToMany
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL)
     private List<VeMec> vemecs;
 
     public Ubicacion() {
+    }
+
+    public void addToVeMecs(VeMec vemec) {
+        this.vemecs.add(vemec);
+        vemec.setUbicacion(this);
     }
 
     public Integer getId() {

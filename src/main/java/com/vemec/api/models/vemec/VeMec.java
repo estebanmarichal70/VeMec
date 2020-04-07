@@ -1,4 +1,5 @@
 package com.vemec.api.models.vemec;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vemec.api.models.ubicacion.Ubicacion;
 
 import javax.persistence.*;
@@ -6,11 +7,13 @@ import javax.persistence.*;
 @Entity
 public class VeMec {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String marca;
     private String modelo;
     private Boolean estado;
+
+    @JsonBackReference
     @ManyToOne
     private Ubicacion ubicacion;
 

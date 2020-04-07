@@ -2,6 +2,7 @@ package com.vemec.api.utils;
 
 import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.ubicacion.Ubicacion;
+import com.vemec.api.models.vemec.VeMec;
 
 import java.util.Map;
 
@@ -34,5 +35,15 @@ public class Mappers {
         c.setId((Integer) payload.get("centro"));
         u.setCentro(c);
         return u;
+    }
+
+    public static VeMec mapToVeMec(Map<String, Object> payload, VeMec v){
+        v.setMarca(payload.get("marca").toString());
+        v.setModelo(payload.get("modelo").toString());
+        v.setEstado((Boolean)payload.get("estado"));
+        Ubicacion u = new Ubicacion();
+        u.setId((Integer) payload.get("ubicacion"));
+        v.setUbicacion(u);
+        return v;
     }
 }
