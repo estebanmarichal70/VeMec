@@ -61,7 +61,6 @@ public class UbicacionController{
             Optional<Ubicacion> u = ubicacionRepository.findById(id);
             if (u.isPresent()) {
 
-                System.out.println(u.get().getCentro());
                 return new ResponseEntity<>(u.get(), null, HttpStatus.OK);
             }else {
                 throw new Exception("Not Found");
@@ -81,20 +80,20 @@ public class UbicacionController{
             return Utils.mapErrors(e);
         }
     }
-    /*@PutMapping(path = "/{id}")
+    @PutMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Map<String, Object> payload) {
 
         try {
             Optional<Ubicacion> ub = ubicacionRepository.findById(id);
             Ubicacion u = new Ubicacion();
-            u = Mappers.mapToCentro(payload, ub);
+            u = Mappers.mapToUbicacion(payload, ub.get());
             ubicacionRepository.save(u);
             return new ResponseEntity<>(u, null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
         }
-    }*/
+    }
 }
 
