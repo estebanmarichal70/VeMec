@@ -4,27 +4,23 @@ import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.paciente.PacienteRepository;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapperRepository;
 import com.vemec.api.utils.Mappers;
-import com.vemec.api.utils.Utils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Optional;
 
+@Service
 public class PacienteService {
+
     @Autowired
     private PacienteRepository pacienteRepository;
 
     @Autowired
     private PatologiasWrapperRepository patologiasWrapperRepository;
 
-    public PacienteService(){
-
-    }
     public
-    Paciente addNew(Map<String, Object> payload) throws Exception {
+    Paciente addNew(Map<String, Object> payload) {
         try {
             Paciente p = new Paciente();
             p = Mappers.mapToPaciente(payload, p);
@@ -36,9 +32,13 @@ public class PacienteService {
             throw e;
         }
     }
+
     public
-    Iterable<Paciente> getAll() throws Exception {
+    Iterable<Paciente> getAll() {
         try {
+
+            System.out.println("llegaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
             return pacienteRepository.findAll();
         }
         catch (Exception e) {
@@ -62,7 +62,7 @@ public class PacienteService {
     }
 
     public
-    Boolean delete(Integer id) throws Exception{
+    Boolean delete(Integer id) {
         try {
             pacienteRepository.deleteById(id);
             return true;
@@ -73,7 +73,7 @@ public class PacienteService {
 
 
     public
-    Paciente update(Integer id,Map<String, Object> payload) throws Exception{
+    Paciente update(Integer id,Map<String, Object> payload) {
         try {
             Optional<Paciente> pb = pacienteRepository.findById(id);
             Paciente p = new Paciente();

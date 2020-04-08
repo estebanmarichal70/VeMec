@@ -7,12 +7,9 @@ import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.ubicacion.Ubicacion;
 import com.vemec.api.models.vemec.VeMec;
-import jdk.jshell.execution.Util;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.sql.Date;
 import java.util.Map;
 
 public class Mappers {

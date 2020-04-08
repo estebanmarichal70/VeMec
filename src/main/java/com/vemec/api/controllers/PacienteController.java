@@ -19,11 +19,13 @@ import java.util.Optional;
 @RequestMapping(path = "/api/v1/paciente")
 public class PacienteController {
 
+    @Autowired
     private PacienteService pacienteService;
 
     @PostMapping
     public @ResponseBody
     ResponseEntity addNew(@RequestBody Map<String, Object> payload) {
+
         try {
             return new ResponseEntity<>(this.pacienteService.addNew(payload), null, HttpStatus.CREATED);
         }
@@ -35,8 +37,7 @@ public class PacienteController {
     public @ResponseBody
     ResponseEntity getAll() {
         try {
-            pacienteService = new PacienteService();
-            return new ResponseEntity<>(this.pacienteService.getAll(),null, HttpStatus.OK);
+            return new ResponseEntity<>(pacienteService.getAll(),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
