@@ -57,21 +57,30 @@ public class Mappers {
          i.setPaciente(p);
         return i;
     }
-    public static Reporte mapToReporte(Map<String, Object> payload, Reporte r){
-        r.setPresionMaxima((Float)payload.get("presionMaxima"));
-        r.setPresionMinima((Float)payload.get("presionMinima"));
-        r.setVolGas((Float)payload.get("volGas"));
-        r.setFrecGas((Float)payload.get("frecGas"));
-        r.setMezcla((Float)payload.get("mezcla"));
-        r.setHumedadAire((Float)payload.get("humedadAire"));
-        r.setTempEntrada((Float)payload.get("tempEntrada"));
-        r.setTempSalida((Float)payload.get("tempSalida"));
-        r.setPresionEntrada((Float)payload.get("presionEntrada"));
-        r.setPresionSalida((Float)payload.get("presionSalida"));
-        r.setTime((Date)payload.get("time"));
+    public static Reporte mapToReporte(Map<String, Object> payload, Reporte r) {
+        r.setPresionMaxima((Float) payload.get("presionMaxima"));
+        r.setPresionMinima((Float) payload.get("presionMinima"));
+        r.setVolGas((Float) payload.get("volGas"));
+        r.setFrecGas((Float) payload.get("frecGas"));
+        r.setMezcla((Float) payload.get("mezcla"));
+        r.setHumedadAire((Float) payload.get("humedadAire"));
+        r.setTempEntrada((Float) payload.get("tempEntrada"));
+        r.setTempSalida((Float) payload.get("tempSalida"));
+        r.setPresionEntrada((Float) payload.get("presionEntrada"));
+        r.setPresionSalida((Float) payload.get("presionSalida"));
+        r.setTime((Date) payload.get("time"));
         Ingreso i = new Ingreso();
-        i.setId((Integer)payload.get("ingreso"));
+        i.setId((Integer) payload.get("ingreso"));
         r.setIngreso(i);
         return r;
+    }
+    public static VeMec mapToVeMec (Map < String, Object > payload, VeMec v){
+        v.setMarca(payload.get("marca").toString());
+        v.setModelo(payload.get("modelo").toString());
+        v.setEstado((Boolean) payload.get("estado"));
+        Ubicacion u = new Ubicacion();
+        u.setId((Integer) payload.get("ubicacion"));
+        v.setUbicacion(u);
+        return v;
     }
 }
