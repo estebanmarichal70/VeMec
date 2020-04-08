@@ -3,6 +3,9 @@ package com.vemec.api.utils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -26,4 +29,14 @@ public class Utils {
         return StreamSupport.stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());
     }
+    public static Date parseToSqldate (String fecha) throws ParseException {
+        SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try{
+            return new java.sql.Date (formato.parse(fecha).getTime());
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
+
 }

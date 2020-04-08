@@ -34,7 +34,7 @@ public class VeMecController {
             u.addToVeMecs(v);
 
             veMecRepository.save(v);
-            return new ResponseEntity<>(u, null, HttpStatus.CREATED);
+            return new ResponseEntity<>(v, null, HttpStatus.CREATED);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

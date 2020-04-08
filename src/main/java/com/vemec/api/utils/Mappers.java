@@ -7,7 +7,9 @@ import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.ubicacion.Ubicacion;
 import com.vemec.api.models.vemec.VeMec;
+import jdk.jshell.execution.Util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.sql.Date;
@@ -74,18 +76,45 @@ public class Mappers {
         return u;
     }
 
-    public static Ingreso mapToIngreso(Map<String, Object> payload, Ingreso i){
+    public static Ingreso mapToIngreso(Map<String, Object> payload, Ingreso i) throws ParseException {
         if(payload.get("causa") != null ){
             i.setCausa(payload.get("causa").toString());
         }
         if(payload.get("estado") != null ){
-            i.setEstado((Estado) payload.get("estado"));
+            switch (payload.get("estado").toString()){
+                case "ESTABLE":{
+                    i.setEstado(Estado.ESTABLE);
+                    break;
+                }
+                case "CRITICO":{
+                    i.setEstado(Estado.CRITICO);
+                    break;
+                }
+                case "INTERMEDIO":{
+                    i.setEstado(Estado.INTERMEDIO);
+                    break;
+                }
+                case "SANO":{
+                    i.setEstado(Estado.SANO);
+                    break;
+                }
+            }
         }
         if(payload.get("fechaEgreso") != null ){
-            i.setFechaEgreso((Date)payload.get("fechaEgreso"));
+            try{
+                i.setFechaEgreso(Utils.parseToSqldate((String) payload.get("fechaEgreso")));
+            }
+            catch (Exception e){
+                throw e;
+            }
         }
         if(payload.get("fechaIngreso") != null ){
-            i.setFechaIngreso((Date)payload.get("fechaIngreso"));
+            try{
+                i.setFechaIngreso(Utils.parseToSqldate((String) payload.get("fechaIngreso")));
+            }
+            catch (Exception e){
+                throw e;
+            }
         }
         if(payload.get("ubicacion") != null){
             Ubicacion u = new Ubicacion();
@@ -148,15 +177,12 @@ public class Mappers {
         }
 
         if(payload.get("time") != null){
-            SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try{
-                Date fecha = new java.sql.Date (formato.parse((String) payload.get("time")).getTime());
-                r.setTime(fecha);
+                r.setTime(Utils.parseToSqldate((String) payload.get("time")));
             }
             catch (Exception e){
                 throw e;
             }
-
         }
 
         if(payload.get("ingreso") != null){

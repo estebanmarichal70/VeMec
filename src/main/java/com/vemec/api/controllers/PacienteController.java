@@ -3,6 +3,7 @@ package com.vemec.api.controllers;
 import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.paciente.PacienteRepository;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapperRepository;
+import com.vemec.api.services.PacienteService;
 import com.vemec.api.utils.Mappers;
 import com.vemec.api.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,21 +19,13 @@ import java.util.Optional;
 @RequestMapping(path = "/api/v1/paciente")
 public class PacienteController {
 
-    @Autowired
-    private PacienteRepository pacienteRepository;
-
-    @Autowired
-    private PatologiasWrapperRepository patologiasWrapperRepository;
+    private PacienteService pacienteService;
 
     @PostMapping
     public @ResponseBody
     ResponseEntity addNew(@RequestBody Map<String, Object> payload) {
         try {
-            Paciente p = new Paciente();
-            p = Mappers.mapToPaciente(payload, p);
-            patologiasWrapperRepository.save(p.getPatologias());
-            pacienteRepository.save(p);
-            return new ResponseEntity<>(p, null, HttpStatus.CREATED);
+            return new ResponseEntity<>(this.pacienteService.addNew(payload), null, HttpStatus.CREATED);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -42,8 +35,8 @@ public class PacienteController {
     public @ResponseBody
     ResponseEntity getAll() {
         try {
-            Iterable<Paciente> paciente = pacienteRepository.findAll();
-            return new ResponseEntity<>(paciente,null, HttpStatus.OK);
+            pacienteService = new PacienteService();
+            return new ResponseEntity<>(this.pacienteService.getAll(),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -54,12 +47,7 @@ public class PacienteController {
     public @ResponseBody
     ResponseEntity getByID(@PathVariable("id") Integer id)   {
         try {
-            Optional<Paciente> u = pacienteRepository.findById(id);
-            if (u.isPresent()) {
-                return new ResponseEntity<>(u.get(), null, HttpStatus.OK);
-            }else {
-                throw new Exception("Not Found");
-            }
+                return new ResponseEntity<>(this.pacienteService.getByID(id), null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -70,8 +58,7 @@ public class PacienteController {
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
-            pacienteRepository.deleteById(id);
-            return new ResponseEntity<>("{'status':'SUCCESS'}",null, HttpStatus.OK);
+            return new ResponseEntity<>(this.pacienteService.delete(id) ? "{'status':'SUCCESS'}" :"{'status':'BAD'}",null, HttpStatus.OK);
         } catch (Exception e) {
             return Utils.mapErrors(e);
         }
@@ -81,12 +68,7 @@ public class PacienteController {
     public @ResponseBody
     ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Map<String, Object> payload) {
         try {
-
-            Optional<Paciente> pb = pacienteRepository.findById(id);
-            Paciente p = new Paciente();
-            p = Mappers.mapToPaciente(payload, pb.get());
-            pacienteRepository.save(p);
-            return new ResponseEntity<>(pb, null, HttpStatus.OK);
+            return new ResponseEntity<>(this.pacienteService.update(id,payload), null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
