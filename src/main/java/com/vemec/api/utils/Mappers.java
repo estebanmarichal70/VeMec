@@ -12,9 +12,7 @@ import java.sql.Date;
 import java.util.Map;
 
 public class Mappers {
-
     public static Centro mapToCentro(Map<String, String> payload, Centro c) {
-
         payload.forEach((key, value) -> {
             switch (key) {
                 case "codigo": {
@@ -44,8 +42,6 @@ public class Mappers {
     }
 
     public static Paciente mapToPaciente(Map<String, Object> payload, Paciente u) {
-
-
         if (payload.get("id") != null) {
             u.setId((Integer) (payload.get("id")));
         }
@@ -88,20 +84,56 @@ public class Mappers {
     }
 
     public static Reporte mapToReporte(Map<String, Object> payload, Reporte r) {
-        r.setPresionMaxima((Float) payload.get("presionMaxima"));
-        r.setPresionMinima((Float) payload.get("presionMinima"));
-        r.setVolGas((Float) payload.get("volGas"));
-        r.setFrecGas((Float) payload.get("frecGas"));
-        r.setMezcla((Float) payload.get("mezcla"));
-        r.setHumedadAire((Float) payload.get("humedadAire"));
-        r.setTempEntrada((Float) payload.get("tempEntrada"));
-        r.setTempSalida((Float) payload.get("tempSalida"));
-        r.setPresionEntrada((Float) payload.get("presionEntrada"));
-        r.setPresionSalida((Float) payload.get("presionSalida"));
-        r.setTime((Date) payload.get("time"));
-        Ingreso i = new Ingreso();
-        i.setId((Integer) payload.get("ingreso"));
-        r.setIngreso(i);
+
+        if (payload.get("presionMaxima") != null) {
+            r.setPresionMaxima((Float) payload.get("presionMaxima"));
+        }
+
+        if (payload.get("presionMinima") != null) {
+            r.setPresionMinima((Float) payload.get("presionMinima"));
+        }
+
+        if (payload.get("volGas") != null) {
+            r.setVolGas((Float) payload.get("volGas"));
+        }
+
+        if (payload.get("frecGas") != null) {
+            r.setFrecGas((Float) payload.get("frecGas"));
+        }
+
+        if(payload.get("mezcla") != null){
+            r.setMezcla((Float) payload.get("mezcla"));
+        }
+
+        if(payload.get("humedadAire") != null){
+            r.setHumedadAire((Float) payload.get("humedadAire"));
+        }
+
+        if(payload.get("tempEntrada") != null){
+            r.setTempEntrada((Float) payload.get("tempEntrada"));
+        }
+
+        if(payload.get("tempSalida") != null){
+            r.setTempSalida((Float) payload.get("tempSalida"));
+        }
+
+        if(payload.get("presionEntrada") != null){
+            r.setTempSalida((Float) payload.get("presionEntrada"));
+        }
+
+        if(payload.get("presionSalida") != null){
+            r.setPresionSalida((Float) payload.get("presionSalida"));
+        }
+
+        if(payload.get("time") != null){
+            r.setTime((Date) payload.get("time"));
+        }
+
+        if(payload.get("ingreso") != null){
+            Ingreso i = new Ingreso();
+            i.setId((Integer) payload.get("ingreso"));
+            r.setIngreso(i);
+        }
         return r;
     }
 
