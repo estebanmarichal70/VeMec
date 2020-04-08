@@ -74,6 +74,8 @@ public class UbicacionController{
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
+            Ubicacion u = ubicacionRepository.findById(id).get();
+            u.getCentro().removeFromUbicaciones(u);
             ubicacionRepository.deleteById(id);
             return new ResponseEntity<>("{'status':'SUCCESS'}",null, HttpStatus.OK);
         } catch (Exception e) {

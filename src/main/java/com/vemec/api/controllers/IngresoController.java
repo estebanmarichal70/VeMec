@@ -4,6 +4,7 @@ import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.paciente.PacienteRepository;
+import com.vemec.api.models.ubicacion.Ubicacion;
 import com.vemec.api.utils.Mappers;
 import com.vemec.api.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class IngresoController {
     ResponseEntity addNew(@RequestBody Map<String, Object> payload) {
         try {
             Ingreso i = new Ingreso();
+            i.getVemec().setEstado(true);
             i = Mappers.mapToIngreso(payload, i);
-
             Paciente p = pacienteRepository.findById(i.getPaciente().getId()).get();
             p.addToIngresos(i);
             ingresoRepository.save(i);
@@ -72,6 +73,9 @@ public class IngresoController {
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
+            Ingreso i = ingresoRepository.findById(id).get();
+            i.getVemec().setEstado(false);
+            i.getPaciente().removeFromIngresos(i);
             ingresoRepository.deleteById(id);
             return new ResponseEntity<>("{'status':'SUCCESS'}",null, HttpStatus.OK);
         } catch (Exception e) {

@@ -7,6 +7,8 @@ import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.ubicacion.Ubicacion;
 import com.vemec.api.models.vemec.VeMec;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.sql.Date;
 import java.util.Map;
@@ -36,10 +38,10 @@ public class Mappers {
         if(payload.get("nombre") != null){
             u.setNombre(payload.get("nombre").toString());
         }
-        if(payload.get("nombre") != null){
+        if(payload.get("capacidad") != null){
             u.setCapacidad((Integer) payload.get("capacidad"));
         }
-        if(payload.get("nombre") != null){
+        if(payload.get("centro") != null){
             Centro c = new Centro();
             c.setId((Integer) payload.get("centro"));
             u.setCentro(c);
@@ -83,7 +85,7 @@ public class Mappers {
             i.setFechaEgreso((Date)payload.get("fechaEgreso"));
         }
         if(payload.get("fechaIngreso") != null ){
-            i.setFechaEgreso((Date)payload.get("fechaIngreso"));
+            i.setFechaIngreso((Date)payload.get("fechaIngreso"));
         }
         if(payload.get("ubicacion") != null){
             Ubicacion u = new Ubicacion();
@@ -103,50 +105,58 @@ public class Mappers {
         return i;
     }
 
-    public static Reporte mapToReporte(Map<String, Object> payload, Reporte r) {
+    public static Reporte mapToReporte(Map<String, Object> payload, Reporte r) throws Exception {
 
         if (payload.get("presionMaxima") != null) {
-            r.setPresionMaxima((Float) payload.get("presionMaxima"));
+            r.setPresionMaxima((Double) payload.get("presionMaxima"));
         }
 
         if (payload.get("presionMinima") != null) {
-            r.setPresionMinima((Float) payload.get("presionMinima"));
+            r.setPresionMinima((Double) payload.get("presionMinima"));
         }
 
         if (payload.get("volGas") != null) {
-            r.setVolGas((Float) payload.get("volGas"));
+            r.setVolGas((Double) payload.get("volGas"));
         }
 
         if (payload.get("frecGas") != null) {
-            r.setFrecGas((Float) payload.get("frecGas"));
+            r.setFrecGas((Double) payload.get("frecGas"));
         }
 
         if(payload.get("mezcla") != null){
-            r.setMezcla((Float) payload.get("mezcla"));
+            r.setMezcla((Double) payload.get("mezcla"));
         }
 
         if(payload.get("humedadAire") != null){
-            r.setHumedadAire((Float) payload.get("humedadAire"));
+            r.setHumedadAire((Double) payload.get("humedadAire"));
         }
 
         if(payload.get("tempEntrada") != null){
-            r.setTempEntrada((Float) payload.get("tempEntrada"));
+            r.setTempEntrada((Double) payload.get("tempEntrada"));
         }
 
         if(payload.get("tempSalida") != null){
-            r.setTempSalida((Float) payload.get("tempSalida"));
+            r.setTempSalida((Double) payload.get("tempSalida"));
         }
 
         if(payload.get("presionEntrada") != null){
-            r.setTempSalida((Float) payload.get("presionEntrada"));
+            r.setPresionEntrada((Double) payload.get("presionEntrada"));
         }
 
         if(payload.get("presionSalida") != null){
-            r.setPresionSalida((Float) payload.get("presionSalida"));
+            r.setPresionSalida((Double) payload.get("presionSalida"));
         }
 
         if(payload.get("time") != null){
-            r.setTime((Date) payload.get("time"));
+            SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try{
+                Date fecha = new java.sql.Date (formato.parse((String) payload.get("time")).getTime());
+                r.setTime(fecha);
+            }
+            catch (Exception e){
+                throw e;
+            }
+
         }
 
         if(payload.get("ingreso") != null){

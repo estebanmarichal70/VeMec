@@ -69,16 +69,18 @@ public class VeMecController {
         }
     }
 
-    /*@DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
+            VeMec v = veMecRepository.findById(id).get();
+            v.getUbicacion().removeFromVemec(v);
             veMecRepository.deleteById(id);
             return new ResponseEntity<>("{'status':'SUCCESS'}",null, HttpStatus.OK);
         } catch (Exception e) {
             return Utils.mapErrors(e);
         }
-    }*/
+    }
 
     @PutMapping(path = "/{id}")
     public @ResponseBody

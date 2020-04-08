@@ -1,6 +1,7 @@
 package com.vemec.api.models.reporte;
 
 import com.vemec.api.models.ingreso.Ingreso;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,16 +17,16 @@ public class Reporte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Float presionMaxima;
-    private Float presionMinima;
-    private Float volGas;
-    private Float frecGas;
-    private Float mezcla;
-    private Float humedadAire;
-    private Float tempEntrada;
-    private Float tempSalida;
-    private Float presionEntrada;
-    private Float presionSalida;
+    private Double presionMaxima;
+    private Double presionMinima;
+    private Double volGas;
+    private Double frecGas;
+    private Double mezcla;
+    private Double humedadAire;
+    private Double tempEntrada;
+    private Double tempSalida;
+    private Double presionEntrada;
+    private Double presionSalida;
     private Date time;
     @ManyToOne
     private Ingreso ingreso;
@@ -41,83 +42,83 @@ public class Reporte {
         this.id = id;
     }
 
-    public Float getPresionMaxima() {
+    public Double getPresionMaxima() {
         return presionMaxima;
     }
 
-    public void setPresionMaxima(Float presionMaxima) {
+    public void setPresionMaxima(Double presionMaxima) {
         this.presionMaxima = presionMaxima;
     }
 
-    public Float getPresionMinima() {
+    public Double getPresionMinima() {
         return presionMinima;
     }
 
-    public void setPresionMinima(Float presionMinima) {
+    public void setPresionMinima(Double presionMinima) {
         this.presionMinima = presionMinima;
     }
 
-    public Float getVolGas() {
+    public Double getVolGas() {
         return volGas;
     }
 
-    public void setVolGas(Float volGas) {
+    public void setVolGas(Double volGas) {
         this.volGas = volGas;
     }
 
-    public Float getFrecGas() {
+    public Double getFrecGas() {
         return frecGas;
     }
 
-    public void setFrecGas(Float frecGas) {
+    public void setFrecGas(Double frecGas) {
         this.frecGas = frecGas;
     }
 
-    public Float getMezcla() {
+    public Double getMezcla() {
         return mezcla;
     }
 
-    public void setMezcla(Float mezcla) {
+    public void setMezcla(Double mezcla) {
         this.mezcla = mezcla;
     }
 
-    public Float getHumedadAire() {
+    public Double getHumedadAire() {
         return humedadAire;
     }
 
-    public void setHumedadAire(Float humedadAire) {
+    public void setHumedadAire(Double humedadAire) {
         this.humedadAire = humedadAire;
     }
 
-    public Float getTempEntrada() {
+    public Double getTempEntrada() {
         return tempEntrada;
     }
 
-    public void setTempEntrada(Float tempEntrada) {
+    public void setTempEntrada(Double tempEntrada) {
         this.tempEntrada = tempEntrada;
     }
 
-    public Float getTempSalida() {
+    public Double getTempSalida() {
         return tempSalida;
     }
 
-    public void setTempSalida(Float tempSalida) {
+    public void setTempSalida(Double tempSalida) {
         this.tempSalida = tempSalida;
     }
 
-    public Float getPresionEntrada() {
+    public Double getPresionEntrada() {
         return presionEntrada;
     }
 
-    public void setPresionEntrada(Float presionEntrada) {
+    public void setPresionEntrada(Double presionEntrada) {
         this.presionEntrada = presionEntrada;
     }
 
-    public Float getPresionSalida() {
+    public Double getPresionSalida() {
         return presionSalida;
     }
 
-    public void setPresionSalida(Float presionSalida) {
+    public void setPresionSalida(Double presionSalida) {
         this.presionSalida = presionSalida;
     }
 

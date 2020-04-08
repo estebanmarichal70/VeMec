@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
+import com.vemec.api.models.ubicacion.Ubicacion;
 
 import javax.persistence.*;
 import java.util.List;
@@ -81,6 +82,10 @@ public class Paciente {
     public void addToIngresos(Ingreso ingreso) {
         this.ingresos.add(ingreso);
         ingreso.setPaciente(this);
+    }
+    public void removeFromIngresos(Ingreso ingreso){
+        this.ingresos.remove(ingreso);
+        ingreso.setPaciente(null);
     }
 
     @Override

@@ -66,16 +66,16 @@ public class PacienteController {
         }
     }
 
-    /*@DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
-            ubicacionRepository.deleteById(id);
+            pacienteRepository.deleteById(id);
             return new ResponseEntity<>("{'status':'SUCCESS'}",null, HttpStatus.OK);
         } catch (Exception e) {
             return Utils.mapErrors(e);
         }
-    }*/
+    }
 
     @PutMapping(path = "/{id}")
     public @ResponseBody

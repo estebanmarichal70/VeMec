@@ -9,6 +9,7 @@ import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.ubicacion.Ubicacion;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.paciente.Paciente;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
@@ -20,12 +21,13 @@ import java.util.Objects;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Ingreso {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Estado estado;
     private String causa;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Ubicacion ubicacion;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private VeMec vemec;
     private Date fechaIngreso;
     private Date fechaEgreso;
@@ -114,6 +116,10 @@ public class Ingreso {
     public void addToHistorial(Reporte reporte) {
         this.historial.add(reporte);
         reporte.setIngreso(this);
+    }
+    public void removeFromReportes(Reporte reporte){
+        this.historial.remove(reporte);
+        reporte.setIngreso(null);
     }
 
     @Override

@@ -72,7 +72,10 @@ public class Centro {
         this.ubicaciones.add(ubicacion);
         ubicacion.setCentro(this);
     }
-
+    public void removeFromUbicaciones(Ubicacion ubicacion){
+        this.ubicaciones.remove(ubicacion);
+        ubicacion.setCentro(null);
+    }
 
     @Override
     public String toString() {
@@ -95,6 +98,7 @@ public class Centro {
                 Objects.equals(direccion, centro.direccion) &&
                 Objects.equals(ubicaciones, centro.ubicaciones);
     }
+
 
     @Override
     public int hashCode() {

@@ -36,6 +36,10 @@ public class Ubicacion {
         this.vemecs.add(vemec);
         vemec.setUbicacion(this);
     }
+    public void removeFromVemec(VeMec vemec){
+        this.vemecs.remove(vemec);
+        vemec.setUbicacion(null);
+    }
 
     public Integer getId() {
         return id;

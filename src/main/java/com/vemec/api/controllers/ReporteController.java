@@ -71,6 +71,8 @@ public class ReporteController{
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
+            Reporte r = reporteRepository.findById(id).get();
+            r.getIngreso().removeFromReportes(r);
             reporteRepository.deleteById(id);
             return new ResponseEntity<>("{'status':'SUCCESS'}",null, HttpStatus.OK);
         } catch (Exception e) {
