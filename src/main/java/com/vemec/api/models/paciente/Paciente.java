@@ -1,24 +1,29 @@
 package com.vemec.api.models.paciente;
 
-import com.vemec.api.models.reporte.Reporte;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vemec.api.models.ingreso.Ingreso;
+import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Paciente {
     @Id
     private Integer id;
     private String nombre;
     private String apellido;
     private Integer edad;
-    @ElementCollection
-    private List<String> patologias;
-    @OneToMany
+
+    @ManyToOne
+    private PatologiasWrapper patologias;
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Ingreso> ingresos;
 
     public Paciente() {
@@ -56,11 +61,11 @@ public class Paciente {
         this.edad = edad;
     }
 
-    public List<String> getPatologias() {
+    public PatologiasWrapper getPatologias() {
         return patologias;
     }
 
-    public void setPatologias(List<String> patologias) {
+    public void setPatologias(PatologiasWrapper patologias) {
         this.patologias = patologias;
     }
 
@@ -70,6 +75,12 @@ public class Paciente {
 
     public void setIngresos(List<Ingreso> ingresos) {
         this.ingresos = ingresos;
+    }
+
+    // method to manage the bidirectional association
+    public void addToIngresos(Ingreso ingreso) {
+        this.ingresos.add(ingreso);
+        ingreso.setPaciente(this);
     }
 
     @Override
@@ -82,5 +93,23 @@ public class Paciente {
                 ", patologias=" + patologias +
                 ", ingresos=" + ingresos +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Paciente paciente = (Paciente) o;
+        return Objects.equals(id, paciente.id) &&
+                Objects.equals(nombre, paciente.nombre) &&
+                Objects.equals(apellido, paciente.apellido) &&
+                Objects.equals(edad, paciente.edad) &&
+                Objects.equals(patologias, paciente.patologias) &&
+                Objects.equals(ingresos, paciente.ingresos);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, apellido, edad, patologias, ingresos);
     }
 }
