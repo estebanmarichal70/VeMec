@@ -35,11 +35,17 @@ public class Mappers {
     }
 
     public static Ubicacion mapToUbicacion(Map<String, Object> payload, Ubicacion u) {
-        u.setNombre(payload.get("nombre").toString());
-        u.setCapacidad((Integer) payload.get("capacidad"));
-        Centro c = new Centro();
-        c.setId((Integer) payload.get("centro"));
-        u.setCentro(c);
+        if(payload.get("nombre") != null){
+            u.setNombre(payload.get("nombre").toString());
+        }
+        if(payload.get("nombre") != null){
+            u.setCapacidad((Integer) payload.get("capacidad"));
+        }
+        if(payload.get("nombre") != null){
+            Centro c = new Centro();
+            c.setId((Integer) payload.get("centro"));
+            u.setCentro(c);
+        }
         return u;
     }
 
@@ -71,19 +77,33 @@ public class Mappers {
     }
 
     public static Ingreso mapToIngreso(Map<String, Object> payload, Ingreso i){
-         i.setCausa(payload.get("causa").toString());
-         i.setEstado((Estado) payload.get("estado"));
-         i.setFechaEgreso((Date)payload.get("fechaEgreso"));
-         i.setFechaIngreso((Date)payload.get("fechaIngreso"));
-         Ubicacion u = new Ubicacion();
-         u.setId((Integer)payload.get("ubicacion"));
-         i.setUbicacion(u);
-         VeMec vm = new VeMec();
-         vm.setId((Integer)payload.get("vemec"));
-         i.setVemec(vm);
-         Paciente p = new Paciente();
-         p.setId((Integer)payload.get("paciente"));
-         i.setPaciente(p);
+        if(payload.get("causa") != null ){
+            i.setCausa(payload.get("causa").toString());
+        }
+        if(payload.get("estado") != null ){
+            i.setEstado((Estado) payload.get("estado"));
+        }
+        if(payload.get("fechaEgreso") != null ){
+            i.setFechaEgreso((Date)payload.get("fechaEgreso"));
+        }
+        if(payload.get("fechaIngreso") != null ){
+            i.setFechaEgreso((Date)payload.get("fechaIngreso"));
+        }
+        if(payload.get("ubicacion") != null){
+            Ubicacion u = new Ubicacion();
+            u.setId((Integer)payload.get("ubicacion"));
+            i.setUbicacion(u);
+        }
+        if(payload.get("vemec") != null){
+            VeMec vm = new VeMec();
+            vm.setId((Integer)payload.get("vemec"));
+            i.setVemec(vm);
+        }
+         if(payload.get("paciente") != null){
+             Paciente p = new Paciente();
+             p.setId((Integer)payload.get("paciente"));
+             i.setPaciente(p);
+         }
         return i;
     }
 
@@ -106,12 +126,20 @@ public class Mappers {
     }
 
     public static VeMec mapToVeMec (Map < String, Object > payload, VeMec v){
-        v.setMarca(payload.get("marca").toString());
-        v.setModelo(payload.get("modelo").toString());
-        v.setEstado((Boolean) payload.get("estado"));
-        Ubicacion u = new Ubicacion();
-        u.setId((Integer) payload.get("ubicacion"));
-        v.setUbicacion(u);
+        if(payload.get("marca") != null){
+            v.setMarca(payload.get("marca").toString());
+        }
+        if(payload.get("modelo") != null){
+            v.setModelo(payload.get("modelo").toString());
+        }
+        if(payload.get("estado") != null){
+            v.setEstado((Boolean) payload.get("estado"));
+        }
+        if(payload.get("ubicacion") != null){
+            Ubicacion u = new Ubicacion();
+            u.setId((Integer) payload.get("ubicacion"));
+            v.setUbicacion(u);
+        }
         return v;
     }
 }
