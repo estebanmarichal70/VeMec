@@ -14,6 +14,7 @@ import javax.persistence.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -110,10 +111,11 @@ public class Ingreso {
         this.historial = historial;
     }
 
-    public void addToReportes(Reporte reporte) {
+    public void addToHistorial(Reporte reporte) {
         this.historial.add(reporte);
         reporte.setIngreso(this);
     }
+
     @Override
     public String toString() {
         return "Ingreso{" +
@@ -127,5 +129,26 @@ public class Ingreso {
                 ", paciente=" + paciente +
                 ", historial=" + historial +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingreso ingreso = (Ingreso) o;
+        return Objects.equals(id, ingreso.id) &&
+                estado == ingreso.estado &&
+                Objects.equals(causa, ingreso.causa) &&
+                Objects.equals(ubicacion, ingreso.ubicacion) &&
+                Objects.equals(vemec, ingreso.vemec) &&
+                Objects.equals(fechaIngreso, ingreso.fechaIngreso) &&
+                Objects.equals(fechaEgreso, ingreso.fechaEgreso) &&
+                Objects.equals(paciente, ingreso.paciente) &&
+                Objects.equals(historial, ingreso.historial);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, estado, causa, ubicacion, vemec, fechaIngreso, fechaEgreso, paciente, historial);
     }
 }

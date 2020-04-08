@@ -31,7 +31,7 @@ public class ReporteController{
             r = Mappers.mapToReporte(payload, r);
 
             Ingreso i = ingresoRepository.findById(r.getIngreso().getId()).get();
-            i.addToReportes(r);
+            i.addToHistorial(r);
             reporteRepository.save(r);
 
             return new ResponseEntity<>(r, null, HttpStatus.CREATED);

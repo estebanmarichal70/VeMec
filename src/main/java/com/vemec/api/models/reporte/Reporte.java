@@ -9,11 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 
 import java.sql.Date;
+import java.util.Objects;
 
 @Entity
 public class Reporte {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Float presionMaxima;
     private Float presionMinima;
@@ -153,5 +154,30 @@ public class Reporte {
                 ", time=" + time +
                 ", paciente=" + ingreso +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reporte reporte = (Reporte) o;
+        return Objects.equals(id, reporte.id) &&
+                Objects.equals(presionMaxima, reporte.presionMaxima) &&
+                Objects.equals(presionMinima, reporte.presionMinima) &&
+                Objects.equals(volGas, reporte.volGas) &&
+                Objects.equals(frecGas, reporte.frecGas) &&
+                Objects.equals(mezcla, reporte.mezcla) &&
+                Objects.equals(humedadAire, reporte.humedadAire) &&
+                Objects.equals(tempEntrada, reporte.tempEntrada) &&
+                Objects.equals(tempSalida, reporte.tempSalida) &&
+                Objects.equals(presionEntrada, reporte.presionEntrada) &&
+                Objects.equals(presionSalida, reporte.presionSalida) &&
+                Objects.equals(time, reporte.time) &&
+                Objects.equals(ingreso, reporte.ingreso);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, presionMaxima, presionMinima, volGas, frecGas, mezcla, humedadAire, tempEntrada, tempSalida, presionEntrada, presionSalida, time, ingreso);
     }
 }

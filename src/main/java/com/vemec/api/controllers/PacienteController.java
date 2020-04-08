@@ -17,11 +17,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "/api/v1/paciente")
 public class PacienteController {
+
     @Autowired
     private PacienteRepository pacienteRepository;
 
     @Autowired
     private PatologiasWrapperRepository patologiasWrapperRepository;
+
     @PostMapping
     public @ResponseBody
     ResponseEntity addNew(@RequestBody Map<String, Object> payload) {

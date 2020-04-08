@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.vemec.api.models.ubicacion.Ubicacion;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class VeMec {
@@ -69,5 +70,22 @@ public class VeMec {
                 ", estado=" + estado +
                 ", ubicacion=" + ubicacion +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VeMec veMec = (VeMec) o;
+        return Objects.equals(id, veMec.id) &&
+                Objects.equals(marca, veMec.marca) &&
+                Objects.equals(modelo, veMec.modelo) &&
+                Objects.equals(estado, veMec.estado) &&
+                Objects.equals(ubicacion, veMec.ubicacion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, marca, modelo, estado, ubicacion);
     }
 }
