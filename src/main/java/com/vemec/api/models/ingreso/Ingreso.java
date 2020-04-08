@@ -1,5 +1,9 @@
 package com.vemec.api.models.ingreso;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vemec.api.constants.Estado;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.ubicacion.Ubicacion;
@@ -12,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Ingreso {
     @Id
     private Integer id;
@@ -23,9 +28,11 @@ public class Ingreso {
     private VeMec vemec;
     private Date fechaIngreso;
     private Date fechaEgreso;
+    @JsonBackReference
     @ManyToOne
     private Paciente paciente;
-    @OneToMany
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Reporte> historial;
 
     public Ingreso() {
@@ -103,6 +110,10 @@ public class Ingreso {
         this.historial = historial;
     }
 
+    public void addToReportes(Reporte reporte) {
+        this.historial.add(reporte);
+        reporte.setIngreso(this);
+    }
     @Override
     public String toString() {
         return "Ingreso{" +
