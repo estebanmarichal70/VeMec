@@ -90,10 +90,11 @@ Objeto JSON mencionado arriba relacionado al VeMec:
 {
   "marca": "Puritan Bennett",
   "modelo": "980 Ventilator",
-  "estado": false, // define si esta en uso o no
+  "estado": false, 
   "sala": 1
 }
 ```
+El estado define si esta en uso o no el VeMec.
 
 ---
 
