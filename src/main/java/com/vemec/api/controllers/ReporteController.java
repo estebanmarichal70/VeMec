@@ -1,9 +1,6 @@
 package com.vemec.api.controllers;
 
-import com.vemec.api.models.ingreso.Ingreso;
-import com.vemec.api.models.ingreso.IngresoRepository;
-import com.vemec.api.models.reporte.Reporte;
-import com.vemec.api.models.reporte.ReporteRepository;
+
 import com.vemec.api.services.ReporteService;
 import com.vemec.api.utils.Mappers;
 import com.vemec.api.utils.Utils;
@@ -34,9 +31,9 @@ public class ReporteController{
     }
     @GetMapping
     public @ResponseBody
-    ResponseEntity getAll() {
+    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit) {
         try {
-            return new ResponseEntity<>(this.reporteService.getAll(),null, HttpStatus.OK);
+            return new ResponseEntity<>(this.reporteService.getAll(page-1,limit),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

@@ -1,7 +1,7 @@
 package com.vemec.api.models.paciente;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface PacienteRepository extends CrudRepository<Paciente, Integer> {
+public interface PacienteRepository extends PagingAndSortingRepository<Paciente, Integer> {
 
 }

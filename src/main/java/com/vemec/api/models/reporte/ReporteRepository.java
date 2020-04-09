@@ -1,7 +1,7 @@
 package com.vemec.api.models.reporte;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ReporteRepository extends CrudRepository<Reporte, Integer> {
+public interface ReporteRepository extends PagingAndSortingRepository<Reporte, Integer> {
 
 }

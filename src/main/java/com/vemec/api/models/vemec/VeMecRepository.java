@@ -1,7 +1,7 @@
 package com.vemec.api.models.vemec;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface VeMecRepository extends CrudRepository<VeMec, Integer> {
+public interface VeMecRepository extends PagingAndSortingRepository<VeMec, Integer> {
 
 }

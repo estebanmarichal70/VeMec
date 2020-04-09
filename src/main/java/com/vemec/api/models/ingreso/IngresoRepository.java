@@ -1,7 +1,7 @@
 package com.vemec.api.models.ingreso;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface IngresoRepository extends CrudRepository<Ingreso, Integer> {
+public interface IngresoRepository extends PagingAndSortingRepository<Ingreso, Integer> {
 
 }

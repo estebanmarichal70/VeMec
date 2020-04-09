@@ -1,7 +1,7 @@
 package com.vemec.api.models.ubicacion;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface UbicacionRepository extends CrudRepository<Ubicacion, Integer> {
+public interface UbicacionRepository extends PagingAndSortingRepository<Ubicacion, Integer> {
 
 }

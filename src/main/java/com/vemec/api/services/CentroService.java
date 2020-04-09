@@ -2,8 +2,12 @@ package com.vemec.api.services;
 
 import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.centro.CentroRepository;
+import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.utils.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -28,9 +32,11 @@ public class CentroService {
     }
 
     public
-    Iterable<Centro> getAll() throws Exception{
+    Iterable<Centro> getAll(Integer page, Integer limit) throws Exception{
         try {
-            return centroRepository.findAll();
+            Pageable paging = PageRequest.of(page, limit);
+            Page<Centro> pagedResult = centroRepository.findAll(paging);
+            return pagedResult.toList();
         }
         catch (Exception e) {
             throw e;

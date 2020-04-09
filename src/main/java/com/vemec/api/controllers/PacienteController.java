@@ -35,9 +35,9 @@ public class PacienteController {
     }
     @GetMapping
     public @ResponseBody
-    ResponseEntity getAll() {
+    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit) {
         try {
-            return new ResponseEntity<>(pacienteService.getAll(),null, HttpStatus.OK);
+            return new ResponseEntity<>(pacienteService.getAll(page -1, limit),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

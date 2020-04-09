@@ -2,10 +2,15 @@ package com.vemec.api.services;
 
 import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.paciente.PacienteRepository;
+import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapperRepository;
+import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.utils.Mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Optional;
@@ -34,9 +39,11 @@ public class PacienteService {
     }
 
     public
-    Iterable<Paciente> getAll() {
+    Iterable<Paciente> getAll(Integer page, Integer limit) {
         try {
-            return pacienteRepository.findAll();
+            Pageable paging = PageRequest.of(page, limit);
+            Page<Paciente> pagedResult = pacienteRepository.findAll(paging);
+            return pagedResult.toList();
         }
         catch (Exception e) {
             throw e;
@@ -61,7 +68,17 @@ public class PacienteService {
     public
     Boolean delete(Integer id) {
         try {
+            Paciente p = pacienteRepository.findById(id).get();
+            PatologiasWrapper patologias = p.getPatologias();
+            p.setPatologias(null);
+            patologiasWrapperRepository.deleteById(patologias.getId());
+            p.getIngresos().forEach((value)->{
+                value.setVemec(null);
+                value.setUbicacion(null);
+            });
+
             pacienteRepository.deleteById(id);
+
             return true;
         } catch (Exception e) {
             throw e;

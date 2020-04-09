@@ -1,7 +1,6 @@
 package com.vemec.api.models.patologias_wrapper;
 
-import com.vemec.api.models.centro.Centro;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface PatologiasWrapperRepository extends CrudRepository<PatologiasWrapper, Integer> {
+public interface PatologiasWrapperRepository extends PagingAndSortingRepository<PatologiasWrapper, Integer> {
 }

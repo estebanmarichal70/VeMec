@@ -1,11 +1,15 @@
 package com.vemec.api.services;
 
+import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.ubicacion.Ubicacion;
 import com.vemec.api.models.ubicacion.UbicacionRepository;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.vemec.VeMecRepository;
 import com.vemec.api.utils.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -36,9 +40,11 @@ public class VeMecService {
         }
     }
     public
-    Iterable<VeMec> getAll() throws Exception{
+    Iterable<VeMec> getAll(Integer page, Integer limit) throws Exception{
         try {
-            return veMecRepository.findAll();
+            Pageable paging = PageRequest.of(page, limit);
+            Page<VeMec> pagedResult = veMecRepository.findAll(paging);
+            return pagedResult.toList();
         }
         catch (Exception e) {
             throw e;

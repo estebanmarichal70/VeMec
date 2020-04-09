@@ -4,6 +4,7 @@ import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.paciente.PacienteRepository;
+import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.ubicacion.Ubicacion;
 import com.vemec.api.models.ubicacion.UbicacionRepository;
 import com.vemec.api.models.vemec.VeMec;
@@ -11,6 +12,9 @@ import com.vemec.api.models.vemec.VeMecRepository;
 import com.vemec.api.utils.Mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Optional;
@@ -48,9 +52,11 @@ public class IngresoService {
         }
     }
     public
-    Iterable<Ingreso> getAll() throws Exception{
+    Iterable<Ingreso> getAll(Integer page, Integer limit) throws Exception{
         try {
-            return ingresoRepository.findAll();
+            Pageable paging = PageRequest.of(page, limit);
+            Page<Ingreso> pagedResult = ingresoRepository.findAll(paging);
+            return pagedResult.toList();
         }
         catch (Exception e) {
             throw e;
