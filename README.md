@@ -144,7 +144,7 @@ Objeto JSON mencionado arriba relacionado al Paciente:
   "sala": 1,
   "vemec": 1,
   "paciente": 40001112,
-  "fechaIngreso": "2020-03-26 15:05:42" // yyyy-MM-dd HH:mm:ss
+  "fechaIngreso": "2020-03-26 15:05:42"
 }
 ```
 
@@ -184,4 +184,5 @@ Objeto JSON mencionado arriba relacionado al Paciente:
     "unidadTemp": "°C"
 }
 ```
+El formato de la fecha es "yyyy-MM-dd HH:mm:ss".
 ***
