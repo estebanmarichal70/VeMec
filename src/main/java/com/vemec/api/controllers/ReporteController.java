@@ -4,6 +4,7 @@ import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.reporte.ReporteRepository;
+import com.vemec.api.services.ReporteService;
 import com.vemec.api.utils.Mappers;
 import com.vemec.api.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +19,14 @@ import java.util.Optional;
 @RequestMapping(path = "/api/v1/reporte")
 public class ReporteController{
     @Autowired
-    private ReporteRepository reporteRepository;
+    private ReporteService reporteService;
 
-    @Autowired
-    private IngresoRepository ingresoRepository;
 
     @PostMapping
     public @ResponseBody
     ResponseEntity addNew(@RequestBody Map<String, Object> payload) {
         try {
-            Reporte r = new Reporte();
-            r = Mappers.mapToReporte(payload, r);
-
-            Ingreso i = ingresoRepository.findById(r.getIngreso().getId()).get();
-            i.addToHistorial(r);
-            reporteRepository.save(r);
-
-            return new ResponseEntity<>(r, null, HttpStatus.CREATED);
+            return new ResponseEntity<>(this.reporteService.addNew(payload), null, HttpStatus.CREATED);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -44,8 +36,7 @@ public class ReporteController{
     public @ResponseBody
     ResponseEntity getAll() {
         try {
-            Iterable<Reporte> ubicaciones = reporteRepository.findAll();
-            return new ResponseEntity<>(ubicaciones,null, HttpStatus.OK);
+            return new ResponseEntity<>(this.reporteService.getAll(),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -55,13 +46,7 @@ public class ReporteController{
     public @ResponseBody
     ResponseEntity getByID(@PathVariable("id") Integer id)   {
         try {
-            Optional<Reporte> r = reporteRepository.findById(id);
-            if (r.isPresent()) {
-
-                return new ResponseEntity<>(r.get(), null, HttpStatus.OK);
-            }else {
-                throw new Exception("Not Found");
-            }
+            return new ResponseEntity<>(this.reporteService.getByID(id), null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -71,10 +56,7 @@ public class ReporteController{
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
-            Reporte r = reporteRepository.findById(id).get();
-            r.getIngreso().removeFromReportes(r);
-            reporteRepository.deleteById(id);
-            return new ResponseEntity<>("{'status':'SUCCESS'}",null, HttpStatus.OK);
+            return new ResponseEntity<>(this.reporteService.delete(id) ? "{'status':'SUCCESS'}":"{'status':'BAD'}",null, HttpStatus.OK);
         } catch (Exception e) {
             return Utils.mapErrors(e);
         }
@@ -84,11 +66,7 @@ public class ReporteController{
     ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Map<String, Object> payload) {
 
         try {
-            Optional<Reporte> re = reporteRepository.findById(id);
-            Reporte r = new Reporte();
-            r = Mappers.mapToReporte(payload, re.get());
-            reporteRepository.save(r);
-            return new ResponseEntity<>(r, null, HttpStatus.OK);
+            return new ResponseEntity<>(this.reporteService.update(id, payload), null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

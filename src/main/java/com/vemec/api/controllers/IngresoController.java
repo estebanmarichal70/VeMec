@@ -1,14 +1,9 @@
 package com.vemec.api.controllers;
 
-import com.vemec.api.models.ingreso.Ingreso;
-import com.vemec.api.models.ingreso.IngresoRepository;
-import com.vemec.api.models.paciente.Paciente;
-import com.vemec.api.models.paciente.PacienteRepository;
-import com.vemec.api.models.ubicacion.Ubicacion;
 import com.vemec.api.models.ubicacion.UbicacionRepository;
-import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.vemec.VeMecRepository;
-import com.vemec.api.utils.Mappers;
+import com.vemec.api.services.IngresoService;
+import com.vemec.api.services.PacienteService;
 import com.vemec.api.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,40 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
 
 
 @RestController
 @RequestMapping(path = "/api/v1/ingreso")
 public class IngresoController {
     @Autowired
-    private IngresoRepository ingresoRepository;
-
-    @Autowired
-    private PacienteRepository pacienteRepository;
-
-    @Autowired
-    private UbicacionRepository ubicacionRepository;
-
-    @Autowired
-    private VeMecRepository vemecRepository;
+    private IngresoService ingresoService;
 
     @PostMapping
     public @ResponseBody
     ResponseEntity addNew(@RequestBody Map<String, Object> payload) {
         try {
-            Ingreso i = new Ingreso();
-            i = Mappers.mapToIngreso(payload, i);
-            Paciente p = pacienteRepository.findById(i.getPaciente().getId()).get();
-            p.addToIngresos(i);
-            Ubicacion u = ubicacionRepository.findById(i.getUbicacion().getId()).get();
-            i.setUbicacion(u);
-            VeMec v = vemecRepository.findById(i.getVemec().getId()).get();
-            v.setEstado(true);
-            i.setVemec(v);
-            ingresoRepository.save(i);
-
-            return new ResponseEntity<>(i, null, HttpStatus.CREATED);
+            return new ResponseEntity<>(this.ingresoService.addNew(payload), null, HttpStatus.CREATED);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -59,8 +33,7 @@ public class IngresoController {
     public @ResponseBody
     ResponseEntity getAll() {
         try {
-            Iterable<Ingreso> ingresos = ingresoRepository.findAll();
-            return new ResponseEntity<>(ingresos,null, HttpStatus.OK);
+            return new ResponseEntity<>(this.ingresoService.getAll(),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -70,13 +43,7 @@ public class IngresoController {
     public @ResponseBody
     ResponseEntity getByID(@PathVariable("id") Integer id)   {
         try {
-            Optional<Ingreso> i = ingresoRepository.findById(id);
-            if (i.isPresent()) {
-
-                return new ResponseEntity<>(i.get(), null, HttpStatus.OK);
-            }else {
-                throw new Exception("Not Found");
-            }
+            return new ResponseEntity<>(this.ingresoService.getByID(id), null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -86,13 +53,7 @@ public class IngresoController {
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
-            Ingreso i = ingresoRepository.findById(id).get();
-            i.getVemec().setEstado(false);
-            i.setUbicacion(null);
-            i.setVemec(null);
-            i.getPaciente().removeFromIngresos(i);
-            ingresoRepository.deleteById(id);
-            return new ResponseEntity<>("{'status':'SUCCESS'}",null, HttpStatus.OK);
+            return new ResponseEntity<>(this.ingresoService.delete(id) ? "{'status':'SUCCESS'}":"{'status':'BAD'}",null, HttpStatus.OK);
         } catch (Exception e) {
             return Utils.mapErrors(e);
         }
@@ -102,11 +63,7 @@ public class IngresoController {
     ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Map<String, Object> payload) {
 
         try {
-            Optional<Ingreso> in = ingresoRepository.findById(id);
-            Ingreso i = new Ingreso();
-            i = Mappers.mapToIngreso(payload, in.get());
-            ingresoRepository.save(i);
-            return new ResponseEntity<>(i, null, HttpStatus.OK);
+            return new ResponseEntity<>(this.ingresoService.update(id, payload), null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

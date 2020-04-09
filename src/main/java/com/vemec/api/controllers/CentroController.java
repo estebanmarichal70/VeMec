@@ -1,6 +1,7 @@
 package com.vemec.api.controllers;
 
 import com.vemec.api.models.centro.*;
+import com.vemec.api.services.CentroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +16,13 @@ import java.util.Optional;
 public class CentroController {
 
     @Autowired
-    private CentroRepository centroRepository;
+    private CentroService centroService;
 
     @PostMapping
     public @ResponseBody
     ResponseEntity addNew(@RequestBody Map<String, String> payload) {
         try {
-            Centro c = new Centro();
-            c = Mappers.mapToCentro(payload, c);
-            centroRepository.save(c);
-            return new ResponseEntity<>(c, null, HttpStatus.CREATED);
+            return new ResponseEntity<>(this.centroService.addNew(payload), null, HttpStatus.CREATED);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -36,8 +34,7 @@ public class CentroController {
     public @ResponseBody
     ResponseEntity getAll() {
         try {
-            Iterable<Centro> ce = centroRepository.findAll();
-            return new ResponseEntity<>(ce,null, HttpStatus.OK);
+            return new ResponseEntity<>(this.centroService.getAll(),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -48,12 +45,7 @@ public class CentroController {
     public @ResponseBody
     ResponseEntity getByID(@PathVariable("id") Integer id)   {
         try {
-            Optional<Centro> ce = centroRepository.findById(id);
-            if (ce.isPresent())
-                return new ResponseEntity<>(ce,null, HttpStatus.OK);
-            else {
-                throw new Exception("Not Found");
-            }
+                return new ResponseEntity<>(this.centroService.getByID(id),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -64,8 +56,7 @@ public class CentroController {
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
-            centroRepository.deleteById(id);
-            return new ResponseEntity<>("{'status':'SUCCESS'}",null, HttpStatus.OK);
+            return new ResponseEntity<>(this.centroService.delete(id) ? "{'status':'SUCCESS'}":"{'status':'BAD'}",null, HttpStatus.OK);
         } catch (Exception e) {
             return Utils.mapErrors(e);
         }
@@ -76,10 +67,7 @@ public class CentroController {
     ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Map<String, String> payload) {
 
         try {
-            Optional<Centro> ce = centroRepository.findById(id);
-            Centro c = Mappers.mapToCentro(payload, ce.get());
-            centroRepository.save(c);
-            return new ResponseEntity<>(c, null, HttpStatus.OK);
+            return new ResponseEntity<>(this.centroService.update(id, payload), null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

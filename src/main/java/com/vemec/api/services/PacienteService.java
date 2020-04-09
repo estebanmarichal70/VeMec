@@ -36,9 +36,6 @@ public class PacienteService {
     public
     Iterable<Paciente> getAll() {
         try {
-
-            System.out.println("llegaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-
             return pacienteRepository.findAll();
         }
         catch (Exception e) {
