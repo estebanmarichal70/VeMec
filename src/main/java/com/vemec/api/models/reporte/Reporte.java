@@ -27,11 +27,57 @@ public class Reporte {
     private Double tempSalida;
     private Double presionEntrada;
     private Double presionSalida;
+    @DateTimeFormat
     private Date time;
     @ManyToOne
     private Ingreso ingreso;
+    private String unidadPresion;
+    private String unidadTemp;
+    private String unidadHumedad;
+    private String unidadFrecuencia;
+    private String unidadVolumen;
 
     public Reporte() {
+    }
+
+    public String getUnidadPresion() {
+        return unidadPresion;
+    }
+
+    public void setUnidadPresion(String unidadPresion) {
+        this.unidadPresion = unidadPresion;
+    }
+
+    public String getUnidadTemp() {
+        return unidadTemp;
+    }
+
+    public void setUnidadTemp(String unidadTemp) {
+        this.unidadTemp = unidadTemp;
+    }
+
+    public String getUnidadHumedad() {
+        return unidadHumedad;
+    }
+
+    public void setUnidadHumedad(String unidadHumedad) {
+        this.unidadHumedad = unidadHumedad;
+    }
+
+    public String getUnidadFrecuencia() {
+        return unidadFrecuencia;
+    }
+
+    public void setUnidadFrecuencia(String unidadFrecuencia) {
+        this.unidadFrecuencia = unidadFrecuencia;
+    }
+
+    public String getUnidadVolumen() {
+        return unidadVolumen;
+    }
+
+    public void setUnidadVolumen(String unidadVolumen) {
+        this.unidadVolumen = unidadVolumen;
     }
 
     public Integer getId() {
@@ -153,7 +199,12 @@ public class Reporte {
                 ", presionEntrada=" + presionEntrada +
                 ", presionSalida=" + presionSalida +
                 ", time=" + time +
-                ", paciente=" + ingreso +
+                ", ingreso=" + ingreso +
+                ", unidadPresion='" + unidadPresion + '\'' +
+                ", unidadTemp='" + unidadTemp + '\'' +
+                ", unidadHumedad='" + unidadHumedad + '\'' +
+                ", unidadFrecuencia='" + unidadFrecuencia + '\'' +
+                ", unidadVolumen='" + unidadVolumen + '\'' +
                 '}';
     }
 
@@ -174,11 +225,16 @@ public class Reporte {
                 Objects.equals(presionEntrada, reporte.presionEntrada) &&
                 Objects.equals(presionSalida, reporte.presionSalida) &&
                 Objects.equals(time, reporte.time) &&
-                Objects.equals(ingreso, reporte.ingreso);
+                Objects.equals(ingreso, reporte.ingreso) &&
+                Objects.equals(unidadPresion, reporte.unidadPresion) &&
+                Objects.equals(unidadTemp, reporte.unidadTemp) &&
+                Objects.equals(unidadHumedad, reporte.unidadHumedad) &&
+                Objects.equals(unidadFrecuencia, reporte.unidadFrecuencia) &&
+                Objects.equals(unidadVolumen, reporte.unidadVolumen);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, presionMaxima, presionMinima, volGas, frecGas, mezcla, humedadAire, tempEntrada, tempSalida, presionEntrada, presionSalida, time, ingreso);
+        return Objects.hash(id, presionMaxima, presionMinima, volGas, frecGas, mezcla, humedadAire, tempEntrada, tempSalida, presionEntrada, presionSalida, time, ingreso, unidadPresion, unidadTemp, unidadHumedad, unidadFrecuencia, unidadVolumen);
     }
 }

@@ -128,6 +128,7 @@ public class Mappers {
              p.setId((Integer)payload.get("paciente"));
              i.setPaciente(p);
          }
+
         return i;
     }
 
@@ -186,6 +187,26 @@ public class Mappers {
             Ingreso i = new Ingreso();
             i.setId((Integer) payload.get("ingreso"));
             r.setIngreso(i);
+        }
+
+        if (payload.get("unidadPresion") != null) {
+            r.setUnidadPresion((String) payload.get("unidadPresion"));
+        }
+
+        if (payload.get("unidadFrecuencia") != null) {
+            r.setUnidadFrecuencia((String) payload.get("unidadFrecuencia"));
+        }
+
+        if (payload.get("unidadVolumen") != null) {
+            r.setUnidadVolumen((String) payload.get("unidadVolumen"));
+        }
+
+        if (payload.get("unidadTemp") != null) {
+            r.setUnidadTemp((String) payload.get("unidadTemp"));
+        }
+
+        if (payload.get("unidadHumedad") != null) {
+            r.setUnidadHumedad((String) payload.get("unidadHumedad"));
         }
         return r;
     }
