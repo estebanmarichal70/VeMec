@@ -23,6 +23,8 @@ Para ejecutar:
 
 ### **Operaciones con Centros**
 
+Entidad que maneja la creación, modificación y eliminación de los centros médicos donde se utiliza la aplicación. Sus atributos son el nombre del centro, su dirección y su código de geolocalización. Además tiene una colección de salas dentro, la cual ofrece ubicaciones y datos de las mismas. 
+
 | Verbo HTTP | Endpoint                           | Descripcion                                                                                                                                                                                              |
 | ---------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | POST       | /centro                            | Crea un nuevo centro a partir del objeto JSON recibido en request (ver ejemplo debajo). Le asigna un identificador autogenerado (id).                                                                    |
@@ -50,6 +52,8 @@ https://es.wikipedia.org/wiki/ISO_3166-2:UY.
 
 ### **Operaciones con Salas**
 
+Entidad que maneja la creación, modificación y eliminación de los salas ubicadas en los centros médicos donde se utiliza la aplicación. Sus atributos son su nombre (puede ser su número de sala), la capacidad de personas que puede almacenar, los VeMecs que tiene y al centro que pertenece.
+
 | Verbo HTTP | Endpoint                         | Descripcion                                                                                                                                                                                                                                      |
 | ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | POST       | /sala                            | Crea una nueva Sala a partir del objeto JSON recibido en request (ver ejemplo debajo). Esta sala debe estar asociada a un centro previamente creado (se debe brindar el identificador de este). Se le asigna un identificador autogenerado (id). |
@@ -73,6 +77,10 @@ Objeto JSON mencionado arriba relacionado a la sala:
 ---
 
 ### **Operaciones con VeMecs**
+
+Entidad que maneja la creación, modificación y eliminación de los VeMecs (respiradores mecánicos) utilizados por la aplicación. Aporta datos generales del VeMec a utilizar. Sus atributos son la marca del VeMec, su modelo, si se encuentra en uso o no y la sala a la que pertenece.
+
+Atributos:
 
 | Verbo HTTP | Endpoint                          | Descripcion                                                                                                                                                                                                                                      |
 | ---------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -100,6 +108,8 @@ El estado define si esta en uso o no el VeMec.
 
 ### **Operaciones con Pacientes**
 
+Entidad que maneja la creación, modificación y eliminación de los pacientes que alguna vez pertenecieron a los centros médicos donde se utiliza la aplicación. Se encarga de guardar sus datos básicos y las veces que ingresó en el hospital. Sus atributos son el nombre, apellido y edad. Cuenta con una colección de patologías y de ingresos del mismo (un historial).
+
 | Verbo HTTP | Endpoint                             | Descripcion                                                                                                                                                                                                |
 | ---------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | POST       | /paciente                            | Crea un nuevo Paciente a partir del objeto JSON recibido en request (ver ejemplo debajo). El identificador brindado debe ser el documento del mismo (ej: cedula de identidad).                             |
@@ -125,6 +135,8 @@ Objeto JSON mencionado arriba relacionado al Paciente:
 ---
 
 ### **Operaciones con Ingresos**
+
+Entidad que maneja la creación, modificación y eliminación de los ingresos de los pacientes al centro. Guarda los datos de un ingreso específico del paciente.  Sus atributos son el estado que se encuentra (dado de alta, crítico, etc), la causa por la que se internó, la sala en la que está internado, el VeMec que está utilizando, su fecha de ingreso, fecha de egreso (si es que egresó), el paciente al que pertenece el ingreso y sus reportes.
 
 | Verbo HTTP | Endpoint                            | Descripcion                                                                                                                                                                                                                                                                                |
 | ---------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -154,6 +166,8 @@ Ver posibles casos para Estado en Enum mostrado en Diagrama.
 ---
 
 ### **Operaciones con Reporte**
+
+Entidad que maneja la creación, modificación y eliminación de los datos proporcionados por el VeMec. Guarda los datos que brinda los VeMec en uso a un determinado paciente. Sus atributos son presión máxima/mínima, volumen y frecuencia del gas, mezlca de O2, humedad en el ambiente, temperatura entrada/salida, presión entrada/salida, hora en la que se realizó el reporte, ingreso al cual pertenece el reporte y las unidades utilizadas.
 
 | Verbo HTTP | Endpoint                            | Descripcion                                                                                                                                                                                                                                            |
 | ---------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
