@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/api/v1/ubicacion")
+@RequestMapping(path = "/api/v1/sala")
 public class SalaController {
 
     @Autowired
