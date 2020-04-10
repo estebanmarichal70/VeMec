@@ -3,7 +3,7 @@ package com.vemec.api.utils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -32,7 +32,7 @@ public class Utils {
     public static Date parseToSqldate (String fecha) throws ParseException {
         SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try{
-            return new java.sql.Date (formato.parse(fecha).getTime());
+            return new java.util.Date (formato.parse(fecha).getTime());
         }
         catch (Exception e){
             throw e;

@@ -3,13 +3,9 @@ package com.vemec.api.models.reporte;
 import com.vemec.api.models.ingreso.Ingreso;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -27,8 +23,11 @@ public class Reporte {
     private Double tempSalida;
     private Double presionEntrada;
     private Double presionSalida;
-    @DateTimeFormat
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date time;
+
+
     @ManyToOne
     private Ingreso ingreso;
     private String unidadPresion;

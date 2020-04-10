@@ -113,9 +113,9 @@ public class Mappers {
                 throw e;
             }
         }
-        if(payload.get("ubicacion") != null){
+        if(payload.get("sala") != null){
             Sala u = new Sala();
-            u.setId((Integer)payload.get("ubicacion"));
+            u.setId((Integer)payload.get("sala"));
             i.setSala(u);
         }
         if(payload.get("vemec") != null){
@@ -221,9 +221,9 @@ public class Mappers {
         if(payload.get("estado") != null){
             v.setEstado((Boolean) payload.get("estado"));
         }
-        if(payload.get("ubicacion") != null){
+        if(payload.get("sala") != null){
             Sala u = new Sala();
-            u.setId((Integer) payload.get("ubicacion"));
+            u.setId((Integer) payload.get("sala"));
             v.setSala(u);
         }
         return v;

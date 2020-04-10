@@ -28,8 +28,13 @@ public class Ingreso {
     private Sala sala;
     @OneToOne(cascade = CascadeType.ALL)
     private VeMec vemec;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaIngreso;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaEgreso;
+
     @JsonBackReference
     @ManyToOne
     private Paciente paciente;
