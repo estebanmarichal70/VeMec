@@ -1,6 +1,6 @@
 package com.vemec.api.controllers;
 
-import com.vemec.api.services.UbicacionService;
+import com.vemec.api.services.SalaService;
 import com.vemec.api.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,17 +11,17 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/v1/ubicacion")
-public class UbicacionController{
+public class SalaController {
 
     @Autowired
-    private UbicacionService ubicacionService;
+    private SalaService salaService;
 
 
     @PostMapping
     public @ResponseBody
     ResponseEntity addNew(@RequestBody Map<String, Object> payload) {
         try {
-            return new ResponseEntity<>(this.ubicacionService.addNew(payload), null, HttpStatus.CREATED);
+            return new ResponseEntity<>(this.salaService.addNew(payload), null, HttpStatus.CREATED);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -31,7 +31,7 @@ public class UbicacionController{
     public @ResponseBody
     ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit) {
         try {
-            return new ResponseEntity<>(this.ubicacionService.getAll(page-1, limit),null, HttpStatus.OK);
+            return new ResponseEntity<>(this.salaService.getAll(page-1, limit),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -41,7 +41,7 @@ public class UbicacionController{
     public @ResponseBody
     ResponseEntity getByID(@PathVariable("id") Integer id)   {
         try {
-                return new ResponseEntity<>(this.ubicacionService.getByID(id), null, HttpStatus.OK);
+                return new ResponseEntity<>(this.salaService.getByID(id), null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -51,7 +51,7 @@ public class UbicacionController{
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
-            return new ResponseEntity<>(this.ubicacionService.delete(id) ? "{'status':'SUCCESS'}":"{'status':'BAD'}",null, HttpStatus.OK);
+            return new ResponseEntity<>(this.salaService.delete(id) ? "{'status':'SUCCESS'}":"{'status':'BAD'}",null, HttpStatus.OK);
         } catch (Exception e) {
             return Utils.mapErrors(e);
         }
@@ -61,7 +61,7 @@ public class UbicacionController{
     ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Map<String, Object> payload) {
 
         try {
-            return new ResponseEntity<>(this.ubicacionService.update(id, payload), null, HttpStatus.OK);
+            return new ResponseEntity<>(this.salaService.update(id, payload), null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

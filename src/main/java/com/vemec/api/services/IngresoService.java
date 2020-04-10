@@ -4,9 +4,8 @@ import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.paciente.PacienteRepository;
-import com.vemec.api.models.reporte.Reporte;
-import com.vemec.api.models.ubicacion.Ubicacion;
-import com.vemec.api.models.ubicacion.UbicacionRepository;
+import com.vemec.api.models.sala.Sala;
+import com.vemec.api.models.sala.SalaRepository;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.vemec.VeMecRepository;
 import com.vemec.api.utils.Mappers;
@@ -18,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import java.util.Optional;
+
 @Service
 public class IngresoService {
     @Autowired
@@ -27,7 +27,7 @@ public class IngresoService {
     private PacienteRepository pacienteRepository;
 
     @Autowired
-    private UbicacionRepository ubicacionRepository;
+    private SalaRepository salaRepository;
 
     @Autowired
     private VeMecRepository vemecRepository;
@@ -39,8 +39,8 @@ public class IngresoService {
             i = Mappers.mapToIngreso(payload, i);
             Paciente p = pacienteRepository.findById(i.getPaciente().getId()).get();
             p.addToIngresos(i);
-            Ubicacion u = ubicacionRepository.findById(i.getUbicacion().getId()).get();
-            i.setUbicacion(u);
+            Sala u = salaRepository.findById(i.getSala().getId()).get();
+            i.setSala(u);
             VeMec v = vemecRepository.findById(i.getVemec().getId()).get();
             v.setEstado(true);
             i.setVemec(v);
@@ -81,7 +81,7 @@ public class IngresoService {
         try {
             Ingreso i = ingresoRepository.findById(id).get();
             i.getVemec().setEstado(false);
-            i.setUbicacion(null);
+            i.setSala(null);
             i.setVemec(null);
             i.getPaciente().removeFromIngresos(i);
             ingresoRepository.deleteById(id);

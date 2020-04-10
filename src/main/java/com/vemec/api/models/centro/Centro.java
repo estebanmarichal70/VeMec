@@ -1,10 +1,9 @@
 package com.vemec.api.models.centro;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.vemec.api.models.ubicacion.Ubicacion;
+import com.vemec.api.models.sala.Sala;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,7 +21,7 @@ public class Centro {
 
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Ubicacion> ubicaciones;
+    private List<Sala> salas;
 
     public Centro() {
     }
@@ -59,22 +58,22 @@ public class Centro {
         this.direccion = direccion;
     }
 
-    public List<Ubicacion> getUbicaciones() {
-        return ubicaciones;
+    public List<Sala> getSalas() {
+        return salas;
     }
 
-    public void setUbicaciones(List<Ubicacion> ubicaciones) {
-        this.ubicaciones = ubicaciones;
+    public void setUbicaciones(List<Sala> salas) {
+        this.salas = salas;
     }
 
     // method to manage the bidirectional association
-    public void addToUbicaciones(Ubicacion ubicacion) {
-        this.ubicaciones.add(ubicacion);
-        ubicacion.setCentro(this);
+    public void addToUbicaciones(Sala sala) {
+        this.salas.add(sala);
+        sala.setCentro(this);
     }
-    public void removeFromUbicaciones(Ubicacion ubicacion){
-        this.ubicaciones.remove(ubicacion);
-        ubicacion.setCentro(null);
+    public void removeFromSalas(Sala sala){
+        this.salas.remove(sala);
+        sala.setCentro(null);
     }
 
     @Override
@@ -96,12 +95,12 @@ public class Centro {
                 Objects.equals(codigo, centro.codigo) &&
                 Objects.equals(nombre, centro.nombre) &&
                 Objects.equals(direccion, centro.direccion) &&
-                Objects.equals(ubicaciones, centro.ubicaciones);
+                Objects.equals(salas, centro.salas);
     }
 
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, codigo, nombre, direccion, ubicaciones);
+        return Objects.hash(id, codigo, nombre, direccion, salas);
     }
 }

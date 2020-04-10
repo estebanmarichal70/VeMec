@@ -1,10 +1,6 @@
 package com.vemec.api.controllers;
 
-import com.vemec.api.models.paciente.Paciente;
-import com.vemec.api.models.paciente.PacienteRepository;
-import com.vemec.api.models.patologias_wrapper.PatologiasWrapperRepository;
 import com.vemec.api.services.PacienteService;
-import com.vemec.api.utils.Mappers;
 import com.vemec.api.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
 
 
 @RestController

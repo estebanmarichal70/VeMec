@@ -2,7 +2,6 @@ package com.vemec.api.services;
 
 import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.centro.CentroRepository;
-import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.utils.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

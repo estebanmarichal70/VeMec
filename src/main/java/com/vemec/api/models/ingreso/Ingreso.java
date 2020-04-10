@@ -6,10 +6,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vemec.api.constants.Estado;
 import com.vemec.api.models.reporte.Reporte;
-import com.vemec.api.models.ubicacion.Ubicacion;
+import com.vemec.api.models.sala.Sala;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.paciente.Paciente;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 
@@ -26,7 +25,7 @@ public class Ingreso {
     private Estado estado;
     private String causa;
     @OneToOne(cascade = CascadeType.ALL)
-    private Ubicacion ubicacion;
+    private Sala sala;
     @OneToOne(cascade = CascadeType.ALL)
     private VeMec vemec;
     private Date fechaIngreso;
@@ -65,12 +64,12 @@ public class Ingreso {
         this.causa = causa;
     }
 
-    public Ubicacion getUbicacion() {
-        return ubicacion;
+    public Sala getSala() {
+        return sala;
     }
 
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setSala(Sala sala) {
+        this.sala = sala;
     }
 
     public VeMec getVemec() {
@@ -128,7 +127,7 @@ public class Ingreso {
                 "id=" + id +
                 ", estado=" + estado +
                 ", causa='" + causa + '\'' +
-                ", ubicacion=" + ubicacion +
+                ", sala=" + sala +
                 ", vemec=" + vemec +
                 ", fechaIngreso=" + fechaIngreso +
                 ", fechaEgreso=" + fechaEgreso +
@@ -145,7 +144,7 @@ public class Ingreso {
         return Objects.equals(id, ingreso.id) &&
                 estado == ingreso.estado &&
                 Objects.equals(causa, ingreso.causa) &&
-                Objects.equals(ubicacion, ingreso.ubicacion) &&
+                Objects.equals(sala, ingreso.sala) &&
                 Objects.equals(vemec, ingreso.vemec) &&
                 Objects.equals(fechaIngreso, ingreso.fechaIngreso) &&
                 Objects.equals(fechaEgreso, ingreso.fechaEgreso) &&
@@ -155,6 +154,6 @@ public class Ingreso {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, estado, causa, ubicacion, vemec, fechaIngreso, fechaEgreso, paciente, historial);
+        return Objects.hash(id, estado, causa, sala, vemec, fechaIngreso, fechaEgreso, paciente, historial);
     }
 }

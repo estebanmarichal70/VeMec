@@ -1,4 +1,4 @@
-package com.vemec.api.models.ubicacion;
+package com.vemec.api.models.sala;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
@@ -14,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Ubicacion {
+public class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,16 +29,16 @@ public class Ubicacion {
     @OneToMany(cascade = CascadeType.ALL)
     private List<VeMec> vemecs;
 
-    public Ubicacion() {
+    public Sala() {
     }
 
     public void addToVeMecs(VeMec vemec) {
         this.vemecs.add(vemec);
-        vemec.setUbicacion(this);
+        vemec.setSala(this);
     }
     public void removeFromVemec(VeMec vemec){
         this.vemecs.remove(vemec);
-        vemec.setUbicacion(null);
+        vemec.setSala(null);
     }
 
     public Integer getId() {
@@ -83,7 +83,7 @@ public class Ubicacion {
 
     @Override
     public String toString() {
-        return "Ubicacion{" +
+        return "Sala{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", capacidad=" + capacidad +
@@ -96,12 +96,12 @@ public class Ubicacion {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ubicacion ubicacion = (Ubicacion) o;
-        return Objects.equals(id, ubicacion.id) &&
-                Objects.equals(nombre, ubicacion.nombre) &&
-                Objects.equals(capacidad, ubicacion.capacidad) &&
-                Objects.equals(centro, ubicacion.centro) &&
-                Objects.equals(vemecs, ubicacion.vemecs);
+        Sala sala = (Sala) o;
+        return Objects.equals(id, sala.id) &&
+                Objects.equals(nombre, sala.nombre) &&
+                Objects.equals(capacidad, sala.capacidad) &&
+                Objects.equals(centro, sala.centro) &&
+                Objects.equals(vemecs, sala.vemecs);
     }
 
     @Override

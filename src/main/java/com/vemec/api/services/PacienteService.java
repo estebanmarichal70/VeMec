@@ -4,7 +4,6 @@ import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.paciente.PacienteRepository;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapperRepository;
-import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.utils.Mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +73,7 @@ public class PacienteService {
             patologiasWrapperRepository.deleteById(patologias.getId());
             p.getIngresos().forEach((value)->{
                 value.setVemec(null);
-                value.setUbicacion(null);
+                value.setSala(null);
             });
 
             pacienteRepository.deleteById(id);

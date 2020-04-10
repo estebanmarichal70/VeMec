@@ -2,9 +2,8 @@ package com.vemec.api.services;
 
 import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.centro.CentroRepository;
-import com.vemec.api.models.reporte.Reporte;
-import com.vemec.api.models.ubicacion.Ubicacion;
-import com.vemec.api.models.ubicacion.UbicacionRepository;
+import com.vemec.api.models.sala.Sala;
+import com.vemec.api.models.sala.SalaRepository;
 import com.vemec.api.utils.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,23 +15,22 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class UbicacionService {
+public class SalaService {
 
     @Autowired
-    private UbicacionRepository ubicacionRepository;
+    private SalaRepository salaRepository;
 
     @Autowired
     private CentroRepository centroRepository;
 
-    public
-    Ubicacion addNew(Map<String, Object> payload) throws Exception{
+    public Sala addNew(Map<String, Object> payload) throws Exception{
         try {
-            Ubicacion u = new Ubicacion();
-            u = Mappers.mapToUbicacion(payload, u);
+            Sala u = new Sala();
+            u = Mappers.mapToSala(payload, u);
 
             Centro c = centroRepository.findById(u.getCentro().getId()).get();
             c.addToUbicaciones(u);
-            ubicacionRepository.save(u);
+            salaRepository.save(u);
 
             return u;
         }
@@ -41,20 +39,19 @@ public class UbicacionService {
         }
     }
     public
-    Iterable<Ubicacion> getAll(Integer page, Integer limit) throws Exception{
+    Iterable<Sala> getAll(Integer page, Integer limit) throws Exception{
         try {
             Pageable paging = PageRequest.of(page, limit);
-            Page<Ubicacion> pagedResult = ubicacionRepository.findAll(paging);
+            Page<Sala> pagedResult = salaRepository.findAll(paging);
             return pagedResult.toList();
         }
         catch (Exception e) {
             throw e;
         }
     }
-    public
-    Ubicacion getByID(Integer id) throws Exception {
+    public Sala getByID(Integer id) throws Exception {
         try {
-            Optional<Ubicacion> u = ubicacionRepository.findById(id);
+            Optional<Sala> u = salaRepository.findById(id);
             if (u.isPresent()) {
                 return u.get();
             }else {
@@ -68,22 +65,21 @@ public class UbicacionService {
     public
     Boolean delete(Integer id) throws Exception{
         try {
-            Ubicacion u = ubicacionRepository.findById(id).get();
-            u.getCentro().removeFromUbicaciones(u);
-            ubicacionRepository.deleteById(id);
+            Sala u = salaRepository.findById(id).get();
+            u.getCentro().removeFromSalas(u);
+            salaRepository.deleteById(id);
             return true;
         } catch (Exception e) {
             throw e;
         }
     }
-    public
-    Ubicacion update(Integer id, Map<String, Object> payload) throws Exception{
+    public Sala update(Integer id, Map<String, Object> payload) throws Exception{
 
         try {
-            Optional<Ubicacion> ub = ubicacionRepository.findById(id);
-            Ubicacion u = new Ubicacion();
-            u = Mappers.mapToUbicacion(payload, ub.get());
-            ubicacionRepository.save(u);
+            Optional<Sala> ub = salaRepository.findById(id);
+            Sala u = new Sala();
+            u = Mappers.mapToSala(payload, ub.get());
+            salaRepository.save(u);
             return u;
         }
         catch (Exception e) {

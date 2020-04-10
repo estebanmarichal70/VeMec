@@ -19,7 +19,7 @@ public class Utils {
     }
 
     public static ResponseEntity mapErrors(Exception e) {
-        if (e.getMessage() == "Not Found" || e.getMessage().contains("No class com.vemec.api.models.centro.Centro entity with") || e.getMessage() == "No value present" || e.getMessage().contains("No class com.vemec.api.models.ubicacion.Ubicacion entity") || e.getMessage().contains("No class com.vemec.api.models.paciente.Paciente entity with id"))
+        if (e.getMessage() == "Not Found" || e.getMessage().contains("No class com.vemec.api.models.centro.Centro entity with") || e.getMessage() == "No value present" || e.getMessage().contains("No class com.vemec.api.models.ubicacion.Sala entity") || e.getMessage().contains("No class com.vemec.api.models.paciente.Paciente entity with id"))
             return new ResponseEntity<>(new ErrorHandler(HttpStatus.NOT_FOUND, "No se encontró el Recurso"), null, HttpStatus.NOT_FOUND);
         else
             return new ResponseEntity<>(new ErrorHandler(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()), null, HttpStatus.INTERNAL_SERVER_ERROR);

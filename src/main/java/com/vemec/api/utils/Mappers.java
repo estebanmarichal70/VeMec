@@ -5,7 +5,7 @@ import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.reporte.Reporte;
-import com.vemec.api.models.ubicacion.Ubicacion;
+import com.vemec.api.models.sala.Sala;
 import com.vemec.api.models.vemec.VeMec;
 
 import java.text.ParseException;
@@ -33,7 +33,7 @@ public class Mappers {
         return c;
     }
 
-    public static Ubicacion mapToUbicacion(Map<String, Object> payload, Ubicacion u) {
+    public static Sala mapToSala(Map<String, Object> payload, Sala u) {
         if(payload.get("nombre") != null){
             u.setNombre(payload.get("nombre").toString());
         }
@@ -114,9 +114,9 @@ public class Mappers {
             }
         }
         if(payload.get("ubicacion") != null){
-            Ubicacion u = new Ubicacion();
+            Sala u = new Sala();
             u.setId((Integer)payload.get("ubicacion"));
-            i.setUbicacion(u);
+            i.setSala(u);
         }
         if(payload.get("vemec") != null){
             VeMec vm = new VeMec();
@@ -222,9 +222,9 @@ public class Mappers {
             v.setEstado((Boolean) payload.get("estado"));
         }
         if(payload.get("ubicacion") != null){
-            Ubicacion u = new Ubicacion();
+            Sala u = new Sala();
             u.setId((Integer) payload.get("ubicacion"));
-            v.setUbicacion(u);
+            v.setSala(u);
         }
         return v;
     }

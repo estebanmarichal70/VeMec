@@ -1,9 +1,6 @@
 package com.vemec.api.controllers;
 
-import com.vemec.api.models.ubicacion.UbicacionRepository;
-import com.vemec.api.models.vemec.VeMecRepository;
 import com.vemec.api.services.IngresoService;
-import com.vemec.api.services.PacienteService;
 import com.vemec.api.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

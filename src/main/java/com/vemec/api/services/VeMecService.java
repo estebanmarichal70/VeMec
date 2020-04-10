@@ -1,8 +1,7 @@
 package com.vemec.api.services;
 
-import com.vemec.api.models.reporte.Reporte;
-import com.vemec.api.models.ubicacion.Ubicacion;
-import com.vemec.api.models.ubicacion.UbicacionRepository;
+import com.vemec.api.models.sala.Sala;
+import com.vemec.api.models.sala.SalaRepository;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.vemec.VeMecRepository;
 import com.vemec.api.utils.Mappers;
@@ -21,7 +20,7 @@ public class VeMecService {
     private VeMecRepository veMecRepository;
 
     @Autowired
-    private UbicacionRepository ubicacionRepository;
+    private SalaRepository salaRepository;
 
     public
     VeMec addNew(Map<String, Object> payload) throws Exception{
@@ -29,7 +28,7 @@ public class VeMecService {
             VeMec v = new VeMec();
             v = Mappers.mapToVeMec(payload, v);
 
-            Ubicacion u = ubicacionRepository.findById(v.getUbicacion().getId()).get();
+            Sala u = salaRepository.findById(v.getSala().getId()).get();
             u.addToVeMecs(v);
 
             veMecRepository.save(v);
@@ -68,7 +67,7 @@ public class VeMecService {
     Boolean delete(Integer id) throws Exception{
         try {
             VeMec v = veMecRepository.findById(id).get();
-            v.getUbicacion().removeFromVemec(v);
+            v.getSala().removeFromVemec(v);
             veMecRepository.deleteById(id);
             return true;
         } catch (Exception e) {

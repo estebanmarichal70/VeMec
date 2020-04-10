@@ -1,15 +1,13 @@
 package com.vemec.api.controllers;
 
-import com.vemec.api.models.centro.*;
 import com.vemec.api.services.CentroService;
+import com.vemec.api.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.vemec.api.utils.*;
 
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/v1/centro")

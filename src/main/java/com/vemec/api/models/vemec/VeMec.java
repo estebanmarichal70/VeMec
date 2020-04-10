@@ -1,6 +1,6 @@
 package com.vemec.api.models.vemec;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.vemec.api.models.ubicacion.Ubicacion;
+import com.vemec.api.models.sala.Sala;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -16,7 +16,7 @@ public class VeMec {
 
     @JsonBackReference
     @ManyToOne
-    private Ubicacion ubicacion;
+    private Sala sala;
 
     public VeMec() {
     }
@@ -33,8 +33,8 @@ public class VeMec {
         return marca;
     }
 
-    public Ubicacion getUbicacion() {
-        return ubicacion;
+    public Sala getSala() {
+        return sala;
     }
 
     public void setMarca(String marca) {
@@ -57,8 +57,8 @@ public class VeMec {
         this.estado = estado;
     }
 
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setSala(Sala sala) {
+        this.sala = sala;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class VeMec {
                 ", marca='" + marca + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", estado=" + estado +
-                ", ubicacion=" + ubicacion +
+                ", sala=" + sala +
                 '}';
     }
 
@@ -81,11 +81,11 @@ public class VeMec {
                 Objects.equals(marca, veMec.marca) &&
                 Objects.equals(modelo, veMec.modelo) &&
                 Objects.equals(estado, veMec.estado) &&
-                Objects.equals(ubicacion, veMec.ubicacion);
+                Objects.equals(sala, veMec.sala);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, marca, modelo, estado, ubicacion);
+        return Objects.hash(id, marca, modelo, estado, sala);
     }
 }
