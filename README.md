@@ -179,7 +179,7 @@ Entidad que maneja la creación, modificación y eliminación de los datos propo
 
 ---
 
-Objeto JSON mencionado arriba relacionado al Paciente:
+Objeto JSON mencionado arriba relacionado al Reporte:
 
 ```json
 {
