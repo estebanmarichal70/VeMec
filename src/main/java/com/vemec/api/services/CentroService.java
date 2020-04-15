@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -35,7 +37,11 @@ public class CentroService {
         try {
             Pageable paging = PageRequest.of(page, limit);
             Page<Centro> pagedResult = centroRepository.findAll(paging);
-            return pagedResult.toList();
+            List resultado = new LinkedList();
+            resultado.add(pagedResult.getTotalPages());
+            resultado.add(pagedResult.getTotalElements());
+            resultado.add(pagedResult.toList());
+            return resultado;
         }
         catch (Exception e) {
             throw e;
@@ -62,7 +68,7 @@ public class CentroService {
             centroRepository.deleteById(id);
             return true;
         } catch (Exception e) {
-            throw e;
+                throw e;
         }
     }
     public
