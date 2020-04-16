@@ -37,13 +37,17 @@ public class CentroService {
         try {
             Pageable paging = PageRequest.of(page, limit);
             Page<Centro> pagedResult;
-            if(!nombre.equals("") && !nombre.equals("null") && !codigo.equals("") && !codigo.equals("null")){
+            if((!nombre.equals("") && !nombre.equals("null")) && (!codigo.equals("") && !codigo.equals("null"))){
+                System.out.println("FIND BY CODIGO AND NOMBRE");
                 pagedResult = centroRepository.findAllByNombreContainingAndCodigoContaining(paging, nombre, codigo);
-            }else if(!nombre.equals("") && !nombre.equals("null") && codigo.equals("") && !codigo.equals("null")){
+            }else if((!nombre.equals("") && !nombre.equals("null")) && (codigo.equals("null") || codigo.equals(""))){
+                System.out.println("FIND BY NOMBRE");
                 pagedResult = centroRepository.findAllByNombreContaining(paging, nombre);
-            } else if (nombre.equals("") && !nombre.equals("null") && !codigo.equals("") && !codigo.equals("null")) {
+            } else if ((nombre.equals("null") || nombre.equals("")) && (!codigo.equals("") && !codigo.equals("null"))) {
+                System.out.println("FIND BY CODIGO");
                 pagedResult = centroRepository.findAllByCodigoContaining(paging, codigo);
             }else{
+                System.out.println("FIND ALL");
                 pagedResult = centroRepository.findAll(paging);
             }
 
