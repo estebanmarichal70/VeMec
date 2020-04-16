@@ -30,9 +30,9 @@ public class CentroController {
 
     @GetMapping
     public @ResponseBody
-    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit) {
+    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit, @RequestParam String codigo, @RequestParam String nombre) {
         try {
-            return new ResponseEntity<>(this.centroService.getAll(page -1, limit),null, HttpStatus.OK);
+            return new ResponseEntity<>(this.centroService.getAll(page -1, limit, nombre, codigo),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

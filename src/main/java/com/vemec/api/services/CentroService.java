@@ -33,10 +33,20 @@ public class CentroService {
     }
 
     public
-    Iterable<Centro> getAll(Integer page, Integer limit) throws Exception{
+    Iterable<Centro> getAll(Integer page, Integer limit, String nombre, String codigo) throws Exception{
         try {
             Pageable paging = PageRequest.of(page, limit);
-            Page<Centro> pagedResult = centroRepository.findAll(paging);
+            Page<Centro> pagedResult;
+            if(nombre != "" && codigo != ""){
+                pagedResult = centroRepository.findAllByNombreContainingAndCodigoContaining(paging, nombre, codigo);
+            }else if(nombre != "" && codigo == ""){
+                pagedResult = centroRepository.findAllByNombreContaining(paging, nombre);
+            } else if (nombre == "" && codigo != "") {
+                pagedResult = centroRepository.findAllByCodigoContaining(paging, codigo);
+            }else{
+                pagedResult = centroRepository.findAll(paging);
+            }
+
             List resultado = new LinkedList();
             resultado.add(pagedResult.getTotalPages());
             resultado.add(pagedResult.getTotalElements());
