@@ -37,11 +37,11 @@ public class CentroService {
         try {
             Pageable paging = PageRequest.of(page, limit);
             Page<Centro> pagedResult;
-            if(nombre != "" && codigo != ""){
+            if(!nombre.equals("") && !nombre.equals("null") && !codigo.equals("") && !codigo.equals("null")){
                 pagedResult = centroRepository.findAllByNombreContainingAndCodigoContaining(paging, nombre, codigo);
-            }else if(nombre != "" && codigo == ""){
+            }else if(!nombre.equals("") && !nombre.equals("null") && codigo.equals("") && !codigo.equals("null")){
                 pagedResult = centroRepository.findAllByNombreContaining(paging, nombre);
-            } else if (nombre == "" && codigo != "") {
+            } else if (nombre.equals("") && !nombre.equals("null") && !codigo.equals("") && !codigo.equals("null")) {
                 pagedResult = centroRepository.findAllByCodigoContaining(paging, codigo);
             }else{
                 pagedResult = centroRepository.findAll(paging);
