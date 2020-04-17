@@ -15,6 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -52,11 +55,25 @@ public class IngresoService {
         }
     }
     public
-    Iterable<Ingreso> getAll(Integer page, Integer limit) throws Exception{
+    Iterable<Ingreso> getAll(Integer page, Integer limit, String causa) throws Exception{
         try {
             Pageable paging = PageRequest.of(page, limit);
-            Page<Ingreso> pagedResult = ingresoRepository.findAll(paging);
-            return pagedResult.toList();
+            Page<Ingreso> pagedResult;
+            System.out.println(causa);
+            if(!causa.equals("") && !causa.equals("null")) {
+                System.out.println("busco por causa");
+                pagedResult = ingresoRepository.findAllByCausaContaining(paging,causa);
+            }
+            else {
+                System.out.println("busco por todo");
+                pagedResult = ingresoRepository.findAll(paging);
+            }
+            List resultado = new LinkedList();
+            resultado.add(pagedResult.getTotalPages());
+            resultado.add(pagedResult.getTotalElements());
+            resultado.add(pagedResult.toList());
+            return resultado;
+
         }
         catch (Exception e) {
             throw e;

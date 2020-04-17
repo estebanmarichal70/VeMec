@@ -30,9 +30,9 @@ public class PacienteController {
     }
     @GetMapping
     public @ResponseBody
-    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit) {
+    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit, @RequestParam String nombre,@RequestParam String apellido) {
         try {
-            return new ResponseEntity<>(pacienteService.getAll(page -1, limit),null, HttpStatus.OK);
+            return new ResponseEntity<>(pacienteService.getAll(page -1, limit, nombre, apellido),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

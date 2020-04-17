@@ -11,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -39,11 +41,20 @@ public class SalaService {
         }
     }
     public
-    Iterable<Sala> getAll(Integer page, Integer limit) throws Exception{
+    Iterable<Sala> getAll(Integer page, Integer limit, String nombre) throws Exception{
         try {
             Pageable paging = PageRequest.of(page, limit);
-            Page<Sala> pagedResult = salaRepository.findAll(paging);
-            return pagedResult.toList();
+            Page<Sala> pagedResult;
+            if(!nombre.equals("") && !nombre.equals("null")) {
+                pagedResult = salaRepository.findAllByNombreContaining(paging,nombre);
+            }else {
+                pagedResult = salaRepository.findAll(paging);
+            }
+            List resultado = new LinkedList();
+            resultado.add(pagedResult.getTotalPages());
+            resultado.add(pagedResult.getTotalElements());
+            resultado.add(pagedResult.toList());
+            return resultado;
         }
         catch (Exception e) {
             throw e;

@@ -11,6 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -38,11 +41,28 @@ public class PacienteService {
     }
 
     public
-    Iterable<Paciente> getAll(Integer page, Integer limit) {
+    Iterable<Paciente> getAll(Integer page, Integer limit, String nombre, String apellido) {
         try {
             Pageable paging = PageRequest.of(page, limit);
-            Page<Paciente> pagedResult = pacienteRepository.findAll(paging);
-            return pagedResult.toList();
+            Page<Paciente> pagedResult;
+            if((!nombre.equals("") && !nombre.equals("null")) && (!apellido.equals("") && !apellido.equals("null"))) {
+                System.out.println("find nombre apellidoq");
+                pagedResult = pacienteRepository.findAllByNombreContainingAndApellidoContaining(paging,nombre,apellido);
+            }else if((!nombre.equals("") && !nombre.equals("null")) && (apellido.equals("") || apellido.equals("null"))) {
+                System.out.println("find nombre");
+                pagedResult = pacienteRepository.findAllByNombreContaining(paging,nombre);
+            }else if((!apellido.equals("") && !apellido.equals("null")) && ((nombre.equals("") || apellido.equals("null")))) {
+                System.out.println("find apellido");
+                pagedResult = pacienteRepository.findAllByApellidoContaining(paging,apellido);
+            }else {
+                System.out.println("find all");
+                pagedResult = pacienteRepository.findAll(paging);
+            }
+            List resultado = new LinkedList();
+            resultado.add(pagedResult.getTotalPages());
+            resultado.add(pagedResult.getTotalElements());
+            resultado.add(pagedResult.toList());
+            return resultado;
         }
         catch (Exception e) {
             throw e;
