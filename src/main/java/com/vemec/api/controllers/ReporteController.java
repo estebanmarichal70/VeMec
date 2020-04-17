@@ -51,7 +51,7 @@ public class ReporteController{
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
         try {
-            return new ResponseEntity<>(this.reporteService.delete(id) ? "{'status':'SUCCESS'}":"{'status':'BAD'}",null, HttpStatus.OK);
+            return new ResponseEntity<>(this.reporteService.delete(id) ? "{\"status\":\"SUCCESS\"}":"{\"status\":\"BAD\"}",null, HttpStatus.OK);
         } catch (Exception e) {
             return Utils.mapErrors(e);
         }
