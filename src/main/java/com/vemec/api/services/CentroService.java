@@ -2,6 +2,8 @@ package com.vemec.api.services;
 
 import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.centro.CentroRepository;
+import com.vemec.api.models.ingreso.Ingreso;
+import com.vemec.api.models.sala.Sala;
 import com.vemec.api.utils.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -75,6 +77,14 @@ public class CentroService {
     public
     Boolean delete(Integer id) throws Exception{
         try {
+            Centro c = centroRepository.findById(id).get();
+            List<Sala> lista = c.getSalas();
+            lista.forEach(sala->{
+                List<Ingreso> ing = sala.getIngresos();
+                ing.forEach(ingreso->{
+                    ingreso.getPaciente().removeFromIngresos(ingreso);
+                });
+            });
             centroRepository.deleteById(id);
             return true;
         } catch (Exception e) {

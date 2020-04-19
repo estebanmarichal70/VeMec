@@ -66,11 +66,11 @@ public class Centro {
         this.salas = salas;
     }
 
-    // method to manage the bidirectional association
-    public void addToUbicaciones(Sala sala) {
+    public void addToSalas(Sala sala) {
         this.salas.add(sala);
         sala.setCentro(this);
     }
+
     public void removeFromSalas(Sala sala){
         this.salas.remove(sala);
         sala.setCentro(null);

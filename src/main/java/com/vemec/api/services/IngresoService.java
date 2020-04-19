@@ -43,7 +43,7 @@ public class IngresoService {
             Paciente p = pacienteRepository.findById(i.getPaciente().getId()).get();
             p.addToIngresos(i);
             Sala u = salaRepository.findById(i.getSala().getId()).get();
-            i.setSala(u);
+            u.addToIngresos(i);
             VeMec v = vemecRepository.findById(i.getVemec().getId()).get();
             v.setEstado(true);
             i.setVemec(v);
@@ -98,7 +98,7 @@ public class IngresoService {
         try {
             Ingreso i = ingresoRepository.findById(id).get();
             i.getVemec().setEstado(false);
-            i.setSala(null);
+            i.getSala().removefromIngresos(i);
             i.setVemec(null);
             i.getPaciente().removeFromIngresos(i);
             ingresoRepository.deleteById(id);

@@ -67,7 +67,9 @@ public class VeMecService {
     Boolean delete(Integer id) throws Exception{
         try {
             VeMec v = veMecRepository.findById(id).get();
-            v.getSala().removeFromVemec(v);
+            Sala sala = v.getSala();
+            sala.removeFromVemec(v);
+            sala.removeVeMecfromIngreso(v);
             veMecRepository.deleteById(id);
             return true;
         } catch (Exception e) {

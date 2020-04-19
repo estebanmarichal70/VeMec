@@ -1,10 +1,8 @@
 package com.vemec.api.models.reporte;
 
 import com.vemec.api.models.ingreso.Ingreso;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-
 import java.util.Date;
 import java.util.Objects;
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.centro.Centro;
 
@@ -29,6 +30,10 @@ public class Sala {
     @OneToMany(cascade = CascadeType.ALL)
     private List<VeMec> vemecs;
 
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Ingreso> ingresos;
+
     public Sala() {
     }
 
@@ -36,9 +41,36 @@ public class Sala {
         this.vemecs.add(vemec);
         vemec.setSala(this);
     }
+
+    public void addToIngresos(Ingreso ingreso) {
+        this.ingresos.add(ingreso);
+        ingreso.setSala(this);
+    }
+
+    public void removeVeMecfromIngreso(VeMec vemec){
+        this.ingresos.forEach(item ->{
+            if(item.getVemec() == vemec){
+                item.setVemec(null);
+            }
+        });
+    }
+
+    public void removefromIngresos(Ingreso ingreso){
+        this.ingresos.remove(ingreso);
+        ingreso.setSala(null);
+    }
+
     public void removeFromVemec(VeMec vemec){
         this.vemecs.remove(vemec);
         vemec.setSala(null);
+    }
+
+    public List<Ingreso> getIngresos() {
+        return ingresos;
+    }
+
+    public void setIngresos(List<Ingreso> ingresos) {
+        this.ingresos = ingresos;
     }
 
     public Integer getId() {

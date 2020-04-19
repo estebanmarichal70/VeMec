@@ -24,10 +24,13 @@ public class Ingreso {
     private Integer id;
     private Estado estado;
     private String causa;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Sala sala;
+
     @OneToOne(cascade = CascadeType.ALL)
     private VeMec vemec;
+
+    @JsonBackReference
+    @ManyToOne
+    private Sala sala;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaIngreso;
@@ -38,11 +41,17 @@ public class Ingreso {
     @JsonBackReference
     @ManyToOne
     private Paciente paciente;
+
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL)
     private List<Reporte> historial;
 
+
     public Ingreso() {
+    }
+
+    public void removeVeMec(){
+        this.vemec = null;
     }
 
     public Integer getId() {
@@ -121,6 +130,7 @@ public class Ingreso {
         this.historial.add(reporte);
         reporte.setIngreso(this);
     }
+
     public void removeFromReportes(Reporte reporte){
         this.historial.remove(reporte);
         reporte.setIngreso(null);

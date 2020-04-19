@@ -2,6 +2,7 @@ package com.vemec.api.services;
 
 import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.centro.CentroRepository;
+import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.sala.Sala;
 import com.vemec.api.models.sala.SalaRepository;
 import com.vemec.api.utils.Mappers;
@@ -31,7 +32,7 @@ public class SalaService {
             u = Mappers.mapToSala(payload, u);
 
             Centro c = centroRepository.findById(u.getCentro().getId()).get();
-            c.addToUbicaciones(u);
+            c.addToSalas(u);
             salaRepository.save(u);
 
             return u;
@@ -78,6 +79,10 @@ public class SalaService {
         try {
             Sala u = salaRepository.findById(id).get();
             u.getCentro().removeFromSalas(u);
+            List<Ingreso> lista = u.getIngresos();
+            lista.forEach(item->{
+                item.getPaciente().removeFromIngresos(item);
+            });
             salaRepository.deleteById(id);
             return true;
         } catch (Exception e) {
