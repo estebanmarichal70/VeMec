@@ -29,9 +29,9 @@ public class SalaController {
     }
     @GetMapping
     public @ResponseBody
-    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit,@RequestParam String nombre) {
+    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit,@RequestParam String nombre, @RequestParam String centro) {
         try {
-            return new ResponseEntity<>(this.salaService.getAll(page-1, limit, nombre),null, HttpStatus.OK);
+            return new ResponseEntity<>(this.salaService.getAll(page-1, limit, nombre, centro),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);

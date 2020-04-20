@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface SalaRepository extends PagingAndSortingRepository<Sala, Integer> {
 
     Page<Sala> findAllByNombreContaining(Pageable pageable, String nombre);
+    Page<Sala> findAllByNombreContainingAndCentro(Pageable pageable, String nombre, Centro centro);
+    Page<Sala> findAllByCentro(Pageable pageable, Centro centro);
 }

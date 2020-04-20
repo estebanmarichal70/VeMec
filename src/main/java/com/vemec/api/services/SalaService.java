@@ -26,7 +26,7 @@ public class SalaService {
     @Autowired
     private CentroRepository centroRepository;
 
-    public Sala addNew(Map<String, Object> payload) throws Exception{
+    public Sala addNew(Map<String, Object> payload) throws Exception {
         try {
             Sala u = new Sala();
             u = Mappers.mapToSala(payload, u);
@@ -36,51 +36,70 @@ public class SalaService {
             salaRepository.save(u);
 
             return u;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw e;
         }
     }
-    public
-    Iterable<Sala> getAll(Integer page, Integer limit, String nombre) throws Exception{
+
+    public Iterable<Sala> getAll(Integer page, Integer limit, String nombre, String centro) throws Exception {
         try {
             Pageable paging = PageRequest.of(page, limit);
             Page<Sala> pagedResult;
-            if(!nombre.equals("") && !nombre.equals("null")) {
-                pagedResult = salaRepository.findAllByNombreContaining(paging,nombre);
-            }else {
+            Integer centroId;
+            if ((!nombre.equals("") && !nombre.equals("null")) && !centro.equals("") && !centro.equals("null") ) {
+
+                centroId = Integer.parseInt(centro);
+                Centro c = new Centro();
+                c.setId(centroId);
+                pagedResult = salaRepository.findAllByNombreContainingAndCentro(paging, nombre, c);
+
+            } else if ((nombre.equals("") || nombre.equals("null")) && (!centro.equals("") && !centro.equals("null")) ) {
+
+                centroId = Integer.parseInt(centro);
+                Centro c = new Centro();
+                c.setId(centroId);
+                pagedResult = salaRepository.findAllByCentro(paging, c);
+
+
+            }else if((!nombre.equals("") && !nombre.equals("null")) && (centro.equals("") || centro.equals("null"))){
+
+                pagedResult = salaRepository.findAllByNombreContaining(paging, nombre);
+
+            }else{
+
                 pagedResult = salaRepository.findAll(paging);
+
+
             }
             List resultado = new LinkedList();
             resultado.add(pagedResult.getTotalPages());
             resultado.add(pagedResult.getTotalElements());
             resultado.add(pagedResult.toList());
             return resultado;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw e;
         }
     }
+
     public Sala getByID(Integer id) throws Exception {
         try {
             Optional<Sala> u = salaRepository.findById(id);
             if (u.isPresent()) {
                 return u.get();
-            }else {
+            } else {
                 throw new Exception("Not Found");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw e;
         }
     }
-    public
-    Boolean delete(Integer id) throws Exception{
+
+    public Boolean delete(Integer id) throws Exception {
         try {
             Sala u = salaRepository.findById(id).get();
             u.getCentro().removeFromSalas(u);
             List<Ingreso> lista = u.getIngresos();
-            lista.forEach(item->{
+            lista.forEach(item -> {
                 item.getPaciente().removeFromIngresos(item);
             });
             salaRepository.deleteById(id);
@@ -89,7 +108,8 @@ public class SalaService {
             throw e;
         }
     }
-    public Sala update(Integer id, Map<String, Object> payload) throws Exception{
+
+    public Sala update(Integer id, Map<String, Object> payload) throws Exception {
 
         try {
             Optional<Sala> ub = salaRepository.findById(id);
@@ -97,8 +117,7 @@ public class SalaService {
             u = Mappers.mapToSala(payload, ub.get());
             salaRepository.save(u);
             return u;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw e;
         }
     }
