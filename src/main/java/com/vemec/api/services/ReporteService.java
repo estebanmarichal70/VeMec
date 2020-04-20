@@ -1,5 +1,7 @@
 package com.vemec.api.services;
 
+import com.vemec.api.constants.Alerta;
+import com.vemec.api.controllers.WebSocketController;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.reporte.Reporte;
@@ -31,6 +33,10 @@ public class ReporteService {
             Ingreso i = ingresoRepository.findById(r.getIngreso().getId()).get();
             i.addToHistorial(r);
             reporteRepository.save(r);
+
+            if(r.getAlerta() == Alerta.ROJO){
+               WebSocketController.enviarAlertaReporte(r);
+            }
 
             return r;
         }

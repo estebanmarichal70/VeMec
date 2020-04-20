@@ -1,4 +1,5 @@
 package com.vemec.api.utils;
+import com.vemec.api.constants.Alerta;
 import com.vemec.api.constants.Estado;
 import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.paciente.Paciente;
@@ -172,6 +173,29 @@ public class Mappers {
 
         if(payload.get("presionSalida") != null){
             r.setPresionSalida((Double) payload.get("presionSalida"));
+        }
+
+        if(payload.get("alerta") != null ){
+            switch (payload.get("alerta").toString()){
+                case "ROJO":{
+                    r.setAlerta(Alerta.ROJO);
+                    break;
+                }
+                case "NARANJA":{
+                    r.setAlerta(Alerta.NARANJA);
+                    break;
+                }
+                case "AMARILLO":{
+                    r.setAlerta(Alerta.AMARILLO);
+                    break;
+                }
+                case "VERDE":{
+                    r.setAlerta(Alerta.VERDE);
+                    break;
+                }
+            }
+        }else{
+            r.setAlerta(Alerta.VERDE);
         }
 
         if(payload.get("time") != null){

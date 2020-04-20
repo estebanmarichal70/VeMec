@@ -1,12 +1,15 @@
 package com.vemec.api.models.reporte;
 
+import com.vemec.api.constants.Alerta;
 import com.vemec.api.models.ingreso.Ingreso;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Component
 public class Reporte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +25,14 @@ public class Reporte {
     private Double presionEntrada;
     private Double presionSalida;
 
+    private Alerta alerta;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
 
-
     @ManyToOne
     private Ingreso ingreso;
+
     private String unidadPresion;
     private String unidadTemp;
     private String unidadHumedad;
@@ -181,6 +186,14 @@ public class Reporte {
         this.ingreso = ingreso;
     }
 
+    public Alerta getAlerta() {
+        return alerta;
+    }
+
+    public void setAlerta(Alerta alerta) {
+        this.alerta = alerta;
+    }
+
     @Override
     public String toString() {
         return "Reporte{" +
@@ -195,6 +208,7 @@ public class Reporte {
                 ", tempSalida=" + tempSalida +
                 ", presionEntrada=" + presionEntrada +
                 ", presionSalida=" + presionSalida +
+                ", alerta=" + alerta +
                 ", time=" + time +
                 ", ingreso=" + ingreso +
                 ", unidadPresion='" + unidadPresion + '\'' +
@@ -221,6 +235,7 @@ public class Reporte {
                 Objects.equals(tempSalida, reporte.tempSalida) &&
                 Objects.equals(presionEntrada, reporte.presionEntrada) &&
                 Objects.equals(presionSalida, reporte.presionSalida) &&
+                alerta == reporte.alerta &&
                 Objects.equals(time, reporte.time) &&
                 Objects.equals(ingreso, reporte.ingreso) &&
                 Objects.equals(unidadPresion, reporte.unidadPresion) &&
@@ -232,6 +247,6 @@ public class Reporte {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, presionMaxima, presionMinima, volGas, frecGas, mezcla, humedadAire, tempEntrada, tempSalida, presionEntrada, presionSalida, time, ingreso, unidadPresion, unidadTemp, unidadHumedad, unidadFrecuencia, unidadVolumen);
+        return Objects.hash(id, presionMaxima, presionMinima, volGas, frecGas, mezcla, humedadAire, tempEntrada, tempSalida, presionEntrada, presionSalida, alerta, time, ingreso, unidadPresion, unidadTemp, unidadHumedad, unidadFrecuencia, unidadVolumen);
     }
 }
