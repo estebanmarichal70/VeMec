@@ -13,8 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReporteService {
@@ -34,8 +33,12 @@ public class ReporteService {
             i.addToHistorial(r);
             reporteRepository.save(r);
 
-            if(r.getAlerta() == Alerta.ROJO){
-               WebSocketController.enviarAlertaReporte(r);
+            if(r.getAlerta() == Alerta.ROJO || r.getAlerta() == Alerta.NARANJA || r.getAlerta() == Alerta.AMARILLO){
+                Map<String, Object> data = new HashMap<>();
+                data.put("paciente", r.getIngreso().getPaciente());
+                data.put("reporte", r);
+                data.put("sala", r.getIngreso().getSala());
+                WebSocketController.sendWebSocketUpdate(data);
             }
 
             return r;
