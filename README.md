@@ -11,10 +11,14 @@
 
 Esta pensado para ser compilado con JDK 11 por lo tanto, lo ideal es tenerlo instalado previamente.
 
-Para ejecutar:
+Para ejecutar, pararse en la carpeta donde esta el pom:
 
 ```
-    java -jar nombre.
+    ./mvnw clean compile spring-boot:run
+```
+Para compilar y obtener la API empaquetada en un jar ubicado en directorio target:
+```
+    ./mvnw clean install
 ```
 
 ## Endpoints

@@ -12,7 +12,9 @@
     <artifactId>api</artifactId>
     <version>0.1</version>
     <name>vemec_api</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Vemec api</description>
+
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>11</java.version>
@@ -88,6 +90,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <finalName>vemec-api</finalName>
     </build>
 
 
