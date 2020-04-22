@@ -1,5 +1,6 @@
 package com.vemec.api.services;
 
+import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.paciente.Paciente;
@@ -55,25 +56,42 @@ public class IngresoService {
         }
     }
     public
-    Iterable<Ingreso> getAll(Integer page, Integer limit, String causa) throws Exception{
+    Iterable<Ingreso> getAll(Integer page, Integer limit, String causa, Integer id) throws Exception{
         try {
             Pageable paging = PageRequest.of(page, limit);
             Page<Ingreso> pagedResult;
-            System.out.println(causa);
-            if(!causa.equals("") && !causa.equals("null")) {
-                System.out.println("busco por causa");
-                pagedResult = ingresoRepository.findAllByCausaContaining(paging,causa);
-            }
-            else {
-                System.out.println("busco por todo");
+            Integer ingresoID;
+
+            if ((!causa.equals("") && !causa.equals("null")) && !id.equals("") && !id.equals("null") ) {
+
+                ingresoID = id;
+                Ingreso i = new Ingreso();
+                i.setId(ingresoID);
+                pagedResult = ingresoRepository.findAllByCausaContainingAndId(paging, causa, i);
+
+            } else if ((causa.equals("") || causa.equals("null")) && (!id.equals("") && !id.equals("null")) ) {
+
+                ingresoID = id;
+                Ingreso i = new Ingreso();
+                i.setId(ingresoID);
+                pagedResult = ingresoRepository.findAllById(paging, i);
+
+
+            }else if((!causa.equals("") && !causa.equals("null")) && (id.equals("") || id.equals("null"))){
+
+                pagedResult = ingresoRepository.findAllByCausaContaining(paging, causa);
+
+            }else{
+
                 pagedResult = ingresoRepository.findAll(paging);
+
             }
+
             List resultado = new LinkedList();
             resultado.add(pagedResult.getTotalPages());
             resultado.add(pagedResult.getTotalElements());
             resultado.add(pagedResult.toList());
             return resultado;
-
         }
         catch (Exception e) {
             throw e;
@@ -118,6 +136,17 @@ public class IngresoService {
             return i;
         }
         catch (Exception e) {
+            throw e;
+        }
+    }
+    public
+    Sala vemecSala(Integer id) throws Exception{
+
+        try{
+            Sala sala = ingresoRepository.findById(id).get().getSala();
+            return sala;
+        }
+        catch (Exception e){
             throw e;
         }
     }
