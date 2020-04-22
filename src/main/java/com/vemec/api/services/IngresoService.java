@@ -63,14 +63,14 @@ public class IngresoService {
             Integer ingresoID;
 
             if ((!causa.equals("") && !causa.equals("null")) && !id.equals("") && !id.equals("null") ) {
-
+                System.out.println("busca por causa y id");
                 ingresoID = id;
                 Ingreso i = new Ingreso();
                 i.setId(ingresoID);
                 pagedResult = ingresoRepository.findAllByCausaContainingAndId(paging, causa, i);
 
             } else if ((causa.equals("") || causa.equals("null")) && (!id.equals("") && !id.equals("null")) ) {
-
+                System.out.println("busca por id");
                 ingresoID = id;
                 Ingreso i = new Ingreso();
                 i.setId(ingresoID);
@@ -78,11 +78,11 @@ public class IngresoService {
 
 
             }else if((!causa.equals("") && !causa.equals("null")) && (id.equals("") || id.equals("null"))){
-
+                System.out.println("busca por causa");
                 pagedResult = ingresoRepository.findAllByCausaContaining(paging, causa);
 
             }else{
-
+                System.out.println("busca todo");
                 pagedResult = ingresoRepository.findAll(paging);
 
             }

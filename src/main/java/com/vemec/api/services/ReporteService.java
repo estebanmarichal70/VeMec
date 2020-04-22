@@ -6,6 +6,7 @@ import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.reporte.ReporteRepository;
+import com.vemec.api.models.sala.Sala;
 import com.vemec.api.utils.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,11 +49,26 @@ public class ReporteService {
         }
     }
     public
-    Iterable<Reporte> getAll(Integer page, Integer limit) throws Exception{
+    Iterable<Reporte> getAll(Integer page, Integer limit, String id) throws Exception{
         try {
             Pageable paging = PageRequest.of(page, limit);
-            Page<Reporte> pagedResult = reporteRepository.findAll(paging);
-            return pagedResult.toList();
+            Page<Reporte> pagedResult;
+            if(!id.equals("") && !id.equals("null")){
+                Ingreso i = new Ingreso();
+                Integer ingId = Integer.parseInt(id);
+                i.setId(ingId);
+                System.out.println("Busca por id " + i.getId() );
+                pagedResult = reporteRepository.findAllByIngreso(paging, i);
+            }
+            else{
+                System.out.println("Busca todo");
+                pagedResult = reporteRepository.findAll(paging);
+            }
+            List resultado = new LinkedList();
+            resultado.add(pagedResult.getTotalPages());
+            resultado.add(pagedResult.getTotalElements());
+            resultado.add(pagedResult.toList());
+            return resultado;
         }
         catch (Exception e) {
             throw e;

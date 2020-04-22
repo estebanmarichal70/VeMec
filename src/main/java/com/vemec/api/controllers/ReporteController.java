@@ -31,9 +31,9 @@ public class ReporteController{
     }
     @GetMapping
     public @ResponseBody
-    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit) {
+    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit,@RequestParam String id) {
         try {
-            return new ResponseEntity<>(this.reporteService.getAll(page-1,limit),null, HttpStatus.OK);
+            return new ResponseEntity<>(this.reporteService.getAll(page-1,limit,id),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
