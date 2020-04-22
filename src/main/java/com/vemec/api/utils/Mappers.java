@@ -7,6 +7,7 @@ import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.sala.Sala;
+import com.vemec.api.models.usuario.Usuario;
 import com.vemec.api.models.vemec.VeMec;
 
 import java.text.ParseException;
@@ -94,6 +95,10 @@ public class Mappers {
                 }
                 case "SANO":{
                     i.setEstado(Estado.SANO);
+                    break;
+                }
+                case "DIFUNTO":{
+                    i.setEstado(Estado.DIFUNTO);
                     break;
                 }
             }
@@ -251,5 +256,17 @@ public class Mappers {
             v.setSala(u);
         }
         return v;
+    }
+
+    public static void mapToUsuario (Map < String, String > payload, Usuario u){
+        if(payload.get("username") != null){
+            u.setUsername(payload.get("username"));
+        }
+        if(payload.get("imagen") != null){
+            u.setImage(payload.get("imagen"));
+        }
+        if(payload.get("password") != null){
+            u.setPassword(payload.get("password"));
+        }
     }
 }

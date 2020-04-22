@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
 
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +14,7 @@ import java.util.Objects;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Paciente {
+
     @Id
     private Integer id;
     private String nombre;
