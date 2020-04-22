@@ -121,4 +121,15 @@ public class IngresoService {
             throw e;
         }
     }
+    public
+    Sala vemecSala(Integer id) throws Exception{
+
+        try{
+            Sala sala = ingresoRepository.findById(id).get().getSala();
+            return sala;
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
 }

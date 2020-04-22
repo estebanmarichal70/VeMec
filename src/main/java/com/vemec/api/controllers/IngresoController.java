@@ -66,4 +66,14 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+    @GetMapping(path = "/sala/{id}")
+    public @ResponseBody
+    ResponseEntity vemecSala(@PathVariable("id") Integer id){
+        try{
+            return new ResponseEntity<>(this.ingresoService.vemecSala(id), null, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return Utils.mapErrors(e);
+        }
+    }
 }
