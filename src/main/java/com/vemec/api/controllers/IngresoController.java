@@ -28,9 +28,9 @@ public class IngresoController {
     }
     @GetMapping
     public @ResponseBody
-    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit,@RequestParam String causa) {
+    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit,@RequestParam String causa, @RequestParam Integer id) {
         try {
-            return new ResponseEntity<>(this.ingresoService.getAll(page -1, limit, causa),null, HttpStatus.OK);
+            return new ResponseEntity<>(this.ingresoService.getAll(page -1, limit, causa, id),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
