@@ -1,5 +1,6 @@
 package com.vemec.api.services;
 
+import com.vemec.api.constants.Sexo;
 import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.paciente.PacienteRepository;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
@@ -12,10 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PacienteService {
@@ -34,6 +32,26 @@ public class PacienteService {
             patologiasWrapperRepository.save(p.getPatologias());
             pacienteRepository.save(p);
             return p;
+        }
+        catch (Exception e) {
+            throw e;
+        }
+    }
+
+
+    public Map<String, Long> countAllBySexo() {
+        try {
+            Map<String, Long> resultado = new HashMap<>();
+
+            Long counter = pacienteRepository.countAllBySexo(Sexo.FEMENINO);
+            resultado.put("cant_femenino", counter);
+
+
+            counter = pacienteRepository.countAllBySexo(Sexo.MASCULINO);
+            resultado.put("cant_masculino", counter);
+
+            return resultado;
+
         }
         catch (Exception e) {
             throw e;

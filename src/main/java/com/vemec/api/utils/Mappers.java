@@ -1,6 +1,8 @@
 package com.vemec.api.utils;
+
 import com.vemec.api.constants.Alerta;
 import com.vemec.api.constants.Estado;
+import com.vemec.api.constants.Sexo;
 import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
@@ -36,13 +38,13 @@ public class Mappers {
     }
 
     public static Sala mapToSala(Map<String, Object> payload, Sala u) {
-        if(payload.get("nombre") != null){
+        if (payload.get("nombre") != null) {
             u.setNombre(payload.get("nombre").toString());
         }
-        if(payload.get("capacidad") != null){
+        if (payload.get("capacidad") != null) {
             u.setCapacidad((Integer) payload.get("capacidad"));
         }
-        if(payload.get("centro") != null){
+        if (payload.get("centro") != null) {
             Centro c = new Centro();
             c.setId((Integer) payload.get("centro"));
             u.setCentro(c);
@@ -72,68 +74,82 @@ public class Mappers {
             patologias.setPatologias((List<String>) payload.get("patologias"));
             u.setPatologias(patologias);
         }
+
+
+        if (payload.get("sexo") != null) {
+            switch (payload.get("sexo").toString()) {
+                case "FEMENINO": {
+                    u.setSexo(Sexo.FEMENINO);
+                    break;
+                }
+                case "MASCULINO": {
+                    u.setSexo(Sexo.MASCULINO);
+                    break;
+                }
+            }
+        }
+
+
         return u;
     }
 
     public static Ingreso mapToIngreso(Map<String, Object> payload, Ingreso i) throws ParseException {
-        if(payload.get("causa") != null ){
+        if (payload.get("causa") != null) {
             i.setCausa(payload.get("causa").toString());
         }
-        if(payload.get("estado") != null ){
-            switch (payload.get("estado").toString()){
-                case "ESTABLE":{
+        if (payload.get("estado") != null) {
+            switch (payload.get("estado").toString()) {
+                case "ESTABLE": {
                     i.setEstado(Estado.ESTABLE);
                     break;
                 }
-                case "CRITICO":{
+                case "CRITICO": {
                     i.setEstado(Estado.CRITICO);
                     break;
                 }
-                case "INTERMEDIO":{
+                case "INTERMEDIO": {
                     i.setEstado(Estado.INTERMEDIO);
                     break;
                 }
-                case "SANO":{
+                case "SANO": {
                     i.setEstado(Estado.SANO);
                     break;
                 }
-                case "DIFUNTO":{
+                case "DIFUNTO": {
                     i.setEstado(Estado.DIFUNTO);
                     break;
                 }
             }
         }
-        if(payload.get("fechaEgreso") != null ){
-            try{
+        if (payload.get("fechaEgreso") != null) {
+            try {
                 i.setFechaEgreso(Utils.parseToSqldate((String) payload.get("fechaEgreso")));
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 throw e;
             }
         }
-        if(payload.get("fechaIngreso") != null ){
-            try{
+        if (payload.get("fechaIngreso") != null) {
+            try {
                 i.setFechaIngreso(Utils.parseToSqldate((String) payload.get("fechaIngreso")));
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 throw e;
             }
         }
-        if(payload.get("sala") != null){
+        if (payload.get("sala") != null) {
             Sala u = new Sala();
-            u.setId((Integer)payload.get("sala"));
+            u.setId((Integer) payload.get("sala"));
             i.setSala(u);
         }
-        if(payload.get("vemec") != null){
+        if (payload.get("vemec") != null) {
             VeMec vm = new VeMec();
-            vm.setId((Integer)payload.get("vemec"));
+            vm.setId((Integer) payload.get("vemec"));
             i.setVemec(vm);
         }
-         if(payload.get("paciente") != null){
-             Paciente p = new Paciente();
-             p.setId((Integer)payload.get("paciente"));
-             i.setPaciente(p);
-         }
+        if (payload.get("paciente") != null) {
+            Paciente p = new Paciente();
+            p.setId((Integer) payload.get("paciente"));
+            i.setPaciente(p);
+        }
 
         return i;
     }
@@ -156,63 +172,62 @@ public class Mappers {
             r.setFrecGas((Double) payload.get("frecGas"));
         }
 
-        if(payload.get("mezcla") != null){
+        if (payload.get("mezcla") != null) {
             r.setMezcla((Double) payload.get("mezcla"));
         }
 
-        if(payload.get("humedadAire") != null){
+        if (payload.get("humedadAire") != null) {
             r.setHumedadAire((Double) payload.get("humedadAire"));
         }
 
-        if(payload.get("tempEntrada") != null){
+        if (payload.get("tempEntrada") != null) {
             r.setTempEntrada((Double) payload.get("tempEntrada"));
         }
 
-        if(payload.get("tempSalida") != null){
+        if (payload.get("tempSalida") != null) {
             r.setTempSalida((Double) payload.get("tempSalida"));
         }
 
-        if(payload.get("presionEntrada") != null){
+        if (payload.get("presionEntrada") != null) {
             r.setPresionEntrada((Double) payload.get("presionEntrada"));
         }
 
-        if(payload.get("presionSalida") != null){
+        if (payload.get("presionSalida") != null) {
             r.setPresionSalida((Double) payload.get("presionSalida"));
         }
 
-        if(payload.get("alerta") != null ){
-            switch (payload.get("alerta").toString()){
-                case "ROJO":{
+        if (payload.get("alerta") != null) {
+            switch (payload.get("alerta").toString()) {
+                case "ROJO": {
                     r.setAlerta(Alerta.ROJO);
                     break;
                 }
-                case "NARANJA":{
+                case "NARANJA": {
                     r.setAlerta(Alerta.NARANJA);
                     break;
                 }
-                case "AMARILLO":{
+                case "AMARILLO": {
                     r.setAlerta(Alerta.AMARILLO);
                     break;
                 }
-                case "VERDE":{
+                case "VERDE": {
                     r.setAlerta(Alerta.VERDE);
                     break;
                 }
             }
-        }else{
+        } else {
             r.setAlerta(Alerta.VERDE);
         }
 
-        if(payload.get("time") != null){
-            try{
+        if (payload.get("time") != null) {
+            try {
                 r.setTime(Utils.parseToSqldate((String) payload.get("time")));
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 throw e;
             }
         }
 
-        if(payload.get("ingreso") != null){
+        if (payload.get("ingreso") != null) {
             Ingreso i = new Ingreso();
             i.setId((Integer) payload.get("ingreso"));
             r.setIngreso(i);
@@ -240,17 +255,17 @@ public class Mappers {
         return r;
     }
 
-    public static VeMec mapToVeMec (Map < String, Object > payload, VeMec v){
-        if(payload.get("marca") != null){
+    public static VeMec mapToVeMec(Map<String, Object> payload, VeMec v) {
+        if (payload.get("marca") != null) {
             v.setMarca(payload.get("marca").toString());
         }
-        if(payload.get("modelo") != null){
+        if (payload.get("modelo") != null) {
             v.setModelo(payload.get("modelo").toString());
         }
-        if(payload.get("estado") != null){
+        if (payload.get("estado") != null) {
             v.setEstado((Boolean) payload.get("estado"));
         }
-        if(payload.get("sala") != null){
+        if (payload.get("sala") != null) {
             Sala u = new Sala();
             u.setId((Integer) payload.get("sala"));
             v.setSala(u);
@@ -258,14 +273,14 @@ public class Mappers {
         return v;
     }
 
-    public static void mapToUsuario (Map < String, String > payload, Usuario u){
-        if(payload.get("username") != null){
+    public static void mapToUsuario(Map<String, String> payload, Usuario u) {
+        if (payload.get("username") != null) {
             u.setUsername(payload.get("username"));
         }
-        if(payload.get("imagen") != null){
+        if (payload.get("imagen") != null) {
             u.setImage(payload.get("imagen"));
         }
-        if(payload.get("password") != null){
+        if (payload.get("password") != null) {
             u.setPassword(payload.get("password"));
         }
     }

@@ -53,6 +53,7 @@ public class IngresoService {
             throw e;
         }
     }
+    
     public
     Iterable<Ingreso> getAll(Integer page, Integer limit, String causa, Integer id) throws Exception{
         try {

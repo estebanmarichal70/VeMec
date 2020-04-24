@@ -3,6 +3,7 @@ package com.vemec.api.models.paciente;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.vemec.api.constants.Sexo;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
 
@@ -20,6 +21,8 @@ public class Paciente {
     private String nombre;
     private String apellido;
     private Integer edad;
+
+    private Sexo sexo;
 
     @ManyToOne
     private PatologiasWrapper patologias;
@@ -89,16 +92,12 @@ public class Paciente {
         ingreso.setPaciente(null);
     }
 
-    @Override
-    public String toString() {
-        return "Paciente{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", edad=" + edad +
-                ", patologias=" + patologias +
-                ", ingresos=" + ingresos +
-                '}';
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
     }
 
     @Override
@@ -110,12 +109,26 @@ public class Paciente {
                 Objects.equals(nombre, paciente.nombre) &&
                 Objects.equals(apellido, paciente.apellido) &&
                 Objects.equals(edad, paciente.edad) &&
+                sexo == paciente.sexo &&
                 Objects.equals(patologias, paciente.patologias) &&
                 Objects.equals(ingresos, paciente.ingresos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, apellido, edad, patologias, ingresos);
+        return Objects.hash(id, nombre, apellido, edad, sexo, patologias, ingresos);
+    }
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", edad=" + edad +
+                ", sexo=" + sexo +
+                ", patologias=" + patologias +
+                ", ingresos=" + ingresos +
+                '}';
     }
 }

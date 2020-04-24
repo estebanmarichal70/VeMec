@@ -39,6 +39,18 @@ public class PacienteController {
         }
     }
 
+
+    @GetMapping("/cnt_by_sexo")
+    public @ResponseBody
+    ResponseEntity countAllBySexo() {
+        try {
+            return new ResponseEntity<>(pacienteService.countAllBySexo(),null, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return Utils.mapErrors(e);
+        }
+    }
+
     @GetMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity getByID(@PathVariable("id") Integer id)   {

@@ -1,5 +1,6 @@
 package com.vemec.api.models.paciente;
 
+import com.vemec.api.constants.Sexo;
 import com.vemec.api.models.centro.Centro;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,4 +13,6 @@ public interface PacienteRepository extends PagingAndSortingRepository<Paciente,
     Page<Paciente> findAllByNombreContainingAndApellidoContaining(Pageable pageable, String nombre, String apellido);
     Page<Paciente> findAllByNombreContaining(Pageable pageable, String nombre);
     Page<Paciente> findAllByApellidoContaining(Pageable pageable, String apellido);
+
+    Long countAllBySexo(Sexo sexo);
 }
