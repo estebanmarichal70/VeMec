@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -84,6 +85,25 @@ public class VeMecService {
             VeMec v =  Mappers.mapToVeMec(payload, ve.get());
             veMecRepository.save(v);
             return v;
+        }
+        catch (Exception e) {
+            throw e;
+        }
+    }
+    public Map<String, Long> countAllByEstado() {
+        try {
+            Map<String, Long> resultado = new HashMap<>();
+
+            Long counter = veMecRepository.countAllByEstado(true);
+            resultado.put("usados", counter);
+
+
+            counter = veMecRepository.countAllByEstado(false);
+            resultado.put("libres", counter);
+
+
+            return resultado;
+
         }
         catch (Exception e) {
             throw e;

@@ -69,4 +69,15 @@ public class VeMecController {
             return Utils.mapErrors(e);
         }
     }
+
+    @GetMapping("/cnt_by_estado")
+    public @ResponseBody
+    ResponseEntity countAllByEstado() {
+        try {
+            return new ResponseEntity<>(veMecService.countAllByEstado(),null, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return Utils.mapErrors(e);
+        }
+    }
 }

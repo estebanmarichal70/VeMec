@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VeMecRepository extends PagingAndSortingRepository<VeMec, Integer> {
-
+    Long countAllByEstado(Boolean estado);
 }
