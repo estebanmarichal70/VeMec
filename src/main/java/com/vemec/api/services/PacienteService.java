@@ -137,35 +137,35 @@ public class PacienteService {
             Map<String, Long> resultado = new HashMap<>();
 
             Long counter = pacienteRepository.countAllByEdadBetween(0,9);
-            resultado.put("0 a 9", counter);
+            resultado.put("cero_a_nueve", counter);
 
 
             counter = pacienteRepository.countAllByEdadBetween(10,19);
-            resultado.put("10 a 19", counter);
+            resultado.put("diez_a_diecinueve", counter);
 
 
             counter = pacienteRepository.countAllByEdadBetween(20,29);
-            resultado.put("20 a 29", counter);
+            resultado.put("veinte_a_veintinueve", counter);
 
 
             counter = pacienteRepository.countAllByEdadBetween(30,39);
-            resultado.put("30 a 39", counter);
+            resultado.put("treinta_a_treintainueve", counter);
 
 
             counter = pacienteRepository.countAllByEdadBetween(40,49);
-            resultado.put("40 a 49", counter);
+            resultado.put("cuarenta_a_cuarentainueve", counter);
 
 
             counter = pacienteRepository.countAllByEdadBetween(50,59);
-            resultado.put("50 a 59", counter);
+            resultado.put("cincuenta_a_cincuentainueve", counter);
 
 
             counter = pacienteRepository.countAllByEdadBetween(60,69);
-            resultado.put("60 a 69", counter);
+            resultado.put("sesenta_a_sesentainueve", counter);
 
 
             counter = pacienteRepository.countAllByEdadBetween(70,999);
-            resultado.put("mas de 70", counter);
+            resultado.put("mas_de_setenta", counter);
             return resultado;
 
         }
