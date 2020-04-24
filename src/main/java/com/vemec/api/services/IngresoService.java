@@ -1,5 +1,7 @@
 package com.vemec.api.services;
 
+import com.vemec.api.constants.Estado;
+import com.vemec.api.constants.Sexo;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.paciente.Paciente;
@@ -180,6 +182,36 @@ public class IngresoService {
             date2 = Utils.parseToSqldate(fecha2);
             long count = ingresoRepository.countAllByFechaIngresoAfterAndFechaIngresoBefore(date1, date2);
             return count;
+        }
+        catch (Exception e) {
+            throw e;
+        }
+    }
+    public
+    Map<String, Long> countAllByEstado() {
+        try {
+            Map<String, Long> resultado = new HashMap<>();
+
+            Long counter = ingresoRepository.countAllByEstado(Estado.CRITICO);
+            resultado.put("cant critico", counter);
+
+
+            counter = ingresoRepository.countAllByEstado(Estado.DIFUNTO);
+            resultado.put("cant_difunto", counter);
+
+
+            counter = ingresoRepository.countAllByEstado(Estado.ESTABLE);
+            resultado.put("cant_estable", counter);
+
+
+            counter = ingresoRepository.countAllByEstado(Estado.INTERMEDIO);
+            resultado.put("cant_intermedio", counter);
+
+
+            counter = ingresoRepository.countAllByEstado(Estado.SANO);
+            resultado.put("cant_sano", counter);
+            return resultado;
+
         }
         catch (Exception e) {
             throw e;

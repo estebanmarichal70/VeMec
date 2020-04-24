@@ -82,4 +82,15 @@ public class PacienteController {
             return Utils.mapErrors(e);
         }
     }
+
+    @GetMapping("/cnt_by_edad")
+    public @ResponseBody
+    ResponseEntity countAllByEdadBetween() {
+        try {
+            return new ResponseEntity<>(pacienteService.countAllByEdadBetween(),null, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return Utils.mapErrors(e);
+        }
+    }
 }

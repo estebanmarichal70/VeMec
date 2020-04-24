@@ -15,4 +15,5 @@ public interface PacienteRepository extends PagingAndSortingRepository<Paciente,
     Page<Paciente> findAllByApellidoContaining(Pageable pageable, String apellido);
 
     Long countAllBySexo(Sexo sexo);
+    Long countAllByEdadBetween(Integer edad1, Integer edad2);
 }
