@@ -76,4 +76,14 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+    @GetMapping(path = "/ingPSV/{id}")
+    public @ResponseBody
+    ResponseEntity pacienteSalaVemec(@PathVariable("id") Integer id){
+        try{
+            return new ResponseEntity<>(this.ingresoService.pacienteSalaVemec(id), null, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return Utils.mapErrors(e);
+        }
+    }
 }

@@ -46,16 +46,12 @@ public class PacienteService {
             Pageable paging = PageRequest.of(page, limit);
             Page<Paciente> pagedResult;
             if((!nombre.equals("") && !nombre.equals("null")) && (!apellido.equals("") && !apellido.equals("null"))) {
-                System.out.println("find nombre apellidoq");
                 pagedResult = pacienteRepository.findAllByNombreContainingAndApellidoContaining(paging,nombre,apellido);
             }else if((!nombre.equals("") && !nombre.equals("null")) && (apellido.equals("") || apellido.equals("null"))) {
-                System.out.println("find nombre");
                 pagedResult = pacienteRepository.findAllByNombreContaining(paging,nombre);
             }else if((!apellido.equals("") && !apellido.equals("null")) && ((nombre.equals("") || apellido.equals("null")))) {
-                System.out.println("find apellido");
                 pagedResult = pacienteRepository.findAllByApellidoContaining(paging,apellido);
             }else {
-                System.out.println("find all");
                 pagedResult = pacienteRepository.findAll(paging);
             }
             List resultado = new LinkedList();

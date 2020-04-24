@@ -1,6 +1,5 @@
 package com.vemec.api.services;
 
-import com.vemec.api.models.centro.Centro;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.paciente.Paciente;
@@ -10,7 +9,6 @@ import com.vemec.api.models.sala.SalaRepository;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.vemec.VeMecRepository;
 import com.vemec.api.utils.Mappers;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,14 +61,12 @@ public class IngresoService {
             Integer ingresoID;
 
             if ((!causa.equals("") && !causa.equals("null")) && !id.equals("") && !id.equals("null") ) {
-                System.out.println("busca por causa y id");
                 ingresoID = id;
                 Ingreso i = new Ingreso();
                 i.setId(ingresoID);
                 pagedResult = ingresoRepository.findAllByCausaContainingAndId(paging, causa, i);
 
             } else if ((causa.equals("") || causa.equals("null")) && (!id.equals("") && !id.equals("null")) ) {
-                System.out.println("busca por id");
                 ingresoID = id;
                 Ingreso i = new Ingreso();
                 i.setId(ingresoID);
@@ -78,11 +74,9 @@ public class IngresoService {
 
 
             }else if((!causa.equals("") && !causa.equals("null")) && (id.equals("") || id.equals("null"))){
-                System.out.println("busca por causa");
                 pagedResult = ingresoRepository.findAllByCausaContaining(paging, causa);
 
             }else{
-                System.out.println("busca todo");
                 pagedResult = ingresoRepository.findAll(paging);
 
             }
@@ -141,10 +135,26 @@ public class IngresoService {
     }
     public
     Sala vemecSala(Integer id) throws Exception{
-
         try{
             Sala sala = ingresoRepository.findById(id).get().getSala();
             return sala;
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
+    public
+    List pacienteSalaVemec(Integer id) throws Exception{
+        try{
+            Ingreso i = ingresoRepository.findById(id).get();
+            Paciente paciente = i.getPaciente();
+            Sala sala = i.getSala();
+            VeMec vemec = i.getVemec();
+            List resultado = new LinkedList();
+            resultado.add(paciente);
+            resultado.add(sala);
+            resultado.add(vemec);
+            return resultado;
         }
         catch (Exception e){
             throw e;

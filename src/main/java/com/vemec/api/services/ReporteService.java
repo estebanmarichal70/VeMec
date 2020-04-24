@@ -6,13 +6,12 @@ import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.reporte.ReporteRepository;
-import com.vemec.api.models.sala.Sala;
 import com.vemec.api.utils.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -57,11 +56,9 @@ public class ReporteService {
                 Ingreso i = new Ingreso();
                 Integer ingId = Integer.parseInt(id);
                 i.setId(ingId);
-                System.out.println("Busca por id " + i.getId() );
                 pagedResult = reporteRepository.findAllByIngreso(paging, i);
             }
             else{
-                System.out.println("Busca todo");
                 pagedResult = reporteRepository.findAll(paging);
             }
             List resultado = new LinkedList();
