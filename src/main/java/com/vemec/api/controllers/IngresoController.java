@@ -86,4 +86,14 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+    @GetMapping(path = "/cantidadIngresos")
+    public @ResponseBody
+    ResponseEntity ingresosHoy(){
+        try{
+            return new ResponseEntity<>(this.ingresoService.countAllByFechaIngresoAfterAndFechaIngresoBefore(), null, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return Utils.mapErrors(e);
+        }
+    }
 }

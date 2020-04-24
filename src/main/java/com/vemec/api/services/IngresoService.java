@@ -14,11 +14,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import com.vemec.api.utils.Utils;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class IngresoService {
@@ -157,6 +157,30 @@ public class IngresoService {
             return resultado;
         }
         catch (Exception e){
+            throw e;
+        }
+    }
+    public
+    long countAllByFechaIngresoAfterAndFechaIngresoBefore() throws Exception {
+        try{
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.HOUR_OF_DAY, 00);
+            c.set(Calendar.MINUTE, 00);
+            c.set(Calendar.SECOND, 00);
+            Date date1 = c.getTime();
+            c.set(Calendar.HOUR_OF_DAY, 23);
+            c.set(Calendar.MINUTE, 59);
+            c.set(Calendar.SECOND, 59);
+            Date date2 = c.getTime();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String fecha = dateFormat.format(date1);
+            String fecha2 = dateFormat.format(date2);
+            date1 = Utils.parseToSqldate(fecha);
+            date2 = Utils.parseToSqldate(fecha2);
+            long count = ingresoRepository.countAllByFechaIngresoAfterAndFechaIngresoBefore(date1, date2);
+            return count;
+        }
+        catch (Exception e) {
             throw e;
         }
     }
