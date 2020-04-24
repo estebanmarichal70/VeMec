@@ -86,7 +86,7 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
-    @GetMapping(path = "/cantidadIngresos")
+    @GetMapping(path = "/ingresos_hoy")
     public @ResponseBody
     ResponseEntity ingresosHoy(){
         try{
