@@ -105,11 +105,22 @@ public class IngresoController {
         }
     }
 
-    @GetMapping(path = "/ingresos_hoy")
+    @GetMapping(path = "/hoy")
     public @ResponseBody
     ResponseEntity ingresosHoy(){
         try{
-            return new ResponseEntity<>(this.ingresoService.countAllByFechaIngresoAfterAndFechaIngresoBefore(), null, HttpStatus.OK);
+            return new ResponseEntity<>(this.ingresoService.countAllByFechaIngresoAfterAndFechaIngresoBeforeAndFechaEgreso(), null, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return Utils.mapErrors(e);
+        }
+    }
+
+    @GetMapping(path = "/total")
+    public @ResponseBody
+    ResponseEntity ingresosTotal(){
+        try{
+            return new ResponseEntity<>(this.ingresoService.countAllByFechaEgreso(), null, HttpStatus.OK);
         }
         catch(Exception e){
             return Utils.mapErrors(e);

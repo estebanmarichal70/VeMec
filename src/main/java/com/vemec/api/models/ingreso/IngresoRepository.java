@@ -14,6 +14,7 @@ public interface IngresoRepository extends PagingAndSortingRepository<Ingreso, I
     Page<Ingreso> findAllByCausaContaining(Pageable pageable, String causa);
     Page<Ingreso> findAllByCausaContainingAndId(Pageable pageable, String causa, Ingreso id);
     Page<Ingreso> findAllById(Pageable pageable, Ingreso id);
-    Long countAllByFechaIngresoAfterAndFechaIngresoBefore(Date fechaInicio, Date fechaFin);
+    Long countAllByFechaIngresoAfterAndFechaIngresoBeforeAndFechaEgreso(Date fechaInicio, Date fechaFin, Date FechaEgr);
     Long countAllByEstadoAndFechaEgreso(Estado estado, Date date);
+    Long countAllByFechaEgreso(Date fecha);
 }

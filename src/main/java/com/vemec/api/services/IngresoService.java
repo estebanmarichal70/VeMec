@@ -178,7 +178,7 @@ public class IngresoService {
         }
     }
     public
-    long countAllByFechaIngresoAfterAndFechaIngresoBefore() throws Exception {
+    long countAllByFechaIngresoAfterAndFechaIngresoBeforeAndFechaEgreso() throws Exception {
         try{
             Calendar c = Calendar.getInstance();
             c.set(Calendar.HOUR_OF_DAY, 00);
@@ -194,7 +194,7 @@ public class IngresoService {
             String fecha2 = dateFormat.format(date2);
             date1 = Utils.parseToSqldate(fecha);
             date2 = Utils.parseToSqldate(fecha2);
-            long count = ingresoRepository.countAllByFechaIngresoAfterAndFechaIngresoBefore(date1, date2);
+            long count = ingresoRepository.countAllByFechaIngresoAfterAndFechaIngresoBeforeAndFechaEgreso(date1, date2, null);
             return count;
         }
         catch (Exception e) {
@@ -226,6 +226,16 @@ public class IngresoService {
             resultado.put("cant_sano", counter);
             return resultado;
 
+        }
+        catch (Exception e) {
+            throw e;
+        }
+    }
+    public
+    Long countAllByFechaEgreso() throws Exception {
+        try {
+            long count = ingresoRepository.countAllByFechaEgreso(null);
+            return count;
         }
         catch (Exception e) {
             throw e;
