@@ -66,6 +66,17 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+    @PutMapping(path = "/finalizar/{id}")
+    public @ResponseBody
+    ResponseEntity finalizarIngreso(@PathVariable("id") Integer id, @RequestBody Map<String, Object> payload) {
+
+        try {
+            return new ResponseEntity<>(this.ingresoService.finalizarIngreso(id, payload), null, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return Utils.mapErrors(e);
+        }
+    }
     @GetMapping(path = "/sala/{id}")
     public @ResponseBody
     ResponseEntity vemecSala(@PathVariable("id") Integer id){

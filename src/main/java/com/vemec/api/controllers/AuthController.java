@@ -1,7 +1,5 @@
 package com.vemec.api.controllers;
 
-import com.sun.source.tree.Tree;
-import com.vemec.api.models.usuario.UsuarioRepository;
 import com.vemec.api.services.VemecUserDetailsService;
 import com.vemec.api.utils.JwtUtils;
 import com.vemec.api.utils.Utils;
@@ -11,11 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;

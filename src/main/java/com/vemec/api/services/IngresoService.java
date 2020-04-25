@@ -1,7 +1,6 @@
 package com.vemec.api.services;
 
 import com.vemec.api.constants.Estado;
-import com.vemec.api.constants.Sexo;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
 import com.vemec.api.models.paciente.Paciente;
@@ -11,12 +10,12 @@ import com.vemec.api.models.sala.SalaRepository;
 import com.vemec.api.models.vemec.VeMec;
 import com.vemec.api.models.vemec.VeMecRepository;
 import com.vemec.api.utils.Mappers;
+import com.vemec.api.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.vemec.api.utils.Utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -124,9 +123,23 @@ public class IngresoService {
     }
     public
     Ingreso update(Integer id, Map<String, Object> payload) throws Exception{
-
         try {
             Optional<Ingreso> in = ingresoRepository.findById(id);
+            Ingreso i = new Ingreso();
+            i = Mappers.mapToIngreso(payload, in.get());
+            ingresoRepository.save(i);
+            return i;
+        }
+        catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public
+    Ingreso finalizarIngreso(Integer id, Map<String, Object> payload) throws Exception{
+        try {
+            Optional<Ingreso> in = ingresoRepository.findById(id);
+            in.get().getVemec().setEstado(false);
             Ingreso i = new Ingreso();
             i = Mappers.mapToIngreso(payload, in.get());
             ingresoRepository.save(i);

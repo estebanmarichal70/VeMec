@@ -103,15 +103,17 @@ public class PacienteService {
         try {
             Paciente p = pacienteRepository.findById(id).get();
             PatologiasWrapper patologias = p.getPatologias();
-            p.setPatologias(null);
-            patologiasWrapperRepository.deleteById(patologias.getId());
+            if(patologias != null){
+                p.setPatologias(null);
+                patologiasWrapperRepository.deleteById(patologias.getId());
+            }
             p.getIngresos().forEach((value)->{
+                value.getSala().removefromIngresos(value);
                 value.setVemec(null);
                 value.setSala(null);
             });
 
             pacienteRepository.deleteById(id);
-
             return true;
         } catch (Exception e) {
             throw e;

@@ -1,7 +1,6 @@
 package com.vemec.api.models.paciente;
 
 import com.vemec.api.constants.Sexo;
-import com.vemec.api.models.centro.Centro;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
