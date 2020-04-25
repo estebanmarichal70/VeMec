@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -58,7 +59,7 @@ public class IngresoService {
     public
     Iterable<Ingreso> getAll(Integer page, Integer limit, String causa, Integer id) throws Exception{
         try {
-            Pageable paging = PageRequest.of(page, limit);
+            Pageable paging = PageRequest.of(page, limit,  Sort.by("id").descending());
             Page<Ingreso> pagedResult;
             Integer ingresoID;
 

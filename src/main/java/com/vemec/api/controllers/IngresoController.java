@@ -26,6 +26,7 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+
     @GetMapping
     public @ResponseBody
     ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit,@RequestParam String causa, @RequestParam Integer id) {
@@ -36,6 +37,7 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+
     @GetMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity getByID(@PathVariable("id") Integer id)   {
@@ -46,6 +48,7 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+
     @DeleteMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {
@@ -55,6 +58,7 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+
     @PutMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity update(@PathVariable("id") Integer id, @RequestBody Map<String, Object> payload) {
@@ -66,6 +70,7 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+
     @PutMapping(path = "/finalizar/{id}")
     public @ResponseBody
     ResponseEntity finalizarIngreso(@PathVariable("id") Integer id, @RequestBody Map<String, Object> payload) {
@@ -77,6 +82,7 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+
     @GetMapping(path = "/sala/{id}")
     public @ResponseBody
     ResponseEntity vemecSala(@PathVariable("id") Integer id){
@@ -87,6 +93,7 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+
     @GetMapping(path = "/ingPSV/{id}")
     public @ResponseBody
     ResponseEntity pacienteSalaVemec(@PathVariable("id") Integer id){
@@ -97,6 +104,7 @@ public class IngresoController {
             return Utils.mapErrors(e);
         }
     }
+
     @GetMapping(path = "/ingresos_hoy")
     public @ResponseBody
     ResponseEntity ingresosHoy(){

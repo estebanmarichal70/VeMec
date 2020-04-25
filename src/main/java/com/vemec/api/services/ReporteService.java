@@ -11,20 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class ReporteService {
+
     @Autowired
     private ReporteRepository reporteRepository;
 
     @Autowired
     private IngresoRepository ingresoRepository;
 
-    public
-    Reporte addNew(Map<String, Object> payload) throws Exception {
+    public Reporte addNew(Map<String, Object> payload) throws Exception {
         try {
             Reporte r = new Reporte();
             r = Mappers.mapToReporte(payload, r);
@@ -33,7 +34,7 @@ public class ReporteService {
             i.addToHistorial(r);
             reporteRepository.save(r);
 
-            if(r.getAlerta() == Alerta.ROJO || r.getAlerta() == Alerta.NARANJA || r.getAlerta() == Alerta.AMARILLO){
+            if (r.getAlerta() == Alerta.ROJO || r.getAlerta() == Alerta.NARANJA || r.getAlerta() == Alerta.AMARILLO) {
                 Map<String, Object> data = new HashMap<>();
                 data.put("paciente", r.getIngreso().getPaciente());
                 data.put("reporte", r);
@@ -42,51 +43,51 @@ public class ReporteService {
             }
 
             return r;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw e;
         }
     }
-    public
-    Iterable<Reporte> getAll(Integer page, Integer limit, String id) throws Exception{
+
+    public Iterable<Reporte> getAll(Integer page, Integer limit, String ingresoId) throws Exception {
         try {
-            Pageable paging = PageRequest.of(page, limit);
+
+            Pageable paging = PageRequest.of(page, limit, Sort.by("id").descending());
             Page<Reporte> pagedResult;
-            if(!id.equals("") && !id.equals("null")){
+
+            if (!ingresoId.equals("") && !ingresoId.equals("null")) {
                 Ingreso i = new Ingreso();
-                Integer ingId = Integer.parseInt(id);
+                Integer ingId = Integer.parseInt(ingresoId);
                 i.setId(ingId);
                 pagedResult = reporteRepository.findAllByIngreso(paging, i);
-            }
-            else{
+
+            } else {
                 pagedResult = reporteRepository.findAll(paging);
             }
+
             List resultado = new LinkedList();
             resultado.add(pagedResult.getTotalPages());
             resultado.add(pagedResult.getTotalElements());
             resultado.add(pagedResult.toList());
             return resultado;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw e;
         }
     }
-    public
-    Reporte getByID(Integer id) throws Exception {
+
+    public Reporte getByID(Integer id) throws Exception {
         try {
             Optional<Reporte> r = reporteRepository.findById(id);
             if (r.isPresent()) {
                 return r.get();
-            }else {
+            } else {
                 throw new Exception("Not Found");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw e;
         }
     }
-    public
-    Boolean delete(Integer id) throws Exception{
+
+    public Boolean delete(Integer id) throws Exception {
         try {
             Reporte r = reporteRepository.findById(id).get();
             r.getIngreso().removeFromReportes(r);
@@ -96,8 +97,8 @@ public class ReporteService {
             throw e;
         }
     }
-    public
-    Reporte update(Integer id, Map<String, Object> payload) throws Exception {
+
+    public Reporte update(Integer id, Map<String, Object> payload) throws Exception {
 
         try {
             Optional<Reporte> re = reporteRepository.findById(id);
@@ -105,8 +106,7 @@ public class ReporteService {
             r = Mappers.mapToReporte(payload, re.get());
             reporteRepository.save(r);
             return r;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw e;
         }
     }
