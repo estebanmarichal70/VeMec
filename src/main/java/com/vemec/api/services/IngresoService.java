@@ -192,23 +192,23 @@ public class IngresoService {
         try {
             Map<String, Long> resultado = new HashMap<>();
 
-            Long counter = ingresoRepository.countAllByEstado(Estado.CRITICO);
-            resultado.put("cant critico", counter);
+            Long counter = ingresoRepository.countAllByEstadoAndFechaEgreso(Estado.CRITICO, null);
+            resultado.put("cant_critico", counter);
 
 
-            counter = ingresoRepository.countAllByEstado(Estado.DIFUNTO);
+            counter = ingresoRepository.countAllByEstadoAndFechaEgreso(Estado.DIFUNTO, null);
             resultado.put("cant_difunto", counter);
 
 
-            counter = ingresoRepository.countAllByEstado(Estado.ESTABLE);
+            counter = ingresoRepository.countAllByEstadoAndFechaEgreso(Estado.ESTABLE, null);
             resultado.put("cant_estable", counter);
 
 
-            counter = ingresoRepository.countAllByEstado(Estado.INTERMEDIO);
+            counter = ingresoRepository.countAllByEstadoAndFechaEgreso(Estado.INTERMEDIO, null);
             resultado.put("cant_intermedio", counter);
 
 
-            counter = ingresoRepository.countAllByEstado(Estado.SANO);
+            counter = ingresoRepository.countAllByEstadoAndFechaEgreso(Estado.SANO, null);
             resultado.put("cant_sano", counter);
             return resultado;
 
