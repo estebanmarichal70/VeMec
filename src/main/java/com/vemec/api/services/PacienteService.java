@@ -109,6 +109,8 @@ public class PacienteService {
             }
             p.getIngresos().forEach((value)->{
                 value.getSala().removefromIngresos(value);
+                value.setPaciente(null);
+                value.getVemec().setEstado(false);
                 value.setVemec(null);
                 value.setSala(null);
             });
