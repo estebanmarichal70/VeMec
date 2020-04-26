@@ -157,43 +157,60 @@ public class Mappers {
     public static Reporte mapToReporte(Map<String, Object> payload, Reporte r) throws Exception {
 
         if (payload.get("presionMaxima") != null) {
-            r.setPresionMaxima((Double) payload.get("presionMaxima"));
+            double val = ((Number)payload.get("presionMaxima")).doubleValue();
+            r.setPresionMaxima(val);
         }
 
         if (payload.get("presionMinima") != null) {
-            r.setPresionMinima((Double) payload.get("presionMinima"));
+            double val = ((Number)payload.get("presionMinima")).doubleValue();
+            r.setPresionMinima(val);
         }
 
         if (payload.get("volGas") != null) {
-            r.setVolGas((Double) payload.get("volGas"));
+            double val = ((Number) payload.get("volGas")).doubleValue();
+            r.setVolGas(val);
+
         }
 
         if (payload.get("frecGas") != null) {
-            r.setFrecGas((Double) payload.get("frecGas"));
+            double val = ((Number)payload.get("frecGas")).doubleValue();
+            r.setFrecGas(val);
+
         }
 
         if (payload.get("mezcla") != null) {
-            r.setMezcla((Double) payload.get("mezcla"));
+            double val = ((Number)payload.get("mezcla")).doubleValue();
+            r.setMezcla(val);
+
         }
 
         if (payload.get("humedadAire") != null) {
-            r.setHumedadAire((Double) payload.get("humedadAire"));
+            double val = ((Number)payload.get("humedadAire")).doubleValue();
+            r.setHumedadAire(val);
+
         }
 
         if (payload.get("tempEntrada") != null) {
-            r.setTempEntrada((Double) payload.get("tempEntrada"));
+            double val = ((Number)payload.get("tempEntrada")).doubleValue();
+            r.setTempEntrada(val);
+
         }
 
         if (payload.get("tempSalida") != null) {
-            r.setTempSalida((Double) payload.get("tempSalida"));
+            double val = ((Number)payload.get("tempSalida")).doubleValue();
+            r.setTempSalida(val);
+
         }
 
         if (payload.get("presionEntrada") != null) {
-            r.setPresionEntrada((Double) payload.get("presionEntrada"));
+            double val = ((Number)payload.get("presionEntrada")).doubleValue();
+            r.setPresionEntrada(val);
+
         }
 
         if (payload.get("presionSalida") != null) {
-            r.setPresionSalida((Double) payload.get("presionSalida"));
+            double val = ((Number)payload.get("presionSalida")).doubleValue();
+            r.setPresionSalida(val);
         }
 
         if (payload.get("alerta") != null) {

@@ -14,16 +14,16 @@ public class Reporte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Double presionMaxima;
-    private Double presionMinima;
-    private Double volGas;
-    private Double frecGas;
-    private Double mezcla;
-    private Double humedadAire;
-    private Double tempEntrada;
-    private Double tempSalida;
-    private Double presionEntrada;
-    private Double presionSalida;
+    private double presionMaxima;
+    private double presionMinima;
+    private double volGas;
+    private double frecGas;
+    private double mezcla;
+    private double humedadAire;
+    private double tempEntrada;
+    private double tempSalida;
+    private double presionEntrada;
+    private double presionSalida;
 
     private Alerta alerta;
 
@@ -40,6 +40,118 @@ public class Reporte {
     private String unidadVolumen;
 
     public Reporte() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public double getPresionMaxima() {
+        return presionMaxima;
+    }
+
+    public void setPresionMaxima(double presionMaxima) {
+        this.presionMaxima = presionMaxima;
+    }
+
+    public double getPresionMinima() {
+        return presionMinima;
+    }
+
+    public void setPresionMinima(double presionMinima) {
+        this.presionMinima = presionMinima;
+    }
+
+    public double getVolGas() {
+        return volGas;
+    }
+
+    public void setVolGas(double volGas) {
+        this.volGas = volGas;
+    }
+
+    public double getFrecGas() {
+        return frecGas;
+    }
+
+    public void setFrecGas(double frecGas) {
+        this.frecGas = frecGas;
+    }
+
+    public double getMezcla() {
+        return mezcla;
+    }
+
+    public void setMezcla(double mezcla) {
+        this.mezcla = mezcla;
+    }
+
+    public double getHumedadAire() {
+        return humedadAire;
+    }
+
+    public void setHumedadAire(double humedadAire) {
+        this.humedadAire = humedadAire;
+    }
+
+    public double getTempEntrada() {
+        return tempEntrada;
+    }
+
+    public void setTempEntrada(double tempEntrada) {
+        this.tempEntrada = tempEntrada;
+    }
+
+    public double getTempSalida() {
+        return tempSalida;
+    }
+
+    public void setTempSalida(double tempSalida) {
+        this.tempSalida = tempSalida;
+    }
+
+    public double getPresionEntrada() {
+        return presionEntrada;
+    }
+
+    public void setPresionEntrada(double presionEntrada) {
+        this.presionEntrada = presionEntrada;
+    }
+
+    public double getPresionSalida() {
+        return presionSalida;
+    }
+
+    public void setPresionSalida(double presionSalida) {
+        this.presionSalida = presionSalida;
+    }
+
+    public Alerta getAlerta() {
+        return alerta;
+    }
+
+    public void setAlerta(Alerta alerta) {
+        this.alerta = alerta;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public Ingreso getIngreso() {
+        return ingreso;
+    }
+
+    public void setIngreso(Ingreso ingreso) {
+        this.ingreso = ingreso;
     }
 
     public String getUnidadPresion() {
@@ -82,159 +194,22 @@ public class Reporte {
         this.unidadVolumen = unidadVolumen;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Double getPresionMaxima() {
-        return presionMaxima;
-    }
-
-    public void setPresionMaxima(Double presionMaxima) {
-        this.presionMaxima = presionMaxima;
-    }
-
-    public Double getPresionMinima() {
-        return presionMinima;
-    }
-
-    public void setPresionMinima(Double presionMinima) {
-        this.presionMinima = presionMinima;
-    }
-
-    public Double getVolGas() {
-        return volGas;
-    }
-
-    public void setVolGas(Double volGas) {
-        this.volGas = volGas;
-    }
-
-    public Double getFrecGas() {
-        return frecGas;
-    }
-
-    public void setFrecGas(Double frecGas) {
-        this.frecGas = frecGas;
-    }
-
-    public Double getMezcla() {
-        return mezcla;
-    }
-
-    public void setMezcla(Double mezcla) {
-        this.mezcla = mezcla;
-    }
-
-    public Double getHumedadAire() {
-        return humedadAire;
-    }
-
-    public void setHumedadAire(Double humedadAire) {
-        this.humedadAire = humedadAire;
-    }
-
-    public Double getTempEntrada() {
-        return tempEntrada;
-    }
-
-    public void setTempEntrada(Double tempEntrada) {
-        this.tempEntrada = tempEntrada;
-    }
-
-    public Double getTempSalida() {
-        return tempSalida;
-    }
-
-    public void setTempSalida(Double tempSalida) {
-        this.tempSalida = tempSalida;
-    }
-
-    public Double getPresionEntrada() {
-        return presionEntrada;
-    }
-
-    public void setPresionEntrada(Double presionEntrada) {
-        this.presionEntrada = presionEntrada;
-    }
-
-    public Double getPresionSalida() {
-        return presionSalida;
-    }
-
-    public void setPresionSalida(Double presionSalida) {
-        this.presionSalida = presionSalida;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-    public Ingreso getIngreso() {
-        return ingreso;
-    }
-
-    public void setIngreso(Ingreso ingreso) {
-        this.ingreso = ingreso;
-    }
-
-    public Alerta getAlerta() {
-        return alerta;
-    }
-
-    public void setAlerta(Alerta alerta) {
-        this.alerta = alerta;
-    }
-
-    @Override
-    public String toString() {
-        return "Reporte{" +
-                "id=" + id +
-                ", presionMaxima=" + presionMaxima +
-                ", presionMinima=" + presionMinima +
-                ", volGas=" + volGas +
-                ", frecGas=" + frecGas +
-                ", mezcla=" + mezcla +
-                ", humedadAire=" + humedadAire +
-                ", tempEntrada=" + tempEntrada +
-                ", tempSalida=" + tempSalida +
-                ", presionEntrada=" + presionEntrada +
-                ", presionSalida=" + presionSalida +
-                ", alerta=" + alerta +
-                ", time=" + time +
-                ", ingreso=" + ingreso +
-                ", unidadPresion='" + unidadPresion + '\'' +
-                ", unidadTemp='" + unidadTemp + '\'' +
-                ", unidadHumedad='" + unidadHumedad + '\'' +
-                ", unidadFrecuencia='" + unidadFrecuencia + '\'' +
-                ", unidadVolumen='" + unidadVolumen + '\'' +
-                '}';
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reporte reporte = (Reporte) o;
-        return Objects.equals(id, reporte.id) &&
-                Objects.equals(presionMaxima, reporte.presionMaxima) &&
-                Objects.equals(presionMinima, reporte.presionMinima) &&
-                Objects.equals(volGas, reporte.volGas) &&
-                Objects.equals(frecGas, reporte.frecGas) &&
-                Objects.equals(mezcla, reporte.mezcla) &&
-                Objects.equals(humedadAire, reporte.humedadAire) &&
-                Objects.equals(tempEntrada, reporte.tempEntrada) &&
-                Objects.equals(tempSalida, reporte.tempSalida) &&
-                Objects.equals(presionEntrada, reporte.presionEntrada) &&
-                Objects.equals(presionSalida, reporte.presionSalida) &&
+        return Double.compare(reporte.presionMaxima, presionMaxima) == 0 &&
+                Double.compare(reporte.presionMinima, presionMinima) == 0 &&
+                Double.compare(reporte.volGas, volGas) == 0 &&
+                Double.compare(reporte.frecGas, frecGas) == 0 &&
+                Double.compare(reporte.mezcla, mezcla) == 0 &&
+                Double.compare(reporte.humedadAire, humedadAire) == 0 &&
+                Double.compare(reporte.tempEntrada, tempEntrada) == 0 &&
+                Double.compare(reporte.tempSalida, tempSalida) == 0 &&
+                Double.compare(reporte.presionEntrada, presionEntrada) == 0 &&
+                Double.compare(reporte.presionSalida, presionSalida) == 0 &&
+                Objects.equals(id, reporte.id) &&
                 alerta == reporte.alerta &&
                 Objects.equals(time, reporte.time) &&
                 Objects.equals(ingreso, reporte.ingreso) &&
