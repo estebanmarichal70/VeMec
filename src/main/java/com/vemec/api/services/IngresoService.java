@@ -57,31 +57,17 @@ public class IngresoService {
     }
     
     public
-    Iterable<Ingreso> getAll(Integer page, Integer limit, String causa, Integer id) throws Exception{
+    Iterable<Ingreso> getAll(Integer page, Integer limit, Integer id, Integer idP) throws Exception{
         try {
             Pageable paging = PageRequest.of(page, limit,  Sort.by("id").descending());
             Page<Ingreso> pagedResult;
-            Integer ingresoID;
 
-            if ((!causa.equals("") && !causa.equals("null")) && !id.equals("") && !id.equals("null") ) {
-                ingresoID = id;
-                Ingreso i = new Ingreso();
-                i.setId(ingresoID);
-                pagedResult = ingresoRepository.findAllByCausaContainingAndId(paging, causa, i);
-
-            } else if ((causa.equals("") || causa.equals("null")) && (!id.equals("") && !id.equals("null")) ) {
-                ingresoID = id;
-                Ingreso i = new Ingreso();
-                i.setId(ingresoID);
-                pagedResult = ingresoRepository.findAllById(paging, i);
-
-
-            }else if((!causa.equals("") && !causa.equals("null")) && (id.equals("") || id.equals("null"))){
-                pagedResult = ingresoRepository.findAllByCausaContaining(paging, causa);
-
+            if(!idP.equals("") && !idP.equals("null")){
+                Paciente p = new Paciente();
+                p.setId(idP);
+                pagedResult = ingresoRepository.findAllByPaciente(paging, p);
             }else{
                 pagedResult = ingresoRepository.findAll(paging);
-
             }
 
             List resultado = new LinkedList();
@@ -94,6 +80,7 @@ public class IngresoService {
             throw e;
         }
     }
+
     public
     Ingreso getByID (Integer id) throws Exception {
         try {
@@ -143,6 +130,7 @@ public class IngresoService {
             in.get().getVemec().setEstado(false);
             Ingreso i = new Ingreso();
             i = Mappers.mapToIngreso(payload, in.get());
+            System.out.println(i.getFechaEgreso());
             ingresoRepository.save(i);
             return i;
         }
@@ -155,23 +143,6 @@ public class IngresoService {
         try{
             Sala sala = ingresoRepository.findById(id).get().getSala();
             return sala;
-        }
-        catch (Exception e){
-            throw e;
-        }
-    }
-    public
-    List pacienteSalaVemec(Integer id) throws Exception{
-        try{
-            Ingreso i = ingresoRepository.findById(id).get();
-            Paciente paciente = i.getPaciente();
-            Sala sala = i.getSala();
-            VeMec vemec = i.getVemec();
-            List resultado = new LinkedList();
-            resultado.add(paciente);
-            resultado.add(sala);
-            resultado.add(vemec);
-            return resultado;
         }
         catch (Exception e){
             throw e;

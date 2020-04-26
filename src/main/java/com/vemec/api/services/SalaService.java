@@ -94,6 +94,17 @@ public class SalaService {
         }
     }
 
+    public
+    Centro centroSala(Integer id) throws Exception{
+        try{
+            Centro centro = salaRepository.findById(id).get().getCentro();
+            return centro;
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
+
     public Boolean delete(Integer id) throws Exception {
         try {
             Sala u = salaRepository.findById(id).get();

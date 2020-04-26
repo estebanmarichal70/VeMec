@@ -29,9 +29,9 @@ public class IngresoController {
 
     @GetMapping
     public @ResponseBody
-    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit,@RequestParam String causa, @RequestParam Integer id) {
+    ResponseEntity getAll(@RequestParam Integer page,@RequestParam Integer limit, @RequestParam Integer id, @RequestParam Integer idP) {
         try {
-            return new ResponseEntity<>(this.ingresoService.getAll(page -1, limit, causa, id),null, HttpStatus.OK);
+            return new ResponseEntity<>(this.ingresoService.getAll(page -1, limit, id, idP),null, HttpStatus.OK);
         }
         catch (Exception e) {
             return Utils.mapErrors(e);
@@ -88,17 +88,6 @@ public class IngresoController {
     ResponseEntity vemecSala(@PathVariable("id") Integer id){
         try{
             return new ResponseEntity<>(this.ingresoService.vemecSala(id), null, HttpStatus.OK);
-        }
-        catch(Exception e){
-            return Utils.mapErrors(e);
-        }
-    }
-
-    @GetMapping(path = "/ingPSV/{id}")
-    public @ResponseBody
-    ResponseEntity pacienteSalaVemec(@PathVariable("id") Integer id){
-        try{
-            return new ResponseEntity<>(this.ingresoService.pacienteSalaVemec(id), null, HttpStatus.OK);
         }
         catch(Exception e){
             return Utils.mapErrors(e);
