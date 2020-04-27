@@ -174,7 +174,8 @@ Objeto JSON mencionado arriba relacionado al Paciente:
   "nombre": "Rolando",
   "apellido": "Casiha Goalgo",
   "edad": 51,
-  "patologias": ["diabetes", "asma"]
+  "patologias": ["diabetes", "asma"],
+  "sexo":"MASCULINO",
 }
 ```
 
@@ -242,7 +243,8 @@ Objeto JSON mencionado arriba relacionado al Reporte:
     "unidadHumedad": "%",
     "tempEntrada": "11.3",
     "tempSalida": "18.9",
-    "unidadTemp": "°C"
+    "unidadTemp": "°C",
+    "alerta":"ROJO"
 }
 ```
 El formato de la fecha es "yyyy-MM-dd HH:mm:ss".
