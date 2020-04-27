@@ -11,6 +11,8 @@
 
 Esta pensado para ser compilado con JDK 11 por lo tanto, lo ideal es tenerlo instalado previamente.
 
+Se debe cambiar el nombre de la base, usuario y contraseña de MySQL en el archivo application.properties dentro de resources.
+
 Para ejecutar, pararse en la carpeta donde esta el pom:
 
 ```
@@ -70,7 +72,7 @@ Entidad que maneja la creación, modificación y eliminación de los centros mé
 | Verbo HTTP | Endpoint                           | Descripcion                                                                                                                                                                                              |
 | ---------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | POST       | /centro                            | Crea un nuevo centro a partir del objeto JSON recibido en request (ver ejemplo debajo). Le asigna un identificador autogenerado (id).                                                                    |
-| GET        | /centro?page=:pagina&limit=:limite | Obtiene todos los centros que hay guardados en la Base de Datos consumida. Se debe brindar un numero de pagina y un limite de centros para la misma.                                                     |
+| GET        | /centro?page=:pagina&limit=:limite&nombre=:nombre&codigo=:codigo | Obtiene todos los centros que hay guardados en la Base de Datos consumida. Se debe brindar un numero de pagina y un limite de centros para la misma. Tambien se le puede pasar un nombre y/o un codigo de localizacion para filtrar por estos.                                                     |
 | GET        | /centro/:id                        | Obtiene un centro especifico, basado en el parametro id brindado en la URL.                                                                                                                              |
 | PUT        | /centro/:id                        | Actualiza un centro especifico, basado en el parametro id brindado en la URL. La nueva informacion debe ser enviada en un objeto JSON en la request. Puede ser actualizacion parcial o total del objeto. |
 | DELETE     | /centro/:id                        | Elimina un centro especifico, basado en el parametro id brindado en la URL.                                                                                                                              |
@@ -99,7 +101,7 @@ Entidad que maneja la creación, modificación y eliminación de los salas ubica
 | Verbo HTTP | Endpoint                         | Descripcion                                                                                                                                                                                                                                      |
 | ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | POST       | /sala                            | Crea una nueva Sala a partir del objeto JSON recibido en request (ver ejemplo debajo). Esta sala debe estar asociada a un centro previamente creado (se debe brindar el identificador de este). Se le asigna un identificador autogenerado (id). |
-| GET        | /sala?page=:pagina&limit=:limite | Obtiene todas las Salas de todos los centros que hay guardados en la Base de Datos consumida. Se debe brindar un numero de pagina y un limite de salaes para la misma.                                                                           |
+| GET        | /sala?page=:pagina&limit=:limite&nombre=:nombre&centro=:centro | Obtiene todas las Salas de todos los centros que hay guardados en la Base de Datos consumida. Se debe brindar un numero de pagina y un limite de salaes para la misma. Tambien se le puede pasar un nombre y/o un id de centro para filtrar por estos.                                                                           |
 | GET        | /sala/:id                        | Obtiene una Sala especifica, basado en el parametro id brindado en la URL.                                                                                                                                                                       |
 | PUT        | /sala/:id                        | Actualiza una Sala especifica, basado en el parametro id brindado en la URL. La nueva informacion debe ser enviada en un objeto JSON en la request. Puede ser actualizacion parcial o total del objeto.                                          |
 | DELETE     | /sala/:id                        | Elimina una Sala especifica, basado en el parametro id brindado en la URL.                                                                                                                                                                       |
