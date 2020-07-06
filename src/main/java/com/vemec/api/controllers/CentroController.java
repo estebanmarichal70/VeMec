@@ -50,6 +50,17 @@ public class CentroController {
         }
     }
 
+    @GetMapping(path = "/id_nombre")
+    public @ResponseBody
+    ResponseEntity getNombresAndId()   {
+        try {
+            return new ResponseEntity<>(this.centroService.getNombresAndId(),null, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return Utils.mapErrors(e);
+        }
+    }
+
     @DeleteMapping(path = "/{id}")
     public @ResponseBody
     ResponseEntity delete(@PathVariable("id") Integer id) {

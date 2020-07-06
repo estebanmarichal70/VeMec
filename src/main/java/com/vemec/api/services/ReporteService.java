@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -27,6 +28,7 @@ public class ReporteService {
     @Autowired
     private IngresoRepository ingresoRepository;
 
+    @Transactional
     public Reporte addNew(Map<String, Object> payload) throws Exception {
         try {
             Reporte r = new Reporte();
