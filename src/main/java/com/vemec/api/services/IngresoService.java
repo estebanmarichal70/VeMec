@@ -178,6 +178,7 @@ public class IngresoService {
             Map<String, Long> resultado = new HashMap<>();
 
             Long counter = ingresoRepository.countAllByEstadoAndFechaEgreso(Estado.CRITICO, null);
+
             resultado.put("cant_critico", counter);
 
 

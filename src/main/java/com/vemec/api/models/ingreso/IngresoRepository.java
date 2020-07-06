@@ -17,4 +17,6 @@ public interface IngresoRepository extends PagingAndSortingRepository<Ingreso, I
     Long countAllByFechaIngresoAfterAndFechaIngresoBeforeAndFechaEgreso(Date fechaInicio, Date fechaFin, Date FechaEgr);
     Long countAllByEstadoAndFechaEgreso(Estado estado, Date date);
     Long countAllByFechaEgreso(Date fecha);
+
+    Ingreso findByPacienteAndFechaEgreso(Paciente paciente, Date fecha);
 }

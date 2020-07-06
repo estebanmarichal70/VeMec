@@ -44,5 +44,16 @@ public class Utils {
             throw e;
         }
     }
+    public static Date parseToSqldate (Long fecha) throws ParseException {
+        SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try{
+            String date= formato.format(fecha);
+            Date date1 = formato.parse(date);
+            return date1;
+        }
+        catch (Exception e){
+            throw e;
+        }
+    }
 
 }

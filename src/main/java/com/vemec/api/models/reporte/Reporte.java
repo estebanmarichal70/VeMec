@@ -38,6 +38,9 @@ public class Reporte {
     private String unidadHumedad;
     private String unidadFrecuencia;
     private String unidadVolumen;
+    private Integer ppm;
+    private Boolean bateria;
+    private Integer nivelBateria;
 
     public Reporte() {
     }
@@ -194,6 +197,30 @@ public class Reporte {
         this.unidadVolumen = unidadVolumen;
     }
 
+    public Integer getPpm() {
+        return ppm;
+    }
+
+    public void setPpm(Integer ppm) {
+        this.ppm = ppm;
+    }
+
+    public Boolean getBateria() {
+        return bateria;
+    }
+
+    public void setBateria(Boolean bateria) {
+        this.bateria = bateria;
+    }
+
+    public Integer getNivelBateria() {
+        return nivelBateria;
+    }
+
+    public void setNivelBateria(Integer nivelBateria) {
+        this.nivelBateria = nivelBateria;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -217,11 +244,14 @@ public class Reporte {
                 Objects.equals(unidadTemp, reporte.unidadTemp) &&
                 Objects.equals(unidadHumedad, reporte.unidadHumedad) &&
                 Objects.equals(unidadFrecuencia, reporte.unidadFrecuencia) &&
-                Objects.equals(unidadVolumen, reporte.unidadVolumen);
+                Objects.equals(unidadVolumen, reporte.unidadVolumen) &&
+                Objects.equals(ppm, reporte.ppm) &&
+                Objects.equals(bateria, reporte.bateria) &&
+                Objects.equals(nivelBateria, reporte.nivelBateria);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, presionMaxima, presionMinima, volGas, frecGas, mezcla, humedadAire, tempEntrada, tempSalida, presionEntrada, presionSalida, alerta, time, ingreso, unidadPresion, unidadTemp, unidadHumedad, unidadFrecuencia, unidadVolumen);
+        return Objects.hash(id, presionMaxima, presionMinima, volGas, frecGas, mezcla, humedadAire, tempEntrada, tempSalida, presionEntrada, presionSalida, alerta, time, ingreso, unidadPresion, unidadTemp, unidadHumedad, unidadFrecuencia, unidadVolumen, ppm, bateria, nivelBateria);
     }
 }

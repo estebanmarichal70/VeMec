@@ -4,9 +4,11 @@ import com.vemec.api.constants.Alerta;
 import com.vemec.api.controllers.WebSocketController;
 import com.vemec.api.models.ingreso.Ingreso;
 import com.vemec.api.models.ingreso.IngresoRepository;
+import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.reporte.ReporteRepository;
 import com.vemec.api.utils.Mappers;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,13 +30,16 @@ public class ReporteService {
     public Reporte addNew(Map<String, Object> payload) throws Exception {
         try {
             Reporte r = new Reporte();
-            r = Mappers.mapToReporte(payload, r);
+            JSONObject body = new JSONObject((String)payload.get("reporte"));
+            r = Mappers.mapToReporte(body, r);
 
-            Ingreso i = ingresoRepository.findById(r.getIngreso().getId()).get();
+            Paciente p = new Paciente();
+            p.setId((Integer) payload.get("cedula"));
+            Ingreso i = ingresoRepository.findByPacienteAndFechaEgreso(p, null);
             i.addToHistorial(r);
             reporteRepository.save(r);
 
-            if (r.getAlerta() == Alerta.ROJO || r.getAlerta() == Alerta.NARANJA || r.getAlerta() == Alerta.AMARILLO) {
+            if (r.getAlerta() == Alerta.BATERIA || r.getAlerta() == Alerta.PULSACIONES || r.getAlerta() == Alerta.PULSACIONES_BATERIA) {
                 Map<String, Object> data = new HashMap<>();
                 data.put("paciente", r.getIngreso().getPaciente());
                 data.put("reporte", r);
@@ -103,7 +108,7 @@ public class ReporteService {
         try {
             Optional<Reporte> re = reporteRepository.findById(id);
             Reporte r = new Reporte();
-            r = Mappers.mapToReporte(payload, re.get());
+            //r = Mappers.mapToReporte(payload, re.get());
             reporteRepository.save(r);
             return r;
         } catch (Exception e) {

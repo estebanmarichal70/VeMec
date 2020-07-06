@@ -1,8 +1,8 @@
 package com.vemec.api.constants;
 
 public enum Alerta {
-    ROJO,
-    NARANJA,
-    AMARILLO,
-    VERDE
+    BATERIA,
+    PULSACIONES,
+    PULSACIONES_BATERIA,
+    ESTABLE
 }

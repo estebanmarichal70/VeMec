@@ -11,6 +11,7 @@ import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.sala.Sala;
 import com.vemec.api.models.usuario.Usuario;
 import com.vemec.api.models.vemec.VeMec;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.List;
@@ -154,7 +155,7 @@ public class Mappers {
         return i;
     }
 
-    public static Reporte mapToReporte(Map<String, Object> payload, Reporte r) throws Exception {
+    public static Reporte mapToReporte(JSONObject payload, Reporte r) throws Exception {
 
         if (payload.get("presionMaxima") != null) {
             double val = ((Number)payload.get("presionMaxima")).doubleValue();
@@ -215,40 +216,38 @@ public class Mappers {
 
         if (payload.get("alerta") != null) {
             switch (payload.get("alerta").toString()) {
-                case "ROJO": {
-                    r.setAlerta(Alerta.ROJO);
+                case "BATERIA": {
+                    r.setAlerta(Alerta.BATERIA);
                     break;
                 }
-                case "NARANJA": {
-                    r.setAlerta(Alerta.NARANJA);
+                case "PULSACIONES": {
+                    r.setAlerta(Alerta.PULSACIONES);
                     break;
                 }
-                case "AMARILLO": {
-                    r.setAlerta(Alerta.AMARILLO);
+                case "PULSACIONES_BATERIA": {
+                    r.setAlerta(Alerta.PULSACIONES_BATERIA);
                     break;
                 }
-                case "VERDE": {
-                    r.setAlerta(Alerta.VERDE);
+                case "ESTABLE": {
+                    r.setAlerta(Alerta.ESTABLE);
                     break;
                 }
             }
-        } else {
-            r.setAlerta(Alerta.VERDE);
         }
-
         if (payload.get("time") != null) {
             try {
-                r.setTime(Utils.parseToSqldate((String) payload.get("time")));
+                long t = (Long) payload.get("time");
+                r.setTime(Utils.parseToSqldate(t));
             } catch (Exception e) {
-                throw e;
+                e.printStackTrace();
             }
         }
 
-        if (payload.get("ingreso") != null) {
+        /*if (payload.get("ingreso") != null) {
             Ingreso i = new Ingreso();
             i.setId((Integer) payload.get("ingreso"));
             r.setIngreso(i);
-        }
+        }*/
 
         if (payload.get("unidadPresion") != null) {
             r.setUnidadPresion((String) payload.get("unidadPresion"));
@@ -268,6 +267,15 @@ public class Mappers {
 
         if (payload.get("unidadHumedad") != null) {
             r.setUnidadHumedad((String) payload.get("unidadHumedad"));
+        }
+
+        if (payload.get("bateria") != null){
+            r.setBateria((Boolean) payload.get("bateria"));
+            r.setNivelBateria((Integer) payload.get("nivelBateria"));
+        }
+
+        if (payload.get("ppm") != null){
+            r.setPpm((Integer) payload.get("ppm"));
         }
         return r;
     }
