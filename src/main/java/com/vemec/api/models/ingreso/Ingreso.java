@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.vemec.api.constants.Estado;
+import com.vemec.api.models.diagnostico.Diagnostico;
 import com.vemec.api.models.reporte.Reporte;
 import com.vemec.api.models.sala.Sala;
 import com.vemec.api.models.vemec.VeMec;
@@ -31,6 +32,10 @@ public class Ingreso {
     @JsonBackReference
     @ManyToOne
     private Sala sala;
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Diagnostico> diagnostico;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaIngreso;
