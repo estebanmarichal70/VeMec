@@ -35,7 +35,7 @@ public class Ingreso {
 
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL)
-    private List<Diagnostico> diagnostico;
+    private List<Diagnostico> diagnosticos;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaIngreso;
@@ -55,7 +55,7 @@ public class Ingreso {
     public Ingreso() {
     }
 
-    public void removeVeMec(){
+    public void removeVeMec() {
         this.vemec = null;
     }
 
@@ -131,12 +131,25 @@ public class Ingreso {
         this.historial = historial;
     }
 
+    public List<Diagnostico> getDiagnosticos() {
+        return diagnosticos;
+    }
+
+    public void setDiagnosticos(List<Diagnostico> diagnosticos) {
+        this.diagnosticos = diagnosticos;
+    }
+
     public void addToHistorial(Reporte reporte) {
         this.historial.add(reporte);
         reporte.setIngreso(this);
     }
 
-    public void removeFromReportes(Reporte reporte){
+    public void addToDiagnosticos(Diagnostico diagnostico) {
+        this.diagnosticos.add(diagnostico);
+        diagnostico.setIngreso(this);
+    }
+
+    public void removeFromReportes(Reporte reporte) {
         this.historial.remove(reporte);
         reporte.setIngreso(null);
     }
@@ -164,8 +177,9 @@ public class Ingreso {
         return Objects.equals(id, ingreso.id) &&
                 estado == ingreso.estado &&
                 Objects.equals(causa, ingreso.causa) &&
-                Objects.equals(sala, ingreso.sala) &&
                 Objects.equals(vemec, ingreso.vemec) &&
+                Objects.equals(sala, ingreso.sala) &&
+                Objects.equals(diagnosticos, ingreso.diagnosticos) &&
                 Objects.equals(fechaIngreso, ingreso.fechaIngreso) &&
                 Objects.equals(fechaEgreso, ingreso.fechaEgreso) &&
                 Objects.equals(paciente, ingreso.paciente) &&
@@ -174,6 +188,6 @@ public class Ingreso {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, estado, causa, sala, vemec, fechaIngreso, fechaEgreso, paciente, historial);
+        return Objects.hash(id, estado, causa, vemec, sala, diagnosticos, fechaIngreso, fechaEgreso, paciente, historial);
     }
 }

@@ -4,6 +4,7 @@ import com.vemec.api.constants.Alerta;
 import com.vemec.api.constants.Estado;
 import com.vemec.api.constants.Sexo;
 import com.vemec.api.models.centro.Centro;
+import com.vemec.api.models.diagnostico.Diagnostico;
 import com.vemec.api.models.paciente.Paciente;
 import com.vemec.api.models.patologias_wrapper.PatologiasWrapper;
 import com.vemec.api.models.ingreso.Ingreso;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Mappers {
+
     public static Centro mapToCentro(Map<String, String> payload, Centro c) {
         payload.forEach((key, value) -> {
             switch (key) {
@@ -50,6 +52,45 @@ public class Mappers {
             c.setId((Integer) payload.get("centro"));
             u.setCentro(c);
         }
+        return u;
+    }
+
+    public static Diagnostico mapToDiagnostico(Map<String, Object> payload, Diagnostico u) {
+
+        if (payload.get("medicacion") != null) {
+            u.setMedicacion(payload.get("medicacion").toString());
+        }
+
+        if (payload.get("asistente") != null) {
+            u.setAsistente(payload.get("asistente").toString());
+        }
+
+        if (payload.get("medico") != null) {
+            u.setMedico(payload.get("medico").toString());
+        }
+
+        if (payload.get("motivo") != null) {
+            u.setMotivos(payload.get("motivo").toString());
+        }
+
+        if (payload.get("riesgo") != null) {
+            u.setRiesgo(payload.get("riesgo").toString());
+        }
+
+        if (payload.get("fecha") != null) {
+            try {
+                u.setFecha(Utils.parseToSqldate((String) payload.get("fecha")));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (payload.get("ingreso") != null) {
+            Ingreso i = new Ingreso();
+            i.setId((Integer) payload.get("ingreso"));
+            u.setIngreso(i);
+        }
+
         return u;
     }
 
@@ -158,12 +199,12 @@ public class Mappers {
     public static Reporte mapToReporte(JSONObject payload, Reporte r) throws Exception {
 
         if (payload.get("presionMaxima") != null) {
-            double val = ((Number)payload.get("presionMaxima")).doubleValue();
+            double val = ((Number) payload.get("presionMaxima")).doubleValue();
             r.setPresionMaxima(val);
         }
 
         if (payload.get("presionMinima") != null) {
-            double val = ((Number)payload.get("presionMinima")).doubleValue();
+            double val = ((Number) payload.get("presionMinima")).doubleValue();
             r.setPresionMinima(val);
         }
 
@@ -174,43 +215,43 @@ public class Mappers {
         }
 
         if (payload.get("frecGas") != null) {
-            double val = ((Number)payload.get("frecGas")).doubleValue();
+            double val = ((Number) payload.get("frecGas")).doubleValue();
             r.setFrecGas(val);
 
         }
 
         if (payload.get("mezcla") != null) {
-            double val = ((Number)payload.get("mezcla")).doubleValue();
+            double val = ((Number) payload.get("mezcla")).doubleValue();
             r.setMezcla(val);
 
         }
 
         if (payload.get("humedadAire") != null) {
-            double val = ((Number)payload.get("humedadAire")).doubleValue();
+            double val = ((Number) payload.get("humedadAire")).doubleValue();
             r.setHumedadAire(val);
 
         }
 
         if (payload.get("tempEntrada") != null) {
-            double val = ((Number)payload.get("tempEntrada")).doubleValue();
+            double val = ((Number) payload.get("tempEntrada")).doubleValue();
             r.setTempEntrada(val);
 
         }
 
         if (payload.get("tempSalida") != null) {
-            double val = ((Number)payload.get("tempSalida")).doubleValue();
+            double val = ((Number) payload.get("tempSalida")).doubleValue();
             r.setTempSalida(val);
 
         }
 
         if (payload.get("presionEntrada") != null) {
-            double val = ((Number)payload.get("presionEntrada")).doubleValue();
+            double val = ((Number) payload.get("presionEntrada")).doubleValue();
             r.setPresionEntrada(val);
 
         }
 
         if (payload.get("presionSalida") != null) {
-            double val = ((Number)payload.get("presionSalida")).doubleValue();
+            double val = ((Number) payload.get("presionSalida")).doubleValue();
             r.setPresionSalida(val);
         }
 
@@ -269,12 +310,12 @@ public class Mappers {
             r.setUnidadHumedad((String) payload.get("unidadHumedad"));
         }
 
-        if (payload.get("bateria") != null){
+        if (payload.get("bateria") != null) {
             r.setBateria((Boolean) payload.get("bateria"));
             r.setNivelBateria((Integer) payload.get("nivelBateria"));
         }
 
-        if (payload.get("ppm") != null){
+        if (payload.get("ppm") != null) {
             r.setPpm((Integer) payload.get("ppm"));
         }
         return r;
