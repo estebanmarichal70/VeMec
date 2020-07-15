@@ -26,4 +26,14 @@ public class DiagnosticoController {
         }
 
     }
+
+    @GetMapping(path = "/{ingresoId}")
+    public @ResponseBody
+    ResponseEntity getAllByIngreso(@PathVariable("ingresoId") Integer ingresoId) {
+        try {
+            return new ResponseEntity<>(this.diagnosticoService.getAll(ingresoId), null, HttpStatus.OK);
+        } catch (Exception e) {
+            return Utils.mapErrors(e);
+        }
+    }
 }

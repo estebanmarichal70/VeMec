@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DiagnosticoRepository extends PagingAndSortingRepository<Diagnostico, Integer> {
+    Iterable<Diagnostico> findAllByIngresoOrderByFechaAsc(Ingreso ingreso);
 }
